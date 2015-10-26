@@ -122,7 +122,7 @@ Window {
                 id: hamburgerbuttonicon
                 anchors.fill: parent
                 anchors.centerIn: parent
-                source: "hamburgermenu.svg"
+                source: "/resources/images/hamburgermenu.svg"
             }
 
             MouseArea {
@@ -156,7 +156,7 @@ Window {
                 id: homebuttonicon
                 anchors.fill: parent
                 anchors.centerIn: parent
-                source: "home.svg"
+                source: "/resources/images/home.svg"
             }
 
             MouseArea {
@@ -260,7 +260,7 @@ Window {
                 id: settingsbuttonicon
                 anchors.fill: parent
                 anchors.centerIn: parent
-                source: "settings.svg"
+                source: "/resources/images/settings.svg"
             }
 
             MouseArea {

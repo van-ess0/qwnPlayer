@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>PlayerFaceq.qml</file>
+        <file>resources/images/account.svg</file>
+        <file>resources/images/hamburgermenu.svg</file>
+        <file>resources/images/home.svg</file>
+        <file>resources/images/plus.svg</file>
+        <file>resources/images/save.svg</file>
+        <file>resources/images/settings.svg</file>
+    </qresource>
+</RCC>
