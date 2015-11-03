@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick network
+QT += qml quick network widgets multimedia multimediawidgets
 CONFIG += c++11
 
 SOURCES += main.cpp \
@@ -8,7 +8,8 @@ SOURCES += main.cpp \
     Track.cpp \
     Album.cpp \
     Artist.cpp \
-    ResponseDecoder.cpp
+    ResponseDecoder.cpp \
+    MainWindow.cpp
 
 RESOURCES += qml.qrc
 
@@ -23,4 +24,8 @@ HEADERS += \
     Track.h \
     Album.h \
     Artist.h \
-    ResponseDecoder.h
+    ResponseDecoder.h \
+    MainWindow.h
+
+FORMS += \
+    MainWindow.ui

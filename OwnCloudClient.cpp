@@ -63,7 +63,12 @@ void OwnCloudClient::slotAuthenticationRequired(QNetworkReply*, QAuthenticator*)
 void OwnCloudClient::slotReplyFinished(QNetworkReply* reply)
 {
 	qDebug() << "Reply from " << reply->url().path();
-	qDebug() << "reply finished" << reply->readAll();
+
+	QByteArray rawData = reply->readAll();
+
+	qDebug() << "reply finished" << rawData;
+
+	emit signalCollectionData(rawData);
 
 	reply->deleteLater();
 	reply = NULL;

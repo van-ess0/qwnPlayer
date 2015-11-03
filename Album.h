@@ -30,7 +30,7 @@ public:
 	QList<Track*> getTrackList() const {
 		return m_tracks;
 	}
-	void addTrack(const Track* track) {
+	void addTrack(Track* track) {
 		m_tracks.append(track);
 	}
 };

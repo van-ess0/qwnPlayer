@@ -2,9 +2,7 @@
 #define RESPONSEDECODER_H
 
 #include <QObject>
-#include <QJsonDocument>
-#include <QJsonArray>
-#include <QJsonObject>
+#include "Artist.h"
 
 class ResponseDecoder : public QObject
 {
@@ -17,6 +15,12 @@ public:
 
 private:
 	void decodeCollection(const QByteArray& data);
+
+public slots:
+	void slotCollectionData(QByteArray);
+
+signals:
+	void signalCollectionDataParsed(QList<Artist*>);
 };
 
 #endif // RESPONSEDECODER_H

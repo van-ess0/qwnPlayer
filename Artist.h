@@ -22,9 +22,11 @@ public:
 	QList<Album*> getAlbumList() const{
 		return m_albums;
 	}
-	void addAlbum(const Album* album) {
+	void addAlbum(Album* album) {
 		m_albums.append(album);
 	}
 };
+
+Q_DECLARE_METATYPE(QList<Artist*>)
 
 #endif // ARTIST_H

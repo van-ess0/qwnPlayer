@@ -23,6 +23,7 @@ public:
 	void startProcess();
 
 signals:
+	void signalCollectionData(QByteArray);
 
 public slots:
 
