@@ -10,5 +10,10 @@ unix:!android {
     INSTALLS += target
 }
 
+macx {
+  QMAKE_MAC_SDK = macosx10.11
+  QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.11
+}
+
 export(INSTALLS)
 

@@ -7,5 +7,8 @@
         <file>resources/images/plus.svg</file>
         <file>resources/images/save.svg</file>
         <file>resources/images/settings.svg</file>
+        <file>main.qml</file>
+        <file>PulleyMenu.qml</file>
+        <file>PulleyButton.qml</file>
     </qresource>
 </RCC>
