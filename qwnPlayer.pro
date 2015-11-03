@@ -1,9 +1,14 @@
 TEMPLATE = app
 
-QT += qml quick
+QT += qml quick network
 CONFIG += c++11
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    OwnCloudClient.cpp \
+    Track.cpp \
+    Album.cpp \
+    Artist.cpp \
+    ResponseDecoder.cpp
 
 RESOURCES += qml.qrc
 
@@ -13,5 +18,9 @@ QML_IMPORT_PATH =
 # Default rules for deployment.
 include(deployment.pri)
 
-DISTFILES +=
-
+HEADERS += \
+    OwnCloudClient.h \
+    Track.h \
+    Album.h \
+    Artist.h \
+    ResponseDecoder.h
