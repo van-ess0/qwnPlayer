@@ -34,7 +34,12 @@ void MainWindow::slotCollectionDataParsed(QList<Artist*> artists)
 		}
 	}
 
-//	m_collection = artists;
+	//	m_collection = artists;
+}
+
+void MainWindow::slotLog(QString string)
+{
+	ui->textEdit->setText(ui->textEdit->toPlainText() + "  " + string);
 }
 #include <QFileInfo>
 
@@ -45,7 +50,7 @@ void MainWindow::slotButtonClicked(bool)
 	url.setUserName("degree");
 	url.setPassword("Fcnhjabpbrf95");
 
-	qDebug() << url;
+	ui->textEdit->setText(ui->textEdit->toPlainText() + "  " + url.toString());
 
 //	QMediaPlaylist* playlist = new QMediaPlaylist(player);
 
@@ -61,3 +66,4 @@ void MainWindow::slotButtonClicked(bool)
 	player->setVolume(50);
 	player->play();
 }
+

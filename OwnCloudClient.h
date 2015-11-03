@@ -24,6 +24,7 @@ public:
 
 signals:
 	void signalCollectionData(QByteArray);
+	void signalLog(QString);
 
 public slots:
 

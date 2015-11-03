@@ -29,6 +29,7 @@ private:
 
 public slots:
 	void slotCollectionDataParsed(QList<Artist*>);
+	void slotLog(QString);
 
 private slots:
 	void slotButtonClicked(bool);

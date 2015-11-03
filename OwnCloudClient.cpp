@@ -7,22 +7,25 @@ OwnCloudClient::OwnCloudClient(QObject *parent) : QObject(parent)
 			this, SLOT(slotAuthenticationRequired(QNetworkReply*,QAuthenticator*)));
 	connect(&m_networkManager, SIGNAL(finished(QNetworkReply*)),
 				this, SLOT(slotReplyFinished(QNetworkReply*)));
+//	connect(&m_networkManager, SIGNAL())
 }
 
 void OwnCloudClient::auth()
 {
+	emit signalLog("HI!!!");
 	m_username = "degree";
 	m_password = "Fcnhjabpbrf95";
 
 	QUrl url;
 	url.setScheme("http");
-	url.setHost("192.168.237.129");
+	url.setHost("192.168.1.136");
 	url.setPort(8080);
 	url.setPath("/index.php/apps/music/api/collection");
 	url.setUserName(m_username);
 	url.setPassword(m_password);
 
 	qDebug() << url;
+	emit signalLog(url.toString());
 
 	QNetworkRequest request(url);
 	addAuthHeader(&request);
@@ -40,6 +43,7 @@ void OwnCloudClient::slotReplyFinished()
 	QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
 
 	qDebug() << "reply finished" << reply->readAll();
+	emit signalLog("reply finished" + QString(reply->readAll()));
 
 	reply->deleteLater();
 	reply = NULL;
@@ -48,25 +52,31 @@ void OwnCloudClient::slotReplyFinished()
 void OwnCloudClient::readyRead()
 {
 	qDebug() << "ready read";
+	emit signalLog("ready read");
 }
 
 void OwnCloudClient::updateDataReadProgress(qint64,qint64)
 {
 	qDebug() << "update download progress";
+	emit signalLog("update download progress");
 }
 
 void OwnCloudClient::slotAuthenticationRequired(QNetworkReply*, QAuthenticator*)
 {
 	qDebug() << "Auth required";
+	emit signalLog("Auth required");
+
 }
 
 void OwnCloudClient::slotReplyFinished(QNetworkReply* reply)
 {
 	qDebug() << "Reply from " << reply->url().path();
+	emit signalLog("Reply from " + reply->url().path());
 
 	QByteArray rawData = reply->readAll();
 
 	qDebug() << "reply finished" << rawData;
+	emit signalLog("reply finished " + QString(rawData));
 
 	emit signalCollectionData(rawData);
 
