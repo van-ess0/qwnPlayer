@@ -10,16 +10,19 @@ Item{
     Column {
         spacing: 0
         width: parent.width
+        anchors.left: parent.left
 
         PulleyButton {
             id: menuButton
             width: parent.width
+            height: pulleymenu.minWidth
             minWidth: pulleymenu.minWidth
             maxWidth: pulleymenu.maxWidth
             iconSource: "qrc:/resources/images/hamburgermenu.svg"
             label: "Menu"
+
             function onTouched() {
-                //pulleytranslate.x = pulleymenu.menu_shown ? 0 : 100
+                console.log("Menu touched")
                 pulleymenu.width = pulleymenu.menu_shown ? minWidth : maxWidth
                 pulleymenu.menu_shown = !pulleymenu.menu_shown;
             }

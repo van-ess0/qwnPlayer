@@ -1,20 +1,21 @@
 import QtQuick 2.0
 
-Rectangle{
+Item {
 
     id: mamabutton
     property string iconSource: "";
     property color color: "green";
-    property int minWidth: 0
-    property int maxWidth: 0
+    property int minWidth: 40
+    property int maxWidth: 200
     property string label: ""
+    width: minWidth
     height: minWidth
     function onTouched() {
 
     }
     Rectangle {
 
-        //id: smallbutton
+        id: smallbutton
         width: parent.width
         height: parent.heigth
         anchors.top: parent.top
@@ -28,28 +29,37 @@ Rectangle{
             }
         }
 
-        Image {
-            id: icon
-            width: mamabutton.minWidth
-            height: width
-            anchors.right: parent.right
-            source: mamabutton.iconSource
-        }
-
         Text {
-            width: parent.width - mamabutton.minWidth
+            id: text
+            width: mamabutton.width - mamabutton.minWidth
             anchors.left: parent.left
-            anchors.right: parent.right
+            anchors.right: icon.left
             text: mamabutton.label
         }
 
+        Image {
+            id: icon
+            width: parent.height
+            height: width
+            anchors.right: parent.right
+            anchors.top: parent.top
+            source: mamabutton.iconSource
+        }
+
+
+
         MouseArea {
             anchors.fill: parent
-            onPressed: icon.opacity = 0.5
-            onReleased: icon.opacity = 1
+            onPressed: {
+                icon.opacity = 0.5
+                text.opacity = 0.5
+            }
+            onReleased: {
+                icon.opacity = 1
+                text.opacity = 1
+            }
             onClicked: mamabutton.onTouched()
         }
     }
-
 }
 
