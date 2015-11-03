@@ -40,12 +40,12 @@ void MainWindow::slotCollectionDataParsed(QList<Artist*> artists)
 
 void MainWindow::slotButtonClicked(bool)
 {
-//	QString path = m_collection.value(ui->listWidget->currentItem()->text());
-//	QUrl url(path);
-//	url.setUserName("degree");
-//	url.setPassword("Fcnhjabpbrf95");
+	QString path = m_collection.value(ui->listWidget->currentItem()->text());
+	QUrl url(path);
+	url.setUserName("degree");
+	url.setPassword("Fcnhjabpbrf95");
 
-//	qDebug() << url;
+	qDebug() << url;
 
 //	QMediaPlaylist* playlist = new QMediaPlaylist(player);
 
@@ -53,8 +53,8 @@ void MainWindow::slotButtonClicked(bool)
 
 //	playlist->setCurrentIndex(1);
 
-	const QString path = "C:/Users/surat/Downloads/01. Uprising.mp3";
-	QUrl url(QFileInfo(path).absoluteFilePath());
+//	const QString path = "C:/Users/surat/Downloads/01. Uprising.mp3";
+//	QUrl url(QFileInfo(path).absoluteFilePath());
 
 
 	player->setMedia(url);
