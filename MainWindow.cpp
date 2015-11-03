@@ -36,21 +36,28 @@ void MainWindow::slotCollectionDataParsed(QList<Artist*> artists)
 
 //	m_collection = artists;
 }
+#include <QFileInfo>
 
 void MainWindow::slotButtonClicked(bool)
 {
-	QString path = m_collection.value(ui->listWidget->currentItem()->text());
-	QUrl url(path);
-	url.setUserName("degree");
-	url.setPassword("Fcnhjabpbrf95");
+//	QString path = m_collection.value(ui->listWidget->currentItem()->text());
+//	QUrl url(path);
+//	url.setUserName("degree");
+//	url.setPassword("Fcnhjabpbrf95");
 
-	qDebug() << url;
+//	qDebug() << url;
 
-	QMediaPlaylist* playlist = new QMediaPlaylist(player);
+//	QMediaPlaylist* playlist = new QMediaPlaylist(player);
 
-	playlist->addMedia(url);
+//	playlist->addMedia(QUrl::fromLocalFile("/Users/surat/Downloads/01. Uprising.mp3"));
 
-	playlist->setCurrentIndex(1);
+//	playlist->setCurrentIndex(1);
+
+	const QString path = "C:/Users/surat/Downloads/01. Uprising.mp3";
+	QUrl url(QFileInfo(path).absoluteFilePath());
+
+
+	player->setMedia(url);
 	player->setVolume(50);
 	player->play();
 }
