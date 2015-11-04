@@ -4,30 +4,32 @@ Item {
 
     id: mamabutton
     property string iconSource: "";
-    property color color: "green";
+    property color colorel: "green";
     property int minWidth: 40
     property int maxWidth: 200
     property string label: ""
+    property bool textopacity: false
     width: minWidth
     height: minWidth
     function onTouched() {
 
     }
-    Rectangle {
 
-        id: smallbutton
-        width: parent.width
-        height: parent.heigth
-        anchors.top: parent.top
-        anchors.left: parent.left
-        color: parent.color
+//    Rectangle {
 
-        Behavior on width {
-            NumberAnimation {
-                duration: 400
-                easing.type: Easing.OutQuad
-            }
-        }
+//        id: smallbutton
+//        //width: parent.width
+//        height: parent.heigth
+//        //anchors.top: parent.top
+//        //anchors.left: parent.left
+//        color: parent.colorel
+
+//        Behavior on width {
+//            NumberAnimation {
+//                duration: 400
+//                easing.type: Easing.OutQuad
+//            }
+//        }
 
         Text {
             id: text
@@ -35,18 +37,25 @@ Item {
             anchors.left: parent.left
             anchors.right: icon.left
             text: mamabutton.label
+            visible: mamabutton.textopacity
+            Behavior on visible {
+                NumberAnimation {
+                    duration: 400
+                    easing.type: Easing.InQuad
+                }
+            }
+
         }
 
         Image {
             id: icon
             width: parent.height
             height: width
+            //anchors.fill: parent
             anchors.right: parent.right
             anchors.top: parent.top
             source: mamabutton.iconSource
         }
-
-
 
         MouseArea {
             anchors.fill: parent
@@ -60,6 +69,6 @@ Item {
             }
             onClicked: mamabutton.onTouched()
         }
-    }
+//    }
 }
 

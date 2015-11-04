@@ -10,5 +10,8 @@
         <file>main.qml</file>
         <file>PulleyMenu.qml</file>
         <file>PulleyButton.qml</file>
+        <file>SettingsPage.qml</file>
+        <file>PlaylistPage.qml</file>
+        <file>LibraryPage.qml</file>
     </qresource>
 </RCC>
