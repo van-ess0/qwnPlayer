@@ -27,7 +27,7 @@ winrt {
 #        WINRT_MANIFEST.capabilities += internetClient
 #        WINRT_MANIFEST.rotation_preference = "portrait"
 #    }
-    WINRT_MANIFEST.capabilities += internetClient
+    WINRT_MANIFEST.capabilities += internetClient musicLibrary
     WINRT_MANIFEST.rotation_preference = "portrait"
     CONFIG += windeployqt
 }

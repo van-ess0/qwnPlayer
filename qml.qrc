@@ -24,5 +24,6 @@
         <file>AboutPage.qml</file>
         <file>main.qml</file>
         <file>resources/sound_cut.mp3</file>
+        <file>resources/sound_cut2.mp3</file>
     </qresource>
 </RCC>

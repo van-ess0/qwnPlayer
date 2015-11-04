@@ -34,6 +34,16 @@ public slots:
 private slots:
 	void slotButtonClicked(bool);
 	void slotCopyButtonClicked(bool);
+	void slotAudioAvailabilityChanged(bool);
+
+	void slotMediaStatusChanged(QMediaPlayer::MediaStatus);
+	void slotBufferStatusChanged(int percentFilled);
+	void positionChanged(qint64 progress);
+	void durationChanged(qint64 duration);
+	void seek(int seconds);
+	void stateChanged(QMediaPlayer::State);
+	void error(QMediaPlayer::Error);
+
 };
 
 #endif // MAINWINDOW_H

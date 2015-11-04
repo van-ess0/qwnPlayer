@@ -15,7 +15,26 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(ui->pushButton_2, SIGNAL(clicked(bool)),
 			this, SLOT(slotCopyButtonClicked(bool)));
 
+
+
 	player = new QMediaPlayer;
+
+	connect(player, SIGNAL(audioAvailableChanged(bool)),
+			this, SLOT(slotAudioAvailabilityChanged(bool)));
+	connect(player, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),
+			this, SLOT(slotMediaStatusChanged(QMediaPlayer::MediaStatus)));
+	connect(player, SIGNAL(bufferStatusChanged(int)),
+			this, SLOT(slotBufferStatusChanged(int)));
+	connect(player, SIGNAL(positionChanged(qint64)),
+			this, SLOT(positionChanged(qint64)));
+	connect(player, SIGNAL(durationChanged(qint64)),
+			this, SLOT(durationChanged(qint64)));
+	connect(ui->horizontalSlider, SIGNAL(sliderMoved(int)),
+			this, SLOT(seek(int)));
+	connect(player, SIGNAL(stateChanged(QMediaPlayer::State)),
+			this, SLOT(stateChanged(QMediaPlayer::State)));
+	connect(player, SIGNAL(error(QMediaPlayer::Error)),
+			this, SLOT(error(QMediaPlayer::Error)));
 }
 
 MainWindow::~MainWindow()
@@ -70,9 +89,12 @@ void MainWindow::slotButtonClicked(bool)
 												   QStandardPaths::LocateDirectory);
 
 	player->setMedia(QUrl::fromLocalFile(homeLocation + "sound_cut.mp3"));
+	ui->horizontalSlider->setRange(0, player->duration() / 1000);
+
 //	player->setVolume(50);
 
-	QtConcurrent::run(player, &QMediaPlayer::play);
+	player->play();
+	qDebug() << player->error() << player->state() << player->mediaStatus() << player->currentMedia().isNull();
 }
 
 void MainWindow::slotCopyButtonClicked(bool)
@@ -83,10 +105,56 @@ void MainWindow::slotCopyButtonClicked(bool)
 	qDebug() << homeLocation;
 	ui->textEdit->setText(homeLocation);
 	QFile::copy(":/resources/sound_cut.mp3" , homeLocation + "sound_cut.mp3");
+	QFile::copy(":/resources/sound_cut2.mp3" , homeLocation + "sound_cut2.mp3");
 	QDir dir(homeLocation);
 	foreach (QString file, dir.entryList()) {
 		ui->listWidget->addItem(file);
 	}
-	player->setMedia(QUrl::fromLocalFile(homeLocation + "sound_cut.mp3"));
+
+}
+
+void MainWindow::slotAudioAvailabilityChanged(bool value)
+{
+	qDebug() << "AA changed" << value;
+}
+
+void MainWindow::slotMediaStatusChanged(QMediaPlayer::MediaStatus status)
+{
+	qDebug() << "status" << status;
+}
+
+void MainWindow::slotBufferStatusChanged(int percentFilled)
+{
+	qDebug() << "slotBufferStatusChanged" << percentFilled;
+}
+
+void MainWindow::positionChanged(qint64 progress)
+{
+	qDebug() << "positionChanged" << progress;
+	if (!ui->horizontalSlider->isSliderDown()) {
+		ui->horizontalSlider->setValue(progress / 1000);
+	}
+//	updateDurationInfo(progress / 1000);
+}
+
+void MainWindow::durationChanged(qint64 duration)
+{
+	qDebug() << "durationChanged" << duration;
+	ui->horizontalSlider->setMaximum(duration / 1000);
+}
+
+void MainWindow::seek(int seconds)
+{
+	player->setPosition(seconds * 1000);
+}
+
+void MainWindow::stateChanged(QMediaPlayer::State state)
+{
+	qDebug() << "stateChanged" << state;
+}
+
+void MainWindow::error(QMediaPlayer::Error error)
+{
+	qDebug() << "error" << error << player->errorString();
 }
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>763</width>
-    <height>984</height>
+    <width>758</width>
+    <height>877</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>10</x>
       <y>10</y>
       <width>741</width>
-      <height>511</height>
+      <height>381</height>
      </rect>
     </property>
     <property name="font">
@@ -36,7 +36,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>900</y>
+      <y>790</y>
       <width>741</width>
       <height>51</height>
      </rect>
@@ -49,7 +49,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>530</y>
+      <y>400</y>
       <width>741</width>
       <height>301</height>
      </rect>
@@ -59,7 +59,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>840</y>
+      <y>730</y>
       <width>741</width>
       <height>51</height>
      </rect>
@@ -68,13 +68,26 @@
      <string>Copy File</string>
     </property>
    </widget>
+   <widget class="QSlider" name="horizontalSlider">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>710</y>
+      <width>741</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>763</width>
+     <width>758</width>
      <height>20</height>
     </rect>
    </property>
