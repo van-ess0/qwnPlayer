@@ -19,6 +19,19 @@ QML_IMPORT_PATH =
 # Default rules for deployment.
 include(deployment.pri)
 
+winrt {
+    WINRT_MANIFEST.publisher = "Cutehacks!"
+#    winphone:equals(WINSDK_VER, 8.0) {
+#        WINRT_MANIFEST.capabilities += ID_CAP_NETWORKING ID_CAP_MEDIALIB_AUDIO
+#    } else {
+#        WINRT_MANIFEST.capabilities += internetClient
+#        WINRT_MANIFEST.rotation_preference = "portrait"
+#    }
+    WINRT_MANIFEST.capabilities += internetClient
+    WINRT_MANIFEST.rotation_preference = "portrait"
+    CONFIG += windeployqt
+}
+
 HEADERS += \
     OwnCloudClient.h \
     Track.h \

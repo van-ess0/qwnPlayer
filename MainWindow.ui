@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>580</width>
-    <height>745</height>
+    <width>763</width>
+    <height>984</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>561</width>
-      <height>341</height>
+      <width>741</width>
+      <height>511</height>
      </rect>
     </property>
     <property name="font">
@@ -36,23 +36,36 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>650</y>
-      <width>561</width>
+      <y>900</y>
+      <width>741</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Play</string>
     </property>
    </widget>
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>360</y>
-      <width>561</width>
-      <height>281</height>
+      <y>530</y>
+      <width>741</width>
+      <height>301</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>840</y>
+      <width>741</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Copy File</string>
     </property>
    </widget>
   </widget>
@@ -61,7 +74,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>580</width>
+     <width>763</width>
      <height>20</height>
     </rect>
    </property>

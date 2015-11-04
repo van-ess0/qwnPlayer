@@ -18,7 +18,7 @@ void OwnCloudClient::auth()
 
 	QUrl url;
 	url.setScheme("http");
-	url.setHost("192.168.1.136");
+	url.setHost("192.168.1.109");
 	url.setPort(8080);
 	url.setPath("/index.php/apps/music/api/collection");
 	url.setUserName(m_username);

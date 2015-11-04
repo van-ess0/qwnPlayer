@@ -23,5 +23,6 @@
         <file>resources/images/cycle.svg</file>
         <file>AboutPage.qml</file>
         <file>main.qml</file>
+        <file>resources/sound_cut.mp3</file>
     </qresource>
 </RCC>

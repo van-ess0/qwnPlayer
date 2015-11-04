@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 						 &mainWindow, SLOT(slotCollectionDataParsed(QList<Artist*>)));
 	QObject::connect(cloudClient, SIGNAL(signalLog(QString)),
 						 &mainWindow, SLOT(slotLog(QString)));
-	cloudClient->auth();
+//	cloudClient->auth();
 
 	mainWindow.show();
     return app.exec();

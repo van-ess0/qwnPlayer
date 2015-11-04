@@ -33,6 +33,7 @@ public slots:
 
 private slots:
 	void slotButtonClicked(bool);
+	void slotCopyButtonClicked(bool);
 };
 
 #endif // MAINWINDOW_H
