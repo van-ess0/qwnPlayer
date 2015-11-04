@@ -1,10 +1,10 @@
-import QtQuick 2.0
+import QtQuick 2.5
 
 Item {
 
     id: mamabutton
     property string iconSource: "";
-    property color colorel: "green";
+    //property color colorel: "green";
     property int minWidth: 40
     property int maxWidth: 200
     property string label: ""

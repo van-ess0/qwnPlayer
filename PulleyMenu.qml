@@ -1,12 +1,14 @@
-import QtQuick 2.0
+import QtQuick 2.5
+import QtQuick.Controls 1.4
 
 Item {
     id: pulleymenu
+    anchors.top: parent.top
     property bool menu_shown: false
     property int minWidth: 40
-    property int maxWidth: 200
+    property int maxWidth: 150
     width: minWidth
-    height: parent.height
+    //height: parent.height
 
     Rectangle {
         id: mamarect
@@ -37,7 +39,6 @@ Item {
                 textopacity: mamarect.textopacity
                 iconSource: "qrc:/resources/images/hamburgermenu.svg"
                 label: "Menu"
-                colorel: "green"
 
                 function onTouched() {
                     console.log("Menu touched")
@@ -67,11 +68,11 @@ Item {
                 minWidth: pulleymenu.minWidth
                 maxWidth: pulleymenu.maxWidth
                 textopacity: mamarect.textopacity
-                //TODO: Find Playlist icon
-                //iconSource: "qrc:/resources/images/hamburgermenu.svg"
+                iconSource: "qrc:/resources/images/playlist.svg"
                 label: "Playlist"
                 function onTouched() {
                     console.log("Playlist touched")
+                    stackView.push(Qt.resolvedUrl("qrc:/PlaylistPage.qml"))
 
                 }
             }
@@ -82,8 +83,7 @@ Item {
                 minWidth: pulleymenu.minWidth
                 maxWidth: pulleymenu.maxWidth
                 textopacity: mamarect.textopacity
-                //TODO: Find Library icon
-                //iconSource: "qrc:/resources/images/home.svg"
+                iconSource: "qrc:/resources/images/library.svg"
                 label: "Library"
                 function onTouched() {
                     console.log("Library touched")
@@ -91,6 +91,7 @@ Item {
                 }
             }
         }
+
         PulleyButton {
             id: settingsButton
             width: parent.width
