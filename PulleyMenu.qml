@@ -10,6 +10,11 @@ Item {
     width: minWidth
     //height: parent.height
 
+    Loader {
+        id: loadNewPage
+
+      }
+
     Rectangle {
         id: mamarect
         color: "green"
@@ -58,6 +63,7 @@ Item {
                 label: "Home"
                 function onTouched() {
                     console.log("Home touched")
+                    loadNewPage.source = "qrc:/HomePage.qml"
 
                 }
             }
@@ -72,7 +78,7 @@ Item {
                 label: "Playlist"
                 function onTouched() {
                     console.log("Playlist touched")
-                    stackView.push(Qt.resolvedUrl("qrc:/PlaylistPage.qml"))
+                    loadNewPage.source = "qrc:/PlaylistPage.qml"
 
                 }
             }
@@ -87,6 +93,7 @@ Item {
                 label: "Library"
                 function onTouched() {
                     console.log("Library touched")
+                    loadNewPage.source = "qrc:/LibraryPage.qml"
 
                 }
             }
@@ -104,6 +111,7 @@ Item {
             label: "Settings"
             function onTouched() {
                 console.log("Settings touched")
+                loadNewPage.source = "qrc:/SettingsPage.qml"
 
             }
         }

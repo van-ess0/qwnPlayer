@@ -22,5 +22,6 @@
         <file>resources/images/shuffle.svg</file>
         <file>resources/images/play.svg</file>
         <file>resources/images/cycle.svg</file>
+        <file>AboutPage.qml</file>
     </qresource>
 </RCC>
