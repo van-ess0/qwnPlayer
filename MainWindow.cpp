@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QStandardPaths>
 #include <QDir>
+#include <QTextStream>
 
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
@@ -17,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 
-	player = new QMediaPlayer;
+	player = new QMediaPlayer(this, QMediaPlayer::StreamPlayback);
 
 	connect(player, SIGNAL(audioAvailableChanged(bool)),
 			this, SLOT(slotAudioAvailabilityChanged(bool)));
@@ -61,7 +62,8 @@ void MainWindow::slotCollectionDataParsed(QList<Artist*> artists)
 
 void MainWindow::slotLog(QString string)
 {
-	ui->textEdit->setText(ui->textEdit->toPlainText() + "  " + string);
+	ui->plainTextEdit->appendPlainText(string);
+//	ui->plainTextEdit->setValue(ui->plainTextEdit->maximum());
 }
 #include <QFileInfo>
 #include <QtConcurrent/QtConcurrentRun>
@@ -72,7 +74,8 @@ void MainWindow::slotButtonClicked(bool)
 //	QUrl url(path);
 //	url.setUserName("degree");
 //	url.setPassword("Fcnhjabpbrf95");
-
+//	qDebug() << url;
+//	slotLog(url.toString());
 //	ui->textEdit->setText(ui->textEdit->toPlainText() + "  " + url.toString());
 
 //	QMediaPlaylist* playlist = new QMediaPlaylist(player);
@@ -87,13 +90,23 @@ void MainWindow::slotButtonClicked(bool)
 	QString homeLocation =  QStandardPaths::locate(QStandardPaths::AppLocalDataLocation,
 												   QString(),
 												   QStandardPaths::LocateDirectory);
+//	QFile* file = new QFile(homeLocation + "sound_cut.mp3");
+//	file->open(QFile::ReadOnly);
+//	qDebug() << file->fileName();
+//	player->setMedia(QUrl::fromLocalFile(homeLocation + "sound_cut.mp3"));
+//	player->setMedia(url);
 
-	player->setMedia(QUrl::fromLocalFile(homeLocation + "sound_cut.mp3"));
+
+	QUrl url("http://192.168.1.250:8080/remote.php/webdav/sound_cut.mp3");
+	url.setUserName("degree");
+	url.setPassword("Fcnhjabpbrf95");
+	player->setMedia(QMediaResource(url, "audio/mpeg"));
 	ui->horizontalSlider->setRange(0, player->duration() / 1000);
 
 //	player->setVolume(50);
 
 	player->play();
+
 	qDebug() << player->error() << player->state() << player->mediaStatus() << player->currentMedia().isNull();
 }
 
@@ -103,28 +116,41 @@ void MainWindow::slotCopyButtonClicked(bool)
 												   QString(),
 												   QStandardPaths::LocateDirectory);
 	qDebug() << homeLocation;
-	ui->textEdit->setText(homeLocation);
+	slotLog(homeLocation);
 	QFile::copy(":/resources/sound_cut.mp3" , homeLocation + "sound_cut.mp3");
 	QFile::copy(":/resources/sound_cut2.mp3" , homeLocation + "sound_cut2.mp3");
 	QDir dir(homeLocation);
 	foreach (QString file, dir.entryList()) {
-		ui->listWidget->addItem(file);
+//		ui->listWidget->addItem(file);
 	}
 
 }
 
+
 void MainWindow::slotAudioAvailabilityChanged(bool value)
 {
-	qDebug() << "AA changed" << value;
+	QString str;
+	QTextStream stream(&str);
+	stream << "AA changed " << value;
+	slotLog(str);
+	qDebug() << "AA changed " << value;
 }
 
 void MainWindow::slotMediaStatusChanged(QMediaPlayer::MediaStatus status)
 {
+	QString str;
+	QTextStream stream(&str);
+	stream << "status" << status;
+	slotLog(str);
 	qDebug() << "status" << status;
 }
 
 void MainWindow::slotBufferStatusChanged(int percentFilled)
 {
+	QString str;
+	QTextStream stream(&str);
+	stream << "slotBufferStatusChanged" << percentFilled;
+	slotLog(str);
 	qDebug() << "slotBufferStatusChanged" << percentFilled;
 }
 
@@ -150,11 +176,19 @@ void MainWindow::seek(int seconds)
 
 void MainWindow::stateChanged(QMediaPlayer::State state)
 {
+	QString str;
+	QTextStream stream(&str);
+	stream << "stateChanged" << state;
+	slotLog(str);
 	qDebug() << "stateChanged" << state;
 }
 
 void MainWindow::error(QMediaPlayer::Error error)
 {
+	QString str;
+	QTextStream stream(&str);
+	stream <<  "error" << error << player->errorString();
+	slotLog(str);
 	qDebug() << "error" << error << player->errorString();
 }
 

@@ -28,9 +28,9 @@ int main(int argc, char *argv[])
 					 decoder, SLOT(slotCollectionData(QByteArray)));
 	QObject::connect(decoder, SIGNAL(signalCollectionDataParsed(QList<Artist*>)),
 						 &mainWindow, SLOT(slotCollectionDataParsed(QList<Artist*>)));
-	QObject::connect(cloudClient, SIGNAL(signalLog(QString)),
-						 &mainWindow, SLOT(slotLog(QString)));
-//	cloudClient->auth();
+//	QObject::connect(cloudClient, SIGNAL(signalLog(QString)),
+//						 &mainWindow, SLOT(slotLog(QString)));
+	cloudClient->auth();
 
 	mainWindow.show();
     return app.exec();
