@@ -1,20 +1,9 @@
 import QtQuick 2.5
 import QtQuick.Controls 1.4
 
-ApplicationWindow {
+Item {
     visible: true
-    width: 300
-    height: 600
-
-    PulleyMenu {
-        anchors.bottom: bottomPanel.visible ? bottomPanel.top: parent.bottom
-
+    Text {
+        text: qsTr("This is Home Page")
     }
-    BottomPanel {
-        id: bottomPanel
-
-    }
-
 }
-
-

@@ -63,7 +63,7 @@ Item {
                 label: "Home"
                 function onTouched() {
                     console.log("Home touched")
-                    loadNewPage.source = "qrc:/HomePage.qml"
+                    stackView.push(Qt.resolvedUrl("HomePage.qml"))
 
                 }
             }
@@ -78,7 +78,7 @@ Item {
                 label: "Playlist"
                 function onTouched() {
                     console.log("Playlist touched")
-                    loadNewPage.source = "qrc:/PlaylistPage.qml"
+                    stackView.push(Qt.resolvedUrl("PlaylistPage.qml"))
 
                 }
             }
@@ -93,7 +93,23 @@ Item {
                 label: "Library"
                 function onTouched() {
                     console.log("Library touched")
-                    loadNewPage.source = "qrc:/LibraryPage.qml"
+                    stackView.push(Qt.resolvedUrl("LibraryPage.qml"))
+
+                }
+            }
+
+            PulleyButton {
+                id: backButton
+                width: parent.width
+                minWidth: pulleymenu.minWidth
+                maxWidth: pulleymenu.maxWidth
+                textopacity: mamarect.textopacity
+                iconSource: "qrc:/resources/images/previous.svg"
+                label: "Library"
+                function onTouched() {
+                    console.log("Back touched")
+                    stackView.pop()
+                    event.accepted = true
 
                 }
             }
@@ -111,9 +127,11 @@ Item {
             label: "Settings"
             function onTouched() {
                 console.log("Settings touched")
-                loadNewPage.source = "qrc:/SettingsPage.qml"
+                stackView.push(Qt.resolvedUrl("SettingsPage.qml"))
 
             }
         }
     }
+
+
 }

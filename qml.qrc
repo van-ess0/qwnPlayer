@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>PlayerFaceq.qml</file>
         <file>resources/images/account.svg</file>
         <file>resources/images/hamburgermenu.svg</file>
         <file>resources/images/home.svg</file>
@@ -23,5 +22,6 @@
         <file>resources/images/play.svg</file>
         <file>resources/images/cycle.svg</file>
         <file>AboutPage.qml</file>
+        <file>main.qml</file>
     </qresource>
 </RCC>
