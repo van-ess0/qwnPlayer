@@ -1,11 +1,27 @@
 <RCC>
     <qresource prefix="/">
-        <file>PlayerFaceq.qml</file>
         <file>resources/images/account.svg</file>
         <file>resources/images/hamburgermenu.svg</file>
         <file>resources/images/home.svg</file>
         <file>resources/images/plus.svg</file>
         <file>resources/images/save.svg</file>
         <file>resources/images/settings.svg</file>
+        <file>HomePage.qml</file>
+        <file>PulleyMenu.qml</file>
+        <file>PulleyButton.qml</file>
+        <file>SettingsPage.qml</file>
+        <file>PlaylistPage.qml</file>
+        <file>LibraryPage.qml</file>
+        <file>BottomPanel.qml</file>
+        <file>BottomPanelButton.qml</file>
+        <file>resources/images/previous.svg</file>
+        <file>resources/images/next.svg</file>
+        <file>resources/images/library.svg</file>
+        <file>resources/images/playlist.svg</file>
+        <file>resources/images/shuffle.svg</file>
+        <file>resources/images/play.svg</file>
+        <file>resources/images/cycle.svg</file>
+        <file>AboutPage.qml</file>
+        <file>main.qml</file>
     </qresource>
 </RCC>
