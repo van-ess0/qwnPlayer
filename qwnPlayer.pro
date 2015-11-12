@@ -9,7 +9,8 @@ SOURCES += main.cpp \
     Album.cpp \
     Artist.cpp \
     ResponseDecoder.cpp \
-    MainWindow.cpp
+    MainWindow.cpp \
+    MediaPlayer.cpp
 
 RESOURCES += qml.qrc
 
@@ -38,7 +39,8 @@ HEADERS += \
     Album.h \
     Artist.h \
     ResponseDecoder.h \
-    MainWindow.h
+    MainWindow.h \
+    MediaPlayer.h
 
 FORMS += \
     MainWindow.ui
