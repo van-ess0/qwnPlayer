@@ -1,4 +1,6 @@
 #include "MediaPlayer.h"
+#include <QFile>
+#include <QStandardPaths>
 
 QwnMediaPlayer::QwnMediaPlayer(QObject *parent) : QObject(parent)
 {
@@ -87,6 +89,16 @@ void QwnMediaPlayer::error(QMediaPlayer::Error error)
 void QwnMediaPlayer::playToggle()
 {
 	qDebug() << "play toggled";
+
+	QString homeLocation =  QStandardPaths::locate(QStandardPaths::AppLocalDataLocation,
+												   QString(),
+												   QStandardPaths::LocateDirectory);
+	qDebug() << homeLocation;
+
+	QFile::copy(":/resources/sound_cut.mp3" , homeLocation + "sound_cut.mp3");
+
+	player->setMedia(QUrl::fromLocalFile(homeLocation + "sound_cut.mp3"));
+	player->play();
 }
 
 void QwnMediaPlayer::nextTrack()
