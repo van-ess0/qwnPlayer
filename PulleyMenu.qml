@@ -5,8 +5,8 @@ Item {
     id: pulleymenu
     anchors.top: parent.top
     property bool menu_shown: false
-    property int minWidth: 40
-    property int maxWidth: 150
+    property int minWidth: parent.width / 8
+    property int maxWidth: parent.width / 2
     width: minWidth
     //height: parent.height
 
@@ -19,12 +19,12 @@ Item {
         id: mamarect
         color: "green"
         height: parent.height
-        width: minWidth
+        width: parent.width
         property bool textopacity: false
 
         Behavior on width {
             NumberAnimation {
-                duration: 400
+                duration: 300
                 easing.type: Easing.OutQuad
             }
         }

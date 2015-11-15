@@ -2,7 +2,7 @@ import QtQuick 2.5
 
 Item {
 
-    height: 100
+    height: parent.height / 7
     width: parent.width
     anchors.bottom: parent.bottom
 
