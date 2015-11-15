@@ -109,7 +109,6 @@ Item {
                 function onTouched() {
                     console.log("Back touched")
                     stackView.pop()
-                    event.accepted = true
 
                 }
             }
