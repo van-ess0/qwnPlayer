@@ -10,5 +10,8 @@
         <file>BottomPanelButton.qml</file>
         <file>AboutPage.qml</file>
         <file>main.qml</file>
+        <file>ArtistList.qml</file>
+        <file>AlbumList.qml</file>
+        <file>TrackList.qml</file>
     </qresource>
 </RCC>

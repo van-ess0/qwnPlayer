@@ -97,12 +97,12 @@ void QwnMediaPlayer::playToggle()
 
 	QFile::copy(":/resources/sound_cut.mp3" , homeLocation + "sound_cut.mp3");
 
-	QUrl url("http://192.168.1.219:80/owncloud/remote.php/webdav/04. Narcissistic Cannibal.mp3");
+	QUrl url("http://vaness0.ga:83/owncloud/remote.php/webdav/04. Narcissistic Cannibal.mp3");
 	url.setUserName("degree");
 	url.setPassword("Fcnhjabpbrf95");
+	player->setMedia(url);
 
 //	player->setMedia(QUrl::fromLocalFile(homeLocation + "sound_cut.mp3"));
-	player->setMedia(url);
 	player->play();
 }
 

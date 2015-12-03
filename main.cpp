@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 
 	Track* track_one = new Track(1, "Number One", "audio/mp3", "./one.mp3");
 	Track* track_two = new Track(2, "Number Two", "audio/mp3", "./two.mp3");
-	Album* album_one = new Album("Almume One", 2001);
+	Album* album_one = new Album("Album One", 2001);
 	album_one->addTrack(track_one);
 	album_one->addTrack(track_two);
 
@@ -50,6 +50,10 @@ int main(int argc, char *argv[])
 	QList<QObject*> artists;
 	artists.append(artist_one);
 	artists.append(artist_two);
+
+	Models::SubListedListModel* m_artistModel = new Models::SubListedListModel(new Artist("empty", NULL));
+	m_artistModel->appendRow(artist_one);
+	m_artistModel->appendRow(artist_two);
 
 	qRegisterMetaType< QList<Artist*> >("ArtistList");
 
@@ -74,8 +78,9 @@ int main(int argc, char *argv[])
 
 	QQmlContext* context = engine->rootContext();
 //	context->setContextObject(musicLibrary);
-	context->setContextProperty("artistList",
-								QVariant::fromValue(musicLibrary->getArtistList()));
+//	context->setContextProperty("artistList",
+//								QVariant::fromValue(musicLibrary->getArtistList()));
+	context->setContextProperty("artistModel", m_artistModel);
 
 	QQmlComponent component(engine, QUrl("qrc:/main.qml"));
 

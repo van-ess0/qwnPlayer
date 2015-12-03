@@ -9,7 +9,7 @@ private:
 
 protected:
 	SingletonTemplate() {
-		m_obj = NULL;
+		m_obj = 0;
 	}
 public:
 
@@ -18,7 +18,7 @@ public:
 	}
 
 	static T* instance() {
-		if (m_obj == NULL) {
+		if (!m_obj) {
 			m_obj = new T();
 		}
 		return m_obj;
@@ -26,7 +26,7 @@ public:
 };
 
 template <class T>
-T* SingletonTemplate<T>::m_obj = NULL;
+T* SingletonTemplate<T>::m_obj = 0;
 
 #endif // SINGLETONTEMPLATE
 

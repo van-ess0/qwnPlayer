@@ -3,44 +3,25 @@ import QtQuick.Controls 1.4
 
 Item {
 
+    id: albumListView
+
     Text {
-        text: qsTr("This is library Page")
+        text: qsTr("This is album Page")
     }
 
     width: parent.width
     height: parent.height
 
-    ArtistList {
+    property int currentArtistId: 0
 
-    }
-
-    /*
-
-    ListModel {
-        id: listmodel
-
-        ListElement {
-            color: "orange"
-            name: "first"
-        }
-        ListElement {
-            color: "lightgreen"
-            name: "second"
-        }
-        ListElement {
-            color: "orchid"
-            name: "third"
-        }
-        ListElement {
-            color: "tomato"
-            name: "fourth"
-        }
+    TrackList {
+        id: trackListView
     }
 
     ListView {
-        id: view
+        id: albumView
 
-        model: roomModel
+        model: artistModel.subModelFromId(currentArtistId)
 
         anchors.margins: 10
         anchors.fill: parent
@@ -53,16 +34,13 @@ Item {
         highlightFollowsCurrentItem: true
 
         delegate: Item {
-            width: view.width
+            width: albumView.width
             height: 40
 
             Rectangle {
                 anchors.margins: 5
                 anchors.fill: parent
                 radius: height / 2
-
-
-//                color: model.color
 
                 border {
                     color: "black"
@@ -71,15 +49,19 @@ Item {
                 Text {
                     anchors.centerIn: parent
                     renderType: Text.NativeRendering
-                    text: model.artistName
+                    text: model.albumName
                 }
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: view.currentIndex = model.index
+                    onClicked: {
+                        albumView.currentIndex = model.index
+                        trackListView.currentAlbumId = model.albumId
+                    }
                 }
             }
 
         }
-    }*/
+    }
 }
+

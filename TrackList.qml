@@ -1,46 +1,21 @@
-import QtQuick 2.5
-import QtQuick.Controls 1.4
+import QtQuick 2.0
 
 Item {
+    id: trackListView
 
     Text {
-        text: qsTr("This is library Page")
+        text: qsTr("This is track Page")
     }
 
     width: parent.width
     height: parent.height
 
-    ArtistList {
-
-    }
-
-    /*
-
-    ListModel {
-        id: listmodel
-
-        ListElement {
-            color: "orange"
-            name: "first"
-        }
-        ListElement {
-            color: "lightgreen"
-            name: "second"
-        }
-        ListElement {
-            color: "orchid"
-            name: "third"
-        }
-        ListElement {
-            color: "tomato"
-            name: "fourth"
-        }
-    }
+    property int currentAlbumId: 0
 
     ListView {
-        id: view
+        id: trackView
 
-        model: roomModel
+        model: albumView.model.subModelFromId(currentAlbumId)
 
         anchors.margins: 10
         anchors.fill: parent
@@ -53,16 +28,13 @@ Item {
         highlightFollowsCurrentItem: true
 
         delegate: Item {
-            width: view.width
+            width: trackView.width
             height: 40
 
             Rectangle {
                 anchors.margins: 5
                 anchors.fill: parent
                 radius: height / 2
-
-
-//                color: model.color
 
                 border {
                     color: "black"
@@ -71,15 +43,16 @@ Item {
                 Text {
                     anchors.centerIn: parent
                     renderType: Text.NativeRendering
-                    text: model.artistName
+                    text: model.trackTitle
                 }
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: view.currentIndex = model.index
+                    onClicked: trackView.currentIndex = model.index
                 }
             }
 
         }
-    }*/
+    }
 }
+

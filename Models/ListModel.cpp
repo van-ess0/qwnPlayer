@@ -173,7 +173,7 @@ QVariant    Models::ListModel::data(const QModelIndex &index, int role) const
  */
 QHash<int, QByteArray>  Models::ListModel::roleNames() const
 {
-        return this->prototype->roleNames();
+		return this->prototype->roleNames();
 }
 
 /*!

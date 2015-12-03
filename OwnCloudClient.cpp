@@ -18,8 +18,8 @@ void OwnCloudClient::auth()
 
 	QUrl url;
 	url.setScheme("http");
-	url.setHost("192.168.1.219");
-	url.setPort(80);
+	url.setHost("vaness0.ga");
+	url.setPort(83);
 	url.setPath("/owncloud/index.php/apps/music/api/collection");
 	url.setUserName(m_username);
 	url.setPassword(m_password);

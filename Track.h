@@ -2,25 +2,13 @@
 #define TRACK_H
 
 #include "Models/ListItem.h"
-#include "SingletonTemplate.h"
-
-class GlobalTrackIndex : public SingletonTemplate<GlobalTrackIndex>
-{
-	quint64 m_index;
-
-public:
-	GlobalTrackIndex() {
-		m_index = 0;
-	}
-
-	quint64 getTrackIndex() {
-		return m_index++;
-	}
-};
+#include "GlobalIndex.h"
 
 class Track : public Models::ListItem
 {
 	Q_OBJECT
+	NEW_GLOBAL_INDEX(GlobalTrackIndex)
+
 private:
 	quint32 m_number;
 	QString m_title;
@@ -50,7 +38,7 @@ public:
 		m_title			= title;
 		m_audioType		= type;
 		m_serverPath	= path;
-		m_globalId		= GlobalTrackIndex::instance()->getTrackIndex();
+		m_globalId		= GlobalTrackIndex::instance()->getIndex();
 	}
 	quint32 getNumber() const {
 		return m_number;
@@ -58,7 +46,7 @@ public:
 	QString getTitle() const {
 		return m_title;
 	}
-	QString getType() const {
+	QString getAudioType() const {
 		return m_audioType;
 	}
 	QString getServerPath() const {
@@ -81,7 +69,7 @@ public:
 		case trackTitle:
 			return this->getTitle();
 		case trackAudioType:
-			return this->getType();
+			return this->getAudioType();
 		case trackServerPath:
 			return this->getServerPath();
 		default:

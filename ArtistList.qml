@@ -4,43 +4,20 @@ import QtQuick.Controls 1.4
 Item {
 
     Text {
-        text: qsTr("This is library Page")
+        text: qsTr("This is artist Page")
     }
 
     width: parent.width
     height: parent.height
 
-    ArtistList {
-
-    }
-
-    /*
-
-    ListModel {
-        id: listmodel
-
-        ListElement {
-            color: "orange"
-            name: "first"
-        }
-        ListElement {
-            color: "lightgreen"
-            name: "second"
-        }
-        ListElement {
-            color: "orchid"
-            name: "third"
-        }
-        ListElement {
-            color: "tomato"
-            name: "fourth"
-        }
+    AlbumList {
+        id: albumListView
     }
 
     ListView {
-        id: view
+        id: artistView
 
-        model: roomModel
+        model: artistModel
 
         anchors.margins: 10
         anchors.fill: parent
@@ -53,7 +30,7 @@ Item {
         highlightFollowsCurrentItem: true
 
         delegate: Item {
-            width: view.width
+            width: artistView.width
             height: 40
 
             Rectangle {
@@ -76,10 +53,15 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: view.currentIndex = model.index
+                    onClicked: {
+                        artistView.currentIndex = model.index
+                        albumListView.currentArtistId = model.artistId
+                        stackView.push(Qt.resolvedUrl("AlbumList.qml"))
+                    }
                 }
             }
 
         }
-    }*/
+    }
 }
+
