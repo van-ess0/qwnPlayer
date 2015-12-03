@@ -3,8 +3,8 @@
 
 #include <QMainWindow>
 #include <QMap>
-#include <QtMultimedia/QMediaPlayer>
-#include <QtMultimedia/QMediaPlaylist>
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
 
 #include "Artist.h"
 

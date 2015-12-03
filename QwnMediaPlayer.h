@@ -1,5 +1,5 @@
-#ifndef MEDIAPLAYER_H
-#define MEDIAPLAYER_H
+#ifndef QWNMEDIAPLAYER_H
+#define QWNMEDIAPLAYER_H
 
 #include <QMediaPlayer>
 
@@ -22,6 +22,8 @@ signals:
 //	void qmlSlot(QString string);
 //	void qmlSlotEmpty();
 
+
+	// connections with qmediaplayer
 private slots:
 	void slotAudioAvailabilityChanged(bool);
 
@@ -42,4 +44,4 @@ public slots:
 	void cycleToggle();
 };
 
-#endif // MEDIAPLAYER_H
+#endif // QWNMEDIAPLAYER_H

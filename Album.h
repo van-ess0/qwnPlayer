@@ -2,7 +2,7 @@
 #define ALBUM_H
 
 #include <QList>
-#include <Track.h>
+#include "Track.h"
 
 class Album : public QObject
 {

@@ -9,10 +9,13 @@ SOURCES += main.cpp \
     Album.cpp \
     Artist.cpp \
     ResponseDecoder.cpp \
-    MainWindow.cpp \
-    MediaPlayer.cpp
+    QwnMediaPlayer.cpp \
+    MusicLibrary.cpp \
+    Models/ListModel.cpp \
+    Models/SubListedListModel.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    media.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -39,8 +42,13 @@ HEADERS += \
     Album.h \
     Artist.h \
     ResponseDecoder.h \
-    MainWindow.h \
-    MediaPlayer.h
+    QwnMediaPlayer.h \
+    MusicLibrary.h \
+    Models/ListItem.h \
+    Models/ListModel.h \
+    Models/SubListedListItem.h \
+    Models/SubListedListModel.h \
+    SingletonTemplate.h
 
 FORMS += \
     MainWindow.ui

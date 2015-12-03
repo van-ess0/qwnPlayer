@@ -49,7 +49,7 @@ void MainWindow::slotCollectionDataParsed(QList<Artist*> artists)
 
 
 	foreach (Artist* artist, artists) {
-		foreach (Album* album, artist->getAlbumList()) {
+		foreach (Album* album, artist->albumList()) {
 			foreach (Track* track, album->getTrackList()) {
 				ui->listWidget->addItem(track->getTitle());
 				m_collection.insert(track->getTitle(), track->getServerPath());
