@@ -10,12 +10,10 @@ Item {
     width: parent.width
     height: parent.height
 
-    property int currentAlbumId: 0
-
     ListView {
         id: trackView
 
-        model: albumView.model.subModelFromId(currentAlbumId)
+        model: artistModel.subModelFromId(currentArtistId).subModelFromId(currentAlbumId)
 
         anchors.margins: 10
         anchors.fill: parent

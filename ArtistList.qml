@@ -10,9 +10,9 @@ Item {
     width: parent.width
     height: parent.height
 
-    AlbumList {
-        id: albumListView
-    }
+//    AlbumList {
+//        id: albumListView
+//    }
 
     ListView {
         id: artistView
@@ -55,7 +55,7 @@ Item {
                     anchors.fill: parent
                     onClicked: {
                         artistView.currentIndex = model.index
-                        albumListView.currentArtistId = model.artistId
+                        currentArtistId = model.artistId
                         stackView.push(Qt.resolvedUrl("AlbumList.qml"))
                     }
                 }

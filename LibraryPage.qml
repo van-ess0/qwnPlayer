@@ -3,9 +3,9 @@ import QtQuick.Controls 1.4
 
 Item {
 
-    Text {
-        text: qsTr("This is library Page")
-    }
+//    Text {
+//        text: qsTr("This is library Page")
+//    }
 
     width: parent.width
     height: parent.height

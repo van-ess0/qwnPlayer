@@ -3,6 +3,9 @@ import QtQuick.Controls 1.4
 
 ApplicationWindow {
 
+    property int currentArtistId: 0;
+    property int currentAlbumId: 0;
+
     visible: true
     width: 300
     height: 600
