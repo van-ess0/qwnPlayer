@@ -1,4 +1,5 @@
 import QtQuick 2.5
+import com.qwnplayer 1.0
 import QtQuick.Controls 1.4
 
 Item {
@@ -7,6 +8,19 @@ Item {
     width: parent.width
     anchors.bottom: parent.bottom
 
+    QwnMediaPlayer {
+        id: mediaplayer
+//        onKeyGenerated: {
+//            if (success) {
+//                console.log("Key generation succeeded.")
+//            } else {
+//                console.log("Key generation failed.")
+//            }
+//        }
+//        onTestSig: {
+//            console.log("From C++")
+//        }
+    }
     Rectangle {
         anchors.fill: parent
         color: "green"
@@ -56,14 +70,19 @@ Item {
 
         BottomPanelButton {
             id: playbutton
+            objectName: "playbutton"
             anchors.centerIn: parent
             width: 40
             height: 40
             iconSource: "qrc:/resources/images/play.svg"
-
+//            signal qmlSignal(string msg)
+//            signal qmlSignalEmpty()
             function onTouched() {
                 console.log("Play touched")
-
+//                playbutton.qmlSignal("Hi from qml")
+//                playbutton.qmlSignalEmpty()
+//                mediaplayer.qmlSlotEmpty()
+                mediaplayer.playToggle()
             }
         }
 
@@ -77,7 +96,7 @@ Item {
 
             function onTouched() {
                 console.log("Prev touched")
-
+                mediaplayer.prevTrack()
             }
         }
 
@@ -91,7 +110,7 @@ Item {
 
             function onTouched() {
                 console.log("Next touched")
-
+                mediaplayer.nextTrack()
             }
         }
 
@@ -105,7 +124,7 @@ Item {
 
             function onTouched() {
                 console.log("Shuffle touched")
-
+                mediaplayer.shuffleToggle()
             }
         }
 
@@ -119,7 +138,7 @@ Item {
 
             function onTouched() {
                 console.log("Cycle touched")
-
+                mediaplayer.cycleToggle()
             }
         }
 
