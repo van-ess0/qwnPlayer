@@ -1,14 +1,58 @@
 import QtQuick 2.5
+import QtQuick.Controls 1.4
 
 Item {
 
-    height: 100
+    height: parent.height / 7
     width: parent.width
     anchors.bottom: parent.bottom
 
     Rectangle {
         anchors.fill: parent
         color: "green"
+
+        Text {
+            id: currentPos
+            text: filling()
+            anchors {
+                verticalCenter: progressSlider.verticalCenter
+                right: progressSlider.left
+            }
+            function filling()
+            {
+                var seconds = (progressSlider.value % 60).toString();
+                var minutes = ((progressSlider.value - seconds) / 60).toString();
+
+                return (qsTr(minutes + ":" + seconds))
+            }
+        }
+
+        Text {
+            id: trackLength
+            text: qsTr(progressSlider.maximumValue.toString())
+            anchors {
+                verticalCenter: progressSlider.verticalCenter
+                left: progressSlider.right
+            }
+        }
+
+        Slider {
+            id: progressSlider
+            width: parent.width / 1.5
+            //Get lenght of the track
+            maximumValue: 100
+            minimumValue: 0
+            stepSize: 1.0
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            onPressedChanged: {
+                if (!pressed) {
+                    //set the Position
+                    console.log("Position set to ", value)
+                }
+            }
+
+        }
 
         BottomPanelButton {
             id: playbutton
