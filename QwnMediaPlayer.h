@@ -22,6 +22,8 @@ signals:
 //	void qmlSlot(QString string);
 //	void qmlSlotEmpty();
 
+	void signalPositionChanged(qint64 progress);
+	void signalDurationChanged(qint64 duration);
 
 	// connections with qmediaplayer
 private slots:

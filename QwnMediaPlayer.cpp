@@ -44,6 +44,7 @@ void QwnMediaPlayer::slotBufferStatusChanged(int percentFilled)
 void QwnMediaPlayer::positionChanged(qint64 progress)
 {
 	qDebug() << "positionChanged" << progress;
+	emit signalPositionChanged(progress);
 //	if (!ui->horizontalSlider->isSliderDown()) {
 //		ui->horizontalSlider->setValue(progress / 1000);
 //	}
@@ -53,6 +54,7 @@ void QwnMediaPlayer::positionChanged(qint64 progress)
 void QwnMediaPlayer::durationChanged(qint64 duration)
 {
 	qDebug() << "durationChanged" << duration;
+	emit signalDurationChanged(duration);
 //	ui->horizontalSlider->setMaximum(duration / 1000);
 }
 
@@ -95,14 +97,14 @@ void QwnMediaPlayer::playToggle()
 												   QStandardPaths::LocateDirectory);
 	qDebug() << homeLocation;
 
-	QFile::copy(":/resources/sound_cut.mp3" , homeLocation + "sound_cut.mp3");
+	QFile::copy(":/resources/sound_cut2.mp3" , homeLocation + "sound_cut2.mp3");
 
-	QUrl url("http://vaness0.ga:83/owncloud/remote.php/webdav/04. Narcissistic Cannibal.mp3");
-	url.setUserName("degree");
-	url.setPassword("Fcnhjabpbrf95");
-	player->setMedia(url);
+//	QUrl url("http://vaness0.ga:83/owncloud/remote.php/webdav/04. Narcissistic Cannibal.mp3");
+//	url.setUserName("degree");
+//	url.setPassword("Fcnhjabpbrf95");
+//	player->setMedia(url);
 
-//	player->setMedia(QUrl::fromLocalFile(homeLocation + "sound_cut.mp3"));
+	player->setMedia(QUrl::fromLocalFile(homeLocation + "sound_cut2.mp3"));
 	player->play();
 }
 

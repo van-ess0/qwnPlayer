@@ -16,6 +16,7 @@ Item {
         id: albumView
 
         model: artistModel.subModelFromId(currentArtistId)
+//        model: currentArtist
 
         anchors.margins: 10
         anchors.fill: parent
@@ -51,6 +52,7 @@ Item {
                     onClicked: {
                         albumView.currentIndex = model.index
                         currentAlbumId = model.albumId
+                        currentAlbum = model
                         stackView.push(Qt.resolvedUrl("TrackList.qml"))
                     }
                 }

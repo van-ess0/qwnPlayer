@@ -5,6 +5,9 @@ ApplicationWindow {
 
     property int currentArtistId: 0;
     property int currentAlbumId: 0;
+    property variant currentTrack: [];
+    property variant currentAlbum: [];
+    property variant currentArtist: [];
 
     visible: true
     width: 300

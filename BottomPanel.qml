@@ -20,6 +20,14 @@ Item {
 //        onTestSig: {
 //            console.log("From C++")
 //        }
+        onSignalPositionChanged: {
+            console.log("Progress: " + progress)
+            progressSlider.value = progress / 1000
+        }
+        onSignalDurationChanged: {
+            console.log("duration: " + duration)
+            progressSlider.maximumValue = duration / 1000
+        }
     }
     Rectangle {
         anchors.fill: parent

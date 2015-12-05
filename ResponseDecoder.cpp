@@ -12,6 +12,7 @@ ResponseDecoder::ResponseDecoder(QObject *parent) : QObject(parent)
 
 void ResponseDecoder::decode(const QString& dataType, const QByteArray& data)
 {
+	Q_UNUSED(dataType)
 	decodeCollection(data);
 }
 

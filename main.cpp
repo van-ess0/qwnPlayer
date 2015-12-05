@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
 
 	QObject* topLevel = component.create(context);
 	QQuickWindow* window = qobject_cast<QQuickWindow*>(topLevel);
-
+	Q_UNUSED(window)
 //	view.setSource(QUrl("qrc:/HomePage.qml"));
 //	view.show();
 

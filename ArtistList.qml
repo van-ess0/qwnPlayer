@@ -56,6 +56,7 @@ Item {
                     onClicked: {
                         artistView.currentIndex = model.index
                         currentArtistId = model.artistId
+                        currentArtist = model
                         stackView.push(Qt.resolvedUrl("AlbumList.qml"))
                     }
                 }

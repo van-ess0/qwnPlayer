@@ -14,6 +14,7 @@ Item {
         id: trackView
 
         model: artistModel.subModelFromId(currentArtistId).subModelFromId(currentAlbumId)
+//        model: currentAlbum
 
         anchors.margins: 10
         anchors.fill: parent
@@ -46,7 +47,11 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: trackView.currentIndex = model.index
+                    onClicked: {
+                        trackView.currentIndex = model.index
+                        currentTrack = model
+                        stackView.push(Qt.resolvedUrl("TrackInfoPage.qml"))
+                    }
                 }
             }
 

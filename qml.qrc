@@ -13,5 +13,6 @@
         <file>ArtistList.qml</file>
         <file>AlbumList.qml</file>
         <file>TrackList.qml</file>
+        <file>TrackInfoPage.qml</file>
     </qresource>
 </RCC>
