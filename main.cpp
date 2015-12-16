@@ -15,11 +15,14 @@
 #include <QQuickWindow>
 
 #include <QStringList>
-
+#include "SettingsManager.h"
 
 int main(int argc, char *argv[])
 {
 	QGuiApplication app(argc, argv);
+
+	SettingsManager::instance()->setFile("settings.conf");
+	qDebug() << SettingsManager::instance()->getOwnCloudHost();
 
 	// For single qml file
 //	QQmlApplicationEngine engine;

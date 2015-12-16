@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     MusicLibrary.cpp \
     Models/ListModel.cpp \
     Models/SubListedListModel.cpp \
-    GlobalIndex.cpp
+    GlobalIndex.cpp \
+    SettingsManager.cpp
 
 RESOURCES += qml.qrc \
     media.qrc
@@ -37,5 +38,9 @@ HEADERS += \
     Models/SubListedListItem.h \
     Models/SubListedListModel.h \
     SingletonTemplate.h \
-    GlobalIndex.h
+    GlobalIndex.h \
+    SettingsManager.h
+
+DISTFILES += \
+    settings.conf
 
