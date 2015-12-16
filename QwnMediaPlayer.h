@@ -2,14 +2,19 @@
 #define QWNMEDIAPLAYER_H
 
 #include <QMediaPlayer>
+#include <QMediaPlaylist>
 
 class QwnMediaPlayer : public QObject
 {
 	Q_OBJECT
 private:
-	QMediaPlayer* player;
+	QMediaPlayer* m_player;
+	QMediaPlaylist* m_playlist;
 
+	QString m_username;
+	QString m_password;
 
+	bool m_isPlaying;
 public:
 	explicit QwnMediaPlayer(QObject *parent = 0);
 
@@ -44,6 +49,8 @@ public slots:
 	void prevTrack();
 	void shuffleToggle();
 	void cycleToggle();
+
+	void currentTrackPath(QString path);
 };
 
 #endif // QWNMEDIAPLAYER_H

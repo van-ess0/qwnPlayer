@@ -4,6 +4,7 @@
 #include "OwnCloudClient.h"
 #include "ResponseDecoder.h"
 #include "QwnMediaPlayer.h"
+//#include "QwnMediaPlaylist.h"
 #include "MusicLibrary.h"
 
 #include <QApplication>
@@ -76,6 +77,8 @@ int main(int argc, char *argv[])
 	// Register our component type with QML.
 	// Need for ability to directly call object from qml
 	qmlRegisterType<QwnMediaPlayer>("com.qwnplayer", 1, 0, "QwnMediaPlayer");
+//	qmlRegisterType<QwnMediaPlayer>("com.qwnplayer", 1, 0, "QwnMediaPlaylist");
+
 
 	// Need to connect quit and create qml component
 	QQuickView view;

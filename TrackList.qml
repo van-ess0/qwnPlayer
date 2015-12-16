@@ -47,10 +47,20 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: {
+                    onPressAndHold: {
+                        console.log("track press and hold")
                         trackView.currentIndex = model.index
                         currentTrack = model
                         stackView.push(Qt.resolvedUrl("TrackInfoPage.qml"))
+                    }
+                    onClicked: {
+                        console.log("track click")
+                        currentTrack = model
+                    }
+                    onDoubleClicked: {
+                        console.log("track double click")
+                        currentTrack = model
+//                        mediaplayer.currentTrackPath(model.trackServerPath)
                     }
                 }
             }

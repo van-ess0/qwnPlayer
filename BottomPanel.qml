@@ -91,6 +91,8 @@ Item {
 //                playbutton.qmlSignalEmpty()
 //                mediaplayer.qmlSlotEmpty()
                 mediaplayer.playToggle()
+                console.log(currentTrack.trackServerPath)
+                mediaplayer.currentTrackPath(currentTrack.trackServerPath)
             }
         }
 
