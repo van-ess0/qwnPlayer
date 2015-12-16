@@ -109,5 +109,6 @@ public:
 };
 
 Q_DECLARE_METATYPE(QList<Artist*>)
+Q_DECLARE_METATYPE(Models::SubListedListModel*)
 
 #endif // ARTIST_H

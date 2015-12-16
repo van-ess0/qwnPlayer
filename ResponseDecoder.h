@@ -1,7 +1,6 @@
 #ifndef RESPONSEDECODER_H
 #define RESPONSEDECODER_H
 
-#include <QObject>
 #include "Artist.h"
 
 class ResponseDecoder : public QObject
@@ -21,6 +20,7 @@ public slots:
 
 signals:
 	void signalCollectionDataParsed(QList<Artist*>);
+//	void signalCollectionDataParsed(Models::SubListedListModel*);
 };
 
 #endif // RESPONSEDECODER_H

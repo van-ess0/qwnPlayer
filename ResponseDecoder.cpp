@@ -19,6 +19,8 @@ void ResponseDecoder::decode(const QString& dataType, const QByteArray& data)
 void ResponseDecoder::decodeCollection(const QByteArray& data)
 {
 	QList<Artist*> artists;
+//	Models::SubListedListModel* m_artistModel
+//			= new Models::SubListedListModel(new Artist("empty", NULL));
 
 	// Looking for artists in json
 	QJsonDocument doc = QJsonDocument::fromJson(data);
@@ -87,10 +89,12 @@ void ResponseDecoder::decodeCollection(const QByteArray& data)
 
 		// Adding artist to list
 		artists.append(artist);
+//		m_artistModel->appendRow(artist);
 	}
 
 	// TODO: need to move forward the artist list
 	emit signalCollectionDataParsed(artists);
+//	emit signalCollectionDataParsed(m_artistModel);
 }
 
 void ResponseDecoder::slotCollectionData(QByteArray rawData)
