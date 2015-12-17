@@ -1,5 +1,6 @@
 import QtQuick 2.5
 import QtQuick.Controls 1.4
+import com.qwnplayer 1.0
 
 ApplicationWindow {
 
@@ -12,6 +13,22 @@ ApplicationWindow {
     visible: true
     width: 300
     height: 600
+
+    QwnMediaPlayer {
+        id: mediaplayer
+//        onKeyGenerated: {
+//            if (success) {
+//                console.log("Key generation succeeded.")
+//            } else {
+//                console.log("Key generation failed.")
+//            }
+//        }
+//        onTestSig: {
+//            console.log("From C++")
+//        }
+        onSignalPositionChanged: bottomPanel.onProgressChanged(progress)
+        onSignalDurationChanged: bottomPanel.onDurationChanged(duration)
+    }
 
     PulleyMenu {
         id: pulleyMenu

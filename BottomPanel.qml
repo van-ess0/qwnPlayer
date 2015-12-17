@@ -1,5 +1,4 @@
 import QtQuick 2.5
-import com.qwnplayer 1.0
 import QtQuick.Controls 1.4
 
 Item {
@@ -8,27 +7,17 @@ Item {
     width: parent.width
     anchors.bottom: parent.bottom
 
-    QwnMediaPlayer {
-        id: mediaplayer
-//        onKeyGenerated: {
-//            if (success) {
-//                console.log("Key generation succeeded.")
-//            } else {
-//                console.log("Key generation failed.")
-//            }
-//        }
-//        onTestSig: {
-//            console.log("From C++")
-//        }
-        onSignalPositionChanged: {
-            console.log("Progress: " + progress)
-            progressSlider.value = progress / 1000
-        }
-        onSignalDurationChanged: {
-            console.log("duration: " + duration)
-            progressSlider.maximumValue = duration / 1000
-        }
+    function onProgressChanged(progress) {
+        console.log("Progress: " + progress)
+        progressSlider.value = progress / 1000
     }
+
+    function onDurationChanged(duration) {
+        console.log("duration: " + duration)
+        progressSlider.maximumValue = duration / 1000
+    }
+
+
     Rectangle {
         anchors.fill: parent
         color: "green"

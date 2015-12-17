@@ -122,6 +122,7 @@ void QwnMediaPlayer::playToggle()
 	} else {
 		m_player->play();
 	}
+
 	m_isPlaying = !m_isPlaying;
 }
 
@@ -159,4 +160,9 @@ void QwnMediaPlayer::currentTrackPath(QString path)
 //	m_playlist->clear();
 	m_playlist->addMedia(url);
 }
+
+//void QwnMediaPlayer::setCurrentTrack(Track* track)
+//{
+//	qDebug() << "set current track";
+//}
 

@@ -41,7 +41,7 @@ public slots:
 		}
 //		setArtistList(artists);
 	}
-	void slotCollectionDataParsed(Models::SubListedListModel* artistModel) {
+//	void slotCollectionDataParsed(Models::SubListedListModel* artistModel) {
 //		m_artistModel = artistModel;
 //		emit artistListChanged();
 //		Track* track_one = new Track(1, "Number One", "audio/mp3", "./one.mp3");
@@ -72,7 +72,7 @@ public slots:
 //		m_artistModel->appendRow(artist_one);
 //		m_artistModel->appendRow(artist_two);
 
-	}
+//	}
 };
 
 #endif // MUSICLIBRARY_H

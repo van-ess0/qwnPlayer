@@ -48,7 +48,7 @@ Item {
                 Text {
                     anchors.centerIn: parent
                     renderType: Text.NativeRendering
-                    text: model.artistName
+                    text: model
                 }
 
                 MouseArea {
