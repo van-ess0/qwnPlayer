@@ -26,46 +26,37 @@ Item {
         }
         highlightFollowsCurrentItem: true
 
-        delegate: Item {
-            width: trackView.width
-            height: 40
+        delegate: LibraryElement {
+            element_view: trackView
+            element_text: model.trackTitle
 
-            Rectangle {
-                anchors.margins: 5
-                anchors.fill: parent
-                radius: height / 2
+            function setCurrentElement() {
+                console.log("track set current element")
+                trackView.currentIndex = model.index
+                currentTrack = model
 
-                border {
-                    color: "black"
-                    width: 1
-                }
-                Text {
-                    anchors.centerIn: parent
-                    renderType: Text.NativeRendering
-                    text: model.trackTitle
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onPressAndHold: {
-                        console.log("track press and hold")
-                        trackView.currentIndex = model.index
-                        currentTrack = model
-                        stackView.push(Qt.resolvedUrl("TrackInfoPage.qml"))
-                    }
-                    onClicked: {
-                        console.log("track click")
-                        currentTrack = model
-                    }
-                    onDoubleClicked: {
-                        console.log("track double click")
-                        currentTrack = model
-                        mediaplayer.currentTrack = model.trackObject
-                        mediaplayer.resetPlaylist()
-                    }
-                }
             }
 
+            function onPlayTouched() {
+                setCurrentElement()
+                console.log("Play track touched")
+            }
+
+            function onPressAndHold() {
+                setCurrentElement()
+                console.log("track press and hold")
+            }
+
+            function onClicked() {
+                setCurrentElement()
+                console.log("track click")
+            }
+
+            function onDoubleClicked() {
+                setCurrentElement()
+                console.log("track double click")
+                stackView.push(Qt.resolvedUrl("TrackInfoPage.qml"))
+            }
         }
     }
 }

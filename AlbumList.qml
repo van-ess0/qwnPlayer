@@ -28,36 +28,37 @@ Item {
         }
         highlightFollowsCurrentItem: true
 
-        delegate: Item {
-            width: albumView.width
-            height: 40
+        delegate: LibraryElement {
+            element_view: albumView
+            element_text: model.albumName
 
-            Rectangle {
-                anchors.margins: 5
-                anchors.fill: parent
-                radius: height / 2
-
-                border {
-                    color: "black"
-                    width: 1
-                }
-                Text {
-                    anchors.centerIn: parent
-                    renderType: Text.NativeRendering
-                    text: model.albumName
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        albumView.currentIndex = model.index
-                        currentAlbumId = model.albumId
-                        currentAlbum = model
-                        stackView.push(Qt.resolvedUrl("TrackList.qml"))
-                    }
-                }
+            function setCurrentElement() {
+                console.log("album set current element")
+                albumView.currentIndex = model.index
+                currentAlbumId = model.albumId
+                currentAlbum = model
             }
 
+            function onPlayTouched() {
+                setCurrentElement()
+                console.log("Play album touched")
+            }
+
+            function onPressAndHold() {
+                setCurrentElement()
+                console.log("album press and hold")
+            }
+
+            function onClicked() {
+                setCurrentElement()
+                console.log("album click")
+                stackView.push(Qt.resolvedUrl("TrackList.qml"))
+            }
+
+            function onDoubleClicked() {
+                setCurrentElement()
+                console.log("album double click")
+            }
         }
     }
 }

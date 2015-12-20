@@ -29,39 +29,37 @@ Item {
         }
         highlightFollowsCurrentItem: true
 
-        delegate: Item {
-            width: artistView.width
-            height: 40
+        delegate: LibraryElement {
+            element_view: artistView
+            element_text: model.artistName
 
-            Rectangle {
-                anchors.margins: 5
-                anchors.fill: parent
-                radius: height / 2
-
-
-//                color: model.color
-
-                border {
-                    color: "black"
-                    width: 1
-                }
-                Text {
-                    anchors.centerIn: parent
-                    renderType: Text.NativeRendering
-                    text: model
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        artistView.currentIndex = model.index
-                        currentArtistId = model.artistId
-                        currentArtist = model
-                        stackView.push(Qt.resolvedUrl("AlbumList.qml"))
-                    }
-                }
+            function setCurrentElement() {
+                console.log("artist set current element")
+                artistView.currentIndex = model.index
+                currentArtistId = model.artistId
+                currentArtist = model
             }
 
+            function onPlayTouched() {
+                setCurrentElement()
+                console.log("Play artist touched")
+            }
+
+            function onPressAndHold() {
+                setCurrentElement()
+                console.log("artist press and hold")
+            }
+
+            function onClicked() {
+                setCurrentElement()
+                console.log("artist click")
+                stackView.push(Qt.resolvedUrl("AlbumList.qml"))
+            }
+
+            function onDoubleClicked() {
+                setCurrentElement()
+                console.log("artist double click")
+            }
         }
     }
 }
