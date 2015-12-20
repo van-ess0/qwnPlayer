@@ -78,7 +78,7 @@ public slots:
 //	void setCurrentTrack(Track* track);
 	void resetPlaylist() {
 		QObject* trackModel = qvariant_cast<QObject*>(m_currentTrack);
-		Models::ListModel* model = qobject_cast<Models::ListModel*>(trackModel);
+		Track* model = qobject_cast<Track*>(trackModel);
 
 		if (model != NULL) {
 			qDebug() << "not null";

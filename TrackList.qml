@@ -60,7 +60,7 @@ Item {
                     onDoubleClicked: {
                         console.log("track double click")
                         currentTrack = model
-                        mediaplayer.currentTrack = model
+                        mediaplayer.currentTrack = model.trackObject
                         mediaplayer.resetPlaylist()
                     }
                 }
