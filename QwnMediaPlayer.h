@@ -4,6 +4,7 @@
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
 #include <QVariant>
+#include <QQmlProperty>
 
 #include "Artist.h"
 
@@ -75,17 +76,49 @@ public slots:
 
 	void currentTrackPath(QString path);
 
-//	void setCurrentTrack(Track* track);
-	void resetPlaylist() {
+	void stopPlaying() {
+		qDebug() << "stop";
+		m_player->stop();
+		m_playlist->clear();
+		m_isPlaying = false;
+	}
+
+	void settingCurrentTrackToPlaylist() {
+		qDebug() << "setting current track to playlist";
 		QObject* trackModel = qvariant_cast<QObject*>(m_currentTrack);
-		Track* model = qobject_cast<Track*>(trackModel);
 
-		if (model != NULL) {
-			qDebug() << "not null";
-
+		if (!trackModel) {
+			qDebug() << "cast track error";
+			return;
 		}
 
+		qDebug() << QQmlProperty(trackModel, "trackTitle").read().toString();
+
+		QString serverPath = QQmlProperty(trackModel, "trackServerPath").read().toString();
+		qDebug() << serverPath;
+		QUrl url(serverPath);
+		url.setUserName(m_username);
+		url.setPassword(m_password);
+
+		m_playlist->addMedia(url);
+	}
+
+	void startPlaying() {
+		qDebug() << "play";
+		m_isPlaying = true;
+		m_player->play();
+	}
+
+//	void setCurrentTrack(Track* track);
+	void resetPlaylist() {
 		qDebug() << "reset playlist";
+
+//		QObject* trackModel = qvariant_cast<QObject*>(m_currentTrack);
+//		qDebug() << QQmlProperty(trackModel, "trackTitle").read().toString();
+
+
+
+
 		m_playlist->clear();
 	}
 };

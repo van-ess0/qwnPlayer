@@ -22,8 +22,8 @@ private:
 		trackNumber,
 		trackTitle,
 		trackAudioType,
-		trackServerPath,
-		trackObject
+		trackServerPath
+//		trackObject
 	};
 
 public:
@@ -53,9 +53,9 @@ public:
 	QString getServerPath() const {
 		return m_serverPath;
 	}
-	const Track* getObject() const {
-		return this;
-	}
+//	const Track* getObject() const {
+//		return this;
+//	}
 
 	// ListItem interface
 public:
@@ -76,8 +76,8 @@ public:
 			return this->getAudioType();
 		case trackServerPath:
 			return this->getServerPath();
-		case trackObject:
-			return this->getObject();
+//		case trackObject:
+//			return this->getObject();
 		default:
 			return QVariant();
 		}
@@ -91,7 +91,7 @@ public:
 		roles[trackTitle]		= "trackTitle";
 		roles[trackAudioType]	= "trackAudioType";
 		roles[trackServerPath]	= "trackServerPath";
-		roles[trackObject]		= "trackObject";
+//		roles[trackObject]		= "trackObject";
 
 		return roles;
 	}

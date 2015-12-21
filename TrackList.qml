@@ -33,13 +33,17 @@ Item {
             function setCurrentElement() {
                 console.log("track set current element")
                 trackView.currentIndex = model.index
-                currentTrack = model
-
+//                currentTrack = model
+                mediaplayer.currentTrack = model
             }
 
             function onPlayTouched() {
                 setCurrentElement()
                 console.log("Play track touched")
+
+                mediaplayer.stopPlaying()
+                mediaplayer.settingCurrentTrackToPlaylist()
+                mediaplayer.startPlaying()
             }
 
             function onPressAndHold() {
