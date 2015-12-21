@@ -30,7 +30,7 @@ Item {
             width: parent.width
             height: 20
             Text {
-                text: "Artist: " + currentArtist.artistName
+                text: "Artist: " + mediaplayer.currentArtist.artistName
             }
         }
         Rectangle {

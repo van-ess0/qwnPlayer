@@ -35,10 +35,11 @@ winrt {
     CONFIG += windeployqt
 }
 
-install_it.path = $$OUT_PWD
-install_it.files += $$PWD/settings.conf
-
-INSTALLS += install_it
+win32 {
+    install_it.path = $$OUT_PWD
+    install_it.files += $$PWD/settings.conf
+    INSTALLS += install_it
+}
 
 export(INSTALLS)
 

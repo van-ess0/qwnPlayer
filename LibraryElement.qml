@@ -4,7 +4,7 @@ Item {
     id: library_element
     property var element_view: null
     property string element_text: ""
-//    property var playbutton_elem: playbutton_element
+
     width: element_view.width
     height: 40
 
@@ -43,14 +43,8 @@ Item {
             iconSource: "qrc:/resources/images/play.svg"
             function onTouched() {
                 library_element.onPlayTouched()
-//                console.log("Play touched")
-                //mediaplayer.playToggle()
-                //console.log(currentTrack.trackServerPath)
-                //mediaplayer.currentTrackPath(currentTrack.trackServerPath)
             }
         }
-
-
 
         Text {
             id: text_element
@@ -58,7 +52,6 @@ Item {
             anchors.left: playbutton_element.right
             renderType: Text.NativeRendering
             text: element_text
-//            text: element_model.trackTitle
         }
 
         MouseArea {
@@ -69,21 +62,6 @@ Item {
             onPressAndHold: library_element.onPressAndHold()
             onClicked: library_element.onClicked()
             onDoubleClicked: library_element.onDoubleClicked()
-//                console.log("track press and hold")
-//                trackView.currentIndex = model.index
-//                currentTrack = model
-//                stackView.push(Qt.resolvedUrl("TrackInfoPage.qml"))
-//            }
-//            onClicked: {
-//                console.log("track click")
-//                currentTrack = model
-//            }
-//            onDoubleClicked: {
-//                console.log("track double click")
-//                currentTrack = model
-//                mediaplayer.currentTrack = model.trackObject
-//                mediaplayer.resetPlaylist()
-//            }
         }
     }
 

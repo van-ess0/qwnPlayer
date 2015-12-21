@@ -16,7 +16,6 @@ Item {
         id: albumView
 
         model: artistModel.subModelFromId(currentArtistId)
-//        model: currentArtist
 
         anchors.margins: 10
         anchors.fill: parent
@@ -36,7 +35,6 @@ Item {
                 console.log("album set current element")
                 albumView.currentIndex = model.index
                 currentAlbumId = model.albumId
-//                currentAlbum = model
                 mediaplayer.currentAlbum = model
             }
 
@@ -57,12 +55,12 @@ Item {
             function onClicked() {
                 setCurrentElement()
                 console.log("album click")
-                stackView.push(Qt.resolvedUrl("TrackList.qml"))
             }
 
             function onDoubleClicked() {
                 setCurrentElement()
                 console.log("album double click")
+                stackView.push(Qt.resolvedUrl("TrackList.qml"))
             }
         }
     }

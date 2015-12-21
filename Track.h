@@ -23,7 +23,6 @@ private:
 		trackTitle,
 		trackAudioType,
 		trackServerPath
-//		trackObject
 	};
 
 public:
@@ -31,72 +30,17 @@ public:
 				   const QString& title,
 				   const QString& type,
 				   const QString& path,
-				   QObject *parent = 0)
-		:
-		  Models::ListItem(parent)
-	{
-		m_number		= number;
-		m_title			= title;
-		m_audioType		= type;
-		m_serverPath	= path;
-		m_globalId		= GlobalTrackIndex::instance()->getIndex();
-	}
-	quint32 getNumber() const {
-		return m_number;
-	}
-	QString getTitle() const {
-		return m_title;
-	}
-	QString getAudioType() const {
-		return m_audioType;
-	}
-	QString getServerPath() const {
-		return m_serverPath;
-	}
-//	const Track* getObject() const {
-//		return this;
-//	}
+				   QObject *parent = 0);
+	quint32 getNumber() const;
+	QString getTitle() const;
+	QString getAudioType() const;
+	QString getServerPath() const;
 
 	// ListItem interface
 public:
-	virtual int id() const
-	{
-		return m_globalId;
-	}
-	virtual QVariant data(int role) const
-	{
-		switch (role) {
-		case trackId:
-			return this->id();
-		case trackNumber:
-			return this->getNumber();
-		case trackTitle:
-			return this->getTitle();
-		case trackAudioType:
-			return this->getAudioType();
-		case trackServerPath:
-			return this->getServerPath();
-//		case trackObject:
-//			return this->getObject();
-		default:
-			return QVariant();
-		}
-	}
-	virtual QHash<int, QByteArray> roleNames() const
-	{
-		QHash<int, QByteArray> roles;
-
-		roles[trackId]			= "trackId";
-		roles[trackNumber]		= "trackNumber";
-		roles[trackTitle]		= "trackTitle";
-		roles[trackAudioType]	= "trackAudioType";
-		roles[trackServerPath]	= "trackServerPath";
-//		roles[trackObject]		= "trackObject";
-
-		return roles;
-	}
+	virtual int id() const;
+	virtual QVariant data(int role) const;
+	virtual QHash<int, QByteArray> roleNames() const;
 };
-
-Q_DECLARE_METATYPE(Models::ListItem*)
 
 #endif // TRACK_H

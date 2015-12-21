@@ -14,8 +14,7 @@ SOURCES += main.cpp \
     Models/ListModel.cpp \
     Models/SubListedListModel.cpp \
     GlobalIndex.cpp \
-    SettingsManager.cpp \
-    QwnMediaPlaylist.cpp
+    SettingsManager.cpp
 
 RESOURCES += qml.qrc \
     media.qrc
@@ -40,8 +39,7 @@ HEADERS += \
     Models/SubListedListModel.h \
     SingletonTemplate.h \
     GlobalIndex.h \
-    SettingsManager.h \
-    QwnMediaPlaylist.h
+    SettingsManager.h
 
 DISTFILES += \
     settings.conf \

@@ -3,7 +3,6 @@
 
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
-#include <QVariant>
 #include <QQmlProperty>
 
 #include "Artist.h"

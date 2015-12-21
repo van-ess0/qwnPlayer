@@ -4,6 +4,7 @@ Item {
     id: trackListView
 
     Text {
+        id: text_page
         text: qsTr("This is track Page")
     }
 
@@ -14,7 +15,6 @@ Item {
         id: trackView
 
         model: artistModel.subModelFromId(currentArtistId).subModelFromId(currentAlbumId)
-//        model: currentAlbum
 
         anchors.margins: 10
         anchors.fill: parent

@@ -10,10 +10,6 @@ Item {
     width: parent.width
     height: parent.height
 
-//    AlbumList {
-//        id: albumListView
-//    }
-
     ListView {
         id: artistView
 
@@ -58,12 +54,12 @@ Item {
             function onClicked() {
                 setCurrentElement()
                 console.log("artist click")
-                stackView.push(Qt.resolvedUrl("AlbumList.qml"))
             }
 
             function onDoubleClicked() {
                 setCurrentElement()
                 console.log("artist double click")
+                stackView.push(Qt.resolvedUrl("AlbumList.qml"))
             }
         }
     }
