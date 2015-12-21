@@ -10,9 +10,16 @@ unix:!android {
     INSTALLS += target
 }
 
-macx {
-  QMAKE_MAC_SDK = macosx10.11
-  QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.11
+#macosx {
+#    QMAKE_MAC_SDK.macosx.version = 10.11
+#    QMAKE_MAC_SDK = macosx10.11
+#    QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.11
+#    QMAKE_INFO_PLIST = Info.plist
+#}
+
+ios {
+    QMAKE_MAC_SDK.macosx.version = 10.11
+    QMAKE_INFO_PLIST = Info.plist
 }
 
 winrt {

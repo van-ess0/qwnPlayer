@@ -27,6 +27,7 @@ Item {
         highlight: Rectangle {
             color: "skyblue"
         }
+
         highlightFollowsCurrentItem: true
 
         delegate: LibraryElement {

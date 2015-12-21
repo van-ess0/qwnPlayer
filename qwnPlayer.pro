@@ -44,5 +44,6 @@ HEADERS += \
     QwnMediaPlaylist.h
 
 DISTFILES += \
-    settings.conf
+    settings.conf \
+    Info.plist
 

@@ -30,15 +30,6 @@ ApplicationWindow {
         onSignalDurationChanged: bottomPanel.onDurationChanged(duration)
     }
 
-    PulleyMenu {
-        id: pulleyMenu
-        anchors.bottom: bottomPanel.visible ? bottomPanel.top: parent.bottom
-
-    }
-    BottomPanel {
-        id: bottomPanel
-
-    }
     //Some navigation shit O_o
 
     StackView {
@@ -61,6 +52,16 @@ ApplicationWindow {
                              event.accepted = true;
                          }
         initialItem: Qt.resolvedUrl("HomePage.qml")
+    }
+
+    PulleyMenu {
+        id: pulleyMenu
+        anchors.bottom: bottomPanel.visible ? bottomPanel.top: parent.bottom
+    }
+
+    BottomPanel {
+        id: bottomPanel
+
     }
 
 }

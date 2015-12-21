@@ -40,10 +40,17 @@ Item {
 
         Text {
             id: trackLength
-            text: qsTr(progressSlider.maximumValue.toString())
+            text: filling()
             anchors {
                 verticalCenter: progressSlider.verticalCenter
                 left: progressSlider.right
+            }
+            function filling()
+            {
+                var seconds = (progressSlider.maximumValue % 60).toString();
+                var minutes = ((progressSlider.maximumValue - seconds) / 60).toString();
+
+                return (qsTr(minutes + ":" + seconds))
             }
         }
 
