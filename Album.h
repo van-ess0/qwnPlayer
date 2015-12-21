@@ -84,18 +84,9 @@ public:
 		m_tracksModel->appendRow(track);
 	}
 
-	QList< QSharedPointer<Models::ListItem> > getTracks() const {
+	QVariant getTracks() const {
 
-		QList<Models::ListItem*> tracks = m_tracksModel->toList();
-		QList< QSharedPointer<Models::ListItem> > tracks_sp;
-		foreach (Models::ListItem* track, tracks) {
-			QSharedPointer<Models::ListItem> pointer
-					= QSharedPointer<Models::ListItem>(track);
-			tracks_sp << pointer;
-
-		}
-
-		return tracks_sp;
+		return QVariant::fromValue< QSharedPointer<Models::ListModel> >(m_tracksModel);
 	}
 
 
@@ -116,7 +107,7 @@ public:
 		case albumYear:
 			return this->getYear();
 		case albumTracks:
-			return QVariant::fromValue< QSharedPointer<Models::ListModel> >(this->m_tracksModel);
+			return this->getTracks();
 		default:
 			return QVariant();
 		}

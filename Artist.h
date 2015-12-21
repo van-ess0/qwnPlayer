@@ -23,11 +23,12 @@ private:
 	enum ArtistModelItemRoles {
 		artistId = Qt::UserRole + 1,
 		artistName,
+		artistAlbums
 //		albumYear,
 //		albumTracks
 	};
 
-	Models::SubListedListModel* m_albumsModel;
+	QSharedPointer<Models::SubListedListModel> m_albumsModel;
 
 public:
 	explicit Artist(const QString& name,
@@ -38,17 +39,22 @@ public:
 		m_name		= name;
 		m_globalId	= GlobalArtistIndex::instance()->getIndex();
 
-		m_albumsModel = new Models::SubListedListModel(new Album("empty", 0, NULL));
+		m_albumsModel = QSharedPointer<Models::SubListedListModel>(new Models::SubListedListModel(new Album("empty", 0, NULL)));
 	}
 
 	QString getName() const {
 		return m_name;
 	}
-	void setName(const QString& name) {
-		if (name != m_name) {
-			m_name = name;
-			emit nameChanged();
-		}
+//	void setName(const QString& name) {
+//		if (name != m_name) {
+//			m_name = name;
+//			emit nameChanged();
+//		}
+//	}
+
+	QVariant getAlbums() const {
+
+		return QVariant::fromValue< QSharedPointer<Models::SubListedListModel> >(m_albumsModel);
 	}
 
 
@@ -84,6 +90,8 @@ public:
 			return this->id();
 		case artistName:
 			return this->getName();
+		case artistAlbums:
+			return this->getAlbums();
 		default:
 			return QVariant();
 		}
@@ -94,6 +102,7 @@ public:
 
 		roles[artistId]		= "artistId";
 		roles[artistName]	= "artistName";
+		roles[artistAlbums] = "artistAlbums";
 //		roles[albumYear]	= "albumYear";
 //		roles[albumTracks]	= "albumTracks";
 
@@ -102,9 +111,9 @@ public:
 
 	// SubListedListItem interface
 public:
-	virtual Models::ListModel*submodel() const
+	virtual Models::ListModel* submodel() const
 	{
-		return m_albumsModel;
+		return m_albumsModel.data();
 	}
 };
 

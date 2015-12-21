@@ -38,12 +38,16 @@ Item {
                 console.log("artist set current element")
                 artistView.currentIndex = model.index
                 currentArtistId = model.artistId
-                currentArtist = model
+                mediaplayer.currentArtist = model
             }
 
             function onPlayTouched() {
                 setCurrentElement()
                 console.log("Play artist touched")
+
+                mediaplayer.stopPlaying()
+                mediaplayer.settingCurrentArtistToPlaylist()
+                mediaplayer.startPlaying()
             }
 
             function onPressAndHold() {

@@ -12,8 +12,20 @@ class QwnMediaPlayer : public QObject
 {
 	Q_OBJECT
 
-	Q_PROPERTY(QVariant currentTrack READ currentTrack WRITE setCurrentTrack NOTIFY currentTrackChanged)
-	Q_PROPERTY(QVariant currentAlbum READ currentAlbum WRITE setCurrentAlbum NOTIFY currentAlbumChanged)
+	Q_PROPERTY(QVariant currentTrack
+			   READ currentTrack
+			   WRITE setCurrentTrack
+			   NOTIFY currentTrackChanged)
+
+	Q_PROPERTY(QVariant currentAlbum
+			   READ currentAlbum
+			   WRITE setCurrentAlbum
+			   NOTIFY currentAlbumChanged)
+
+	Q_PROPERTY(QVariant currentArtist
+			   READ currentArtist
+			   WRITE setCurrentArtist
+			   NOTIFY currentArtistChanged)
 
 private:
 	QMediaPlayer* m_player;
@@ -39,6 +51,10 @@ public:
 		return m_currentAlbum;
 	}
 
+	QVariant currentArtist() const {
+		return m_currentArtist;
+	}
+
 	void setCurrentTrack(const QVariant& track) {
 		qDebug() << "set current track";
 		if (track != m_currentTrack) {
@@ -55,7 +71,13 @@ public:
 		}
 	}
 
-
+	void setCurrentArtist(const QVariant& artist) {
+		qDebug() << "set current artist";
+		if (artist != m_currentArtist) {
+			m_currentArtist = artist;
+			emit currentArtistChanged();
+		}
+	}
 	// Create 'onNameOfSignal' handler in qml for signal 'nameOfSignal'
 	// if you want to handle it :)
 signals:
@@ -67,6 +89,7 @@ signals:
 
 	void currentTrackChanged();
 	void currentAlbumChanged();
+	void currentArtistChanged();
 
 	void signalPositionChanged(qint64 progress);
 	void signalDurationChanged(qint64 duration);
@@ -158,6 +181,45 @@ public slots:
 			url.setPassword(m_password);
 
 			m_playlist->addMedia(url);
+		}
+	}
+
+	void settingCurrentArtistToPlaylist() {
+		qDebug() << "setting current artist to playlist";
+
+		QObject* artistModel = qvariant_cast<QObject*>(m_currentArtist);
+
+		if (!artistModel) {
+			qDebug() << "cast album artist";
+			return;
+		}
+
+		qDebug() << QQmlProperty(artistModel, "artistName").read().toString();
+
+		QVariant var = QQmlProperty(artistModel, "artistAlbums").read();
+		QSharedPointer<Models::SubListedListModel> albums = var.value< QSharedPointer<Models::SubListedListModel> >();
+
+		if (albums.isNull()) {
+			qDebug() << "cast album tracks error";
+			return;
+		}
+
+		foreach (Models::ListItem* album, albums->toList()) {
+			Album* album_obj = qobject_cast<Album*>(album);
+			qDebug() << album_obj->getName();
+
+			foreach (Models::ListItem* track, album_obj->submodel()->toList()) {
+				Track* track_obj = qobject_cast<Track*>(track);
+
+				QString serverPath = track_obj->getServerPath();
+				qDebug() << track_obj->getTitle() << serverPath;
+
+				QUrl url(serverPath);
+				url.setUserName(m_username);
+				url.setPassword(m_password);
+
+				m_playlist->addMedia(url);
+			}
 		}
 	}
 
