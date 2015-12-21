@@ -9,21 +9,21 @@ Item {
             width: parent.width
             height: 20
             Text {
-                text: "Title: " + currentTrack.trackTitle
+                text: "Title: " + mediaplayer.currentTrack.trackTitle
             }
         }
         Rectangle {
             width: parent.width
             height: 20
             Text {
-                text: "Year: " + currentAlbum.albumYear
+                text: "Year: " + mediaplayer.currentAlbum.albumYear
             }
         }
         Rectangle {
             width: parent.width
             height: 20
             Text {
-                text: "Album: " + currentAlbum.albumName
+                text: "Album: " + mediaplayer.currentAlbum.albumName
             }
         }
         Rectangle {
@@ -37,14 +37,14 @@ Item {
             width: parent.width
             height: 20
             Text {
-                text: "Type: " + currentTrack.trackAudioType
+                text: "Type: " + mediaplayer.currentTrack.trackAudioType
             }
         }
         Rectangle {
             width: parent.width
             height: 20
             Text {
-                text: "Path: " + currentTrack.trackServerPath
+                text: "Path: " + mediaplayer.currentTrack.trackServerPath
             }
         }
     }

@@ -138,17 +138,17 @@ public slots:
 
 		qDebug() << QQmlProperty(albumModel, "albumName").read().toString();
 
-		QVariantList var = QQmlProperty(albumModel, "albumTracks").read().toList();
-		QList< QSharedPointer<Models::ListItem> > tracks = fromVariantList< QSharedPointer<Models::ListItem> >(var);
+		QVariant var = QQmlProperty(albumModel, "albumTracks").read();
+		QSharedPointer<Models::ListModel> tracks = var.value< QSharedPointer<Models::ListModel> >();
 
-		if (tracks.isEmpty()) {
+		if (tracks.isNull()) {
 			qDebug() << "cast album tracks error";
 			return;
 		}
 
-		foreach (QSharedPointer<Models::ListItem> track, tracks) {
+		foreach (Models::ListItem* track, tracks->toList()) {
 
-			Track* track_obj = qobject_cast<Track*>(track.data());
+			Track* track_obj = qobject_cast<Track*>(track);
 
 			QString serverPath = track_obj->getServerPath();
 			qDebug() << serverPath;

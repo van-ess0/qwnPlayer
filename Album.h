@@ -51,7 +51,7 @@ private:
 		albumTracks
 	};
 
-	Models::ListModel* m_tracksModel;
+	QSharedPointer<Models::ListModel> m_tracksModel;
 
 public:
 	explicit Album(const QString& name,
@@ -64,7 +64,7 @@ public:
 		m_year		= year;
 		m_globalId	= GlobalAlbumIndex::instance()->getIndex();
 
-		m_tracksModel = new Models::ListModel(new Track(0, "empty", "empty", "empty", NULL));
+		m_tracksModel = QSharedPointer<Models::ListModel>(new Models::ListModel(new Track(0, "empty", "empty", "empty", NULL)));
 	}
 
 	QString getName() const {
@@ -98,6 +98,8 @@ public:
 		return tracks_sp;
 	}
 
+
+
 	// ListItem interface
 public:
 	virtual int id() const
@@ -114,7 +116,7 @@ public:
 		case albumYear:
 			return this->getYear();
 		case albumTracks:
-				return toVariantList< QSharedPointer<Models::ListItem> >(this->getTracks());
+			return QVariant::fromValue< QSharedPointer<Models::ListModel> >(this->m_tracksModel);
 		default:
 			return QVariant();
 		}
@@ -135,7 +137,7 @@ public:
 public:
 	virtual Models::ListModel* submodel() const
 	{
-		return m_tracksModel;
+		return m_tracksModel.data();
 	}
 };
 
