@@ -36,12 +36,16 @@ Item {
                 console.log("album set current element")
                 albumView.currentIndex = model.index
                 currentAlbumId = model.albumId
-                currentAlbum = model
+//                currentAlbum = model
+                mediaplayer.currentAlbum = model
             }
 
             function onPlayTouched() {
                 setCurrentElement()
                 console.log("Play album touched")
+
+                mediaplayer.settingCurrentAlbumToPlaylist()
+
             }
 
             function onPressAndHold() {

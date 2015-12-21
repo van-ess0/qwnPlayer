@@ -33,7 +33,6 @@ Item {
             function setCurrentElement() {
                 console.log("track set current element")
                 trackView.currentIndex = model.index
-//                currentTrack = model
                 mediaplayer.currentTrack = model
             }
 

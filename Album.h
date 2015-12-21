@@ -2,9 +2,20 @@
 #define ALBUM_H
 
 #include <QList>
+#include <QVariantList>
 #include "Track.h"
 #include "Models/SubListedListItem.h"
 #include "Models/ListModel.h"
+
+template <typename T>
+QVariantList toVariantList( const QList<T> &list )
+{
+	QVariantList newList;
+	foreach( const T &item, list )
+		newList << item;
+
+	return newList;
+}
 
 class Album : public Models::SubListedListItem
 {
@@ -24,7 +35,7 @@ private:
 		albumId = Qt::UserRole + 1,
 		albumName,
 		albumYear,
-//		albumTracks
+		albumTracks
 	};
 
 	Models::ListModel* m_tracksModel;
@@ -60,6 +71,12 @@ public:
 		m_tracksModel->appendRow(track);
 	}
 
+	QList<Models::ListItem*> getTracks() const{
+
+		QList<Models::ListItem*> tracks = m_tracksModel->toList();
+		return tracks;
+	}
+
 	// ListItem interface
 public:
 	virtual int id() const
@@ -75,6 +92,8 @@ public:
 			return this->getName();
 		case albumYear:
 			return this->getYear();
+		case albumTracks:
+				return toVariantList(this->getTracks());
 		default:
 			return QVariant();
 		}
@@ -86,7 +105,7 @@ public:
 		roles[albumId]		= "albumId";
 		roles[albumName]	= "albumName";
 		roles[albumYear]	= "albumYear";
-//		roles[albumTracks]	= "albumTracks";
+		roles[albumTracks]	= "albumTracks";
 
 		return roles;
 	}

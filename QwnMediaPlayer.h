@@ -13,6 +13,7 @@ class QwnMediaPlayer : public QObject
 	Q_OBJECT
 
 	Q_PROPERTY(QVariant currentTrack READ currentTrack WRITE setCurrentTrack NOTIFY currentTrackChanged)
+	Q_PROPERTY(QVariant currentAlbum READ currentAlbum WRITE setCurrentAlbum NOTIFY currentAlbumChanged)
 
 private:
 	QMediaPlayer* m_player;
@@ -24,6 +25,8 @@ private:
 	bool m_isPlaying;
 
 	QVariant m_currentTrack;
+	QVariant m_currentAlbum;
+	QVariant m_currentArtist;
 
 public:
 	explicit QwnMediaPlayer(QObject *parent = 0);
@@ -32,11 +35,23 @@ public:
 		return m_currentTrack;
 	}
 
+	QVariant currentAlbum() const {
+		return m_currentAlbum;
+	}
+
 	void setCurrentTrack(const QVariant& track) {
 		qDebug() << "set current track";
 		if (track != m_currentTrack) {
 			m_currentTrack = track;
 			emit currentTrackChanged();
+		}
+	}
+
+	void setCurrentAlbum(const QVariant& album) {
+		qDebug() << "set current album";
+		if (album != m_currentAlbum) {
+			m_currentAlbum = album;
+			emit currentAlbumChanged();
 		}
 	}
 
@@ -51,6 +66,8 @@ signals:
 //	void qmlSlotEmpty();
 
 	void currentTrackChanged();
+	void currentAlbumChanged();
+
 	void signalPositionChanged(qint64 progress);
 	void signalDurationChanged(qint64 duration);
 
@@ -83,6 +100,12 @@ public slots:
 		m_isPlaying = false;
 	}
 
+	void startPlaying() {
+		qDebug() << "play";
+		m_isPlaying = true;
+		m_player->play();
+	}
+
 	void settingCurrentTrackToPlaylist() {
 		qDebug() << "setting current track to playlist";
 		QObject* trackModel = qvariant_cast<QObject*>(m_currentTrack);
@@ -103,10 +126,25 @@ public slots:
 		m_playlist->addMedia(url);
 	}
 
-	void startPlaying() {
-		qDebug() << "play";
-		m_isPlaying = true;
-		m_player->play();
+	void settingCurrentAlbumToPlaylist() {
+		qDebug() << "setting current album to playlist";
+
+		QObject* albumModel = qvariant_cast<QObject*>(m_currentAlbum);
+
+		if (!albumModel) {
+			qDebug() << "cast album error";
+			return;
+		}
+
+		qDebug() << QQmlProperty(albumModel, "albumName").read().toString();
+
+		QVariant var = QQmlProperty(albumModel, "albumTracks").read();
+		QList<Track*> tracks = qvariant_cast< QList<Track*> >(var);
+
+		if (tracks.isEmpty()) {
+			qDebug() << "cast album tracks error";
+			return;
+		}
 	}
 
 //	void setCurrentTrack(Track* track);
