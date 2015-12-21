@@ -3,6 +3,7 @@
 
 #include <QList>
 #include <QVariantList>
+#include <QSharedPointer>
 #include "Track.h"
 #include "Models/SubListedListItem.h"
 #include "Models/ListModel.h"
@@ -11,8 +12,20 @@ template <typename T>
 QVariantList toVariantList( const QList<T> &list )
 {
 	QVariantList newList;
-	foreach( const T &item, list )
-		newList << item;
+	foreach( const T &item, list ) {
+		newList << QVariant::fromValue<T>(item);
+	}
+	return newList;
+}
+
+template <typename T>
+QList<T> fromVariantList( const QVariantList &list )
+{
+	QList<T> newList;
+	foreach( const QVariant &item, list ) {
+		T value = item.value<T>();
+		newList << value;
+	}
 
 	return newList;
 }
@@ -71,10 +84,18 @@ public:
 		m_tracksModel->appendRow(track);
 	}
 
-	QList<Models::ListItem*> getTracks() const{
+	QList< QSharedPointer<Models::ListItem> > getTracks() const {
 
 		QList<Models::ListItem*> tracks = m_tracksModel->toList();
-		return tracks;
+		QList< QSharedPointer<Models::ListItem> > tracks_sp;
+		foreach (Models::ListItem* track, tracks) {
+			QSharedPointer<Models::ListItem> pointer
+					= QSharedPointer<Models::ListItem>(track);
+			tracks_sp << pointer;
+
+		}
+
+		return tracks_sp;
 	}
 
 	// ListItem interface
@@ -93,7 +114,7 @@ public:
 		case albumYear:
 			return this->getYear();
 		case albumTracks:
-				return toVariantList(this->getTracks());
+				return toVariantList< QSharedPointer<Models::ListItem> >(this->getTracks());
 		default:
 			return QVariant();
 		}

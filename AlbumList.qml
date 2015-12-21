@@ -44,8 +44,9 @@ Item {
                 setCurrentElement()
                 console.log("Play album touched")
 
+                mediaplayer.stopPlaying()
                 mediaplayer.settingCurrentAlbumToPlaylist()
-
+                mediaplayer.startPlaying()
             }
 
             function onPressAndHold() {

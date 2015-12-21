@@ -97,4 +97,6 @@ public:
 	}
 };
 
+Q_DECLARE_METATYPE(Models::ListItem*)
+
 #endif // TRACK_H
