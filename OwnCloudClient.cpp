@@ -1,5 +1,6 @@
 #include "OwnCloudClient.h"
 #include <QDebug>
+#include "SettingsManager.h"
 
 OwnCloudClient::OwnCloudClient(QObject *parent) : QObject(parent)
 {
@@ -13,14 +14,14 @@ OwnCloudClient::OwnCloudClient(QObject *parent) : QObject(parent)
 void OwnCloudClient::auth()
 {
 	emit signalLog("HI!!!");
-	m_username = "degree";
-	m_password = "Fcnhjabpbrf95";
+	m_username = SettingsManager::instance()->getUserName();
+	m_password = SettingsManager::instance()->getUserPassword();
 
-	QUrl url;
-	url.setScheme("http");
-	url.setHost("vaness0.ga");
-	url.setPort(83);
-	url.setPath("/owncloud/index.php/apps/music/api/collection");
+	QUrl url(SettingsManager::instance()->getOwnCloudHost());
+//	url.setScheme("http");
+//	url.setHost("vaness0.ga");
+//	url.setPort(83);
+	url.setPath(SettingsManager::instance()->getApiMusicCollection());
 	url.setUserName(m_username);
 	url.setPassword(m_password);
 
