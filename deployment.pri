@@ -10,16 +10,9 @@ unix:!android {
     INSTALLS += target
 }
 
-#macosx {
-#    QMAKE_MAC_SDK.macosx.version = 10.11
-#    QMAKE_MAC_SDK = macosx10.11
-#    QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.11
-#    QMAKE_INFO_PLIST = Info.plist
-#}
-
-ios {
-    QMAKE_MAC_SDK.macosx.version = 10.11
-    QMAKE_INFO_PLIST = Info.plist
+macx {
+  QMAKE_MAC_SDK = macosx10.11
+  QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.11
 }
 
 winrt {
@@ -33,12 +26,6 @@ winrt {
     WINRT_MANIFEST.capabilities += internetClient musicLibrary
     WINRT_MANIFEST.rotation_preference = "portrait"
     CONFIG += windeployqt
-}
-
-win32 {
-    install_it.path = $$OUT_PWD
-    install_it.files += $$PWD/settings.conf
-    INSTALLS += install_it
 }
 
 export(INSTALLS)

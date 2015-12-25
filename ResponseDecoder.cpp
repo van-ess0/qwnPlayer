@@ -3,7 +3,7 @@
 #include <QStringList>
 #include <QJsonDocument>
 #include <QJsonArray>
-
+#include <QJsonObject>
 
 ResponseDecoder::ResponseDecoder(QObject *parent) : QObject(parent)
 {
@@ -18,105 +18,79 @@ void ResponseDecoder::decode(const QString& dataType, const QByteArray& data)
 
 void ResponseDecoder::decodeCollection(const QByteArray& data)
 {
+	QList<Artist*> artists;
 
 	// Looking for artists in json
 	QJsonDocument doc = QJsonDocument::fromJson(data);
-	QList<Artist*> library = assembleLibrary(doc.array());
+	QJsonArray artistArray = doc.array();
+
+	foreach (const QJsonValue& artistJsonValue, artistArray) {
+
+		// Strange casting.. whatever
+		QJsonObject artistJson = artistJsonValue.toObject();
+
+		// Creating new artist object
+		Artist* artist = new Artist(artistJson["name"].toString());
+
+		// Looking for albums in json
+		QJsonArray albumArray = artistJson["albums"].toArray();
+
+		foreach (const QJsonValue& albumJsonValue, albumArray) {
+
+			// Strange casting.. whatever
+			QJsonObject albumJson = albumJsonValue.toObject();
+
+			// Creating new album object
+			Album* album = new Album(
+								// Album name
+								albumJson["name"].toString(),
+								// Year
+								albumJson["year"].toInt(),
+								// parent object
+								artist);
+
+
+			// Looking for tracks in json
+			QJsonArray trackArray = albumJson["tracks"].toArray();
+
+			foreach (const QJsonValue& trackJsonValue, trackArray) {
+
+				// Strange casting.. whatever
+				QJsonObject trackJson = trackJsonValue.toObject();
+
+				// Parsing audio type, because
+				// json key is string description of type
+				QJsonObject file = trackJson["files"].toObject();
+				QString type = file.keys().first();
+
+				// Creating new track object
+				Track* track = new Track(
+									// Track number
+									trackJson["number"].toInt(),
+									// Title
+									trackJson["title"].toString(),
+									// Audio type (flac, mpeg)
+									type,
+									// Server path to file
+									trackJson["files"].toObject()[type].toString(),
+									// parent object
+									album);
+
+				// Adding track to album
+				album->addTrack(track);
+			}
+
+			// Adding album with tracks to artist
+			artist->addAlbum(album);
+
+		}
+
+		// Adding artist to list
+		artists.append(artist);
+	}
 
 	// TODO: need to move forward the artist list
-	emit signalCollectionDataParsed(library);
-}
-
-Track* ResponseDecoder::createTrack(const QJsonObject& jsonObject, QObject* parent)
-{
-	// Parsing audio type, because
-	// json key is string description of type
-	QJsonObject file = jsonObject["files"].toObject();
-	QString type = file.keys().first();
-
-	// Creating new track object
-	Track* track = new Track(
-						// Track number
-						jsonObject["number"].toInt(),
-						// Title
-						jsonObject["title"].toString(),
-						// Audio type (flac, mpeg)
-						type,
-						// Server path to file
-						jsonObject["files"].toObject()[type].toString(),
-						// parent object
-						parent);
-
-	return track;
-}
-
-Album* ResponseDecoder::createAlbum(const QJsonObject& jsonObject, QObject* parent)
-{
-	// Creating new album object
-	Album* album = new Album(
-						// Album name
-						jsonObject["name"].toString(),
-						// Year
-						jsonObject["year"].toInt(),
-						// parent object
-			parent);
-
-	return album;
-}
-
-Artist* ResponseDecoder::createArtist(const QJsonObject& jsonObject, QObject* parent)
-{
-	// Creating new artist object
-	Artist* artist = new Artist(jsonObject["name"].toString(), parent);
-
-	return artist;
-}
-
-Album* ResponseDecoder::assembleAlbum(const QJsonObject& albumJson, Artist* artist)
-{
-	// Creating album from json
-	Album* album = createAlbum(albumJson, artist);
-
-	// Looking for tracks in json
-	QJsonArray trackArray = albumJson["tracks"].toArray();
-
-	foreach (const QJsonValue& trackJsonValue, trackArray) {
-
-		// Creating track from json
-		Track* track = createTrack(trackJsonValue.toObject(), album);
-
-		// Adding track to album
-		album->addTrack(track);
-	}
-
-	return album;
-}
-
-Artist* ResponseDecoder::assembleArtist(const QJsonObject& artistJson)
-{
-	// Creating artist from json
-	Artist* artist = createArtist(artistJson);
-
-	// Looking for albums in json
-	QJsonArray albumArray = artistJson["albums"].toArray();
-
-	foreach (const QJsonValue& albumJsonValue, albumArray) {
-		// Adding album with tracks to artist
-		artist->addAlbum(assembleAlbum(albumJsonValue.toObject(), artist));
-
-	}
-
-	return artist;
-}
-
-QList<Artist*> ResponseDecoder::assembleLibrary(const QJsonArray& artistArray)
-{
-	QList<Artist*> artists;
-	foreach (const QJsonValue& artistJsonValue, artistArray) {
-		// Adding artist to list
-		artists.append(assembleArtist(artistJsonValue.toObject()));
-	}
-	return artists;
+	emit signalCollectionDataParsed(artists);
 }
 
 void ResponseDecoder::slotCollectionData(QByteArray rawData)

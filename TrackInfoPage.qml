@@ -9,42 +9,42 @@ Item {
             width: parent.width
             height: 20
             Text {
-                text: "Title: " + mediaplayer.currentTrack.trackTitle
+                text: "Title: " + currentTrack.trackTitle
             }
         }
         Rectangle {
             width: parent.width
             height: 20
             Text {
-                text: "Year: " + mediaplayer.currentAlbum.albumYear
+                text: "Year: " + currentAlbum.albumYear
             }
         }
         Rectangle {
             width: parent.width
             height: 20
             Text {
-                text: "Album: " + mediaplayer.currentAlbum.albumName
+                text: "Album: " + currentAlbum.albumName
             }
         }
         Rectangle {
             width: parent.width
             height: 20
             Text {
-                text: "Artist: " + mediaplayer.currentArtist.artistName
+                text: "Artist: " + currentArtist.artistName
             }
         }
         Rectangle {
             width: parent.width
             height: 20
             Text {
-                text: "Type: " + mediaplayer.currentTrack.trackAudioType
+                text: "Type: " + currentTrack.trackAudioType
             }
         }
         Rectangle {
             width: parent.width
             height: 20
             Text {
-                text: "Path: " + mediaplayer.currentTrack.trackServerPath
+                text: "Path: " + currentTrack.trackServerPath
             }
         }
     }

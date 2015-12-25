@@ -10,6 +10,10 @@ Item {
     width: parent.width
     height: parent.height
 
+//    AlbumList {
+//        id: albumListView
+//    }
+
     ListView {
         id: artistView
 
@@ -23,44 +27,41 @@ Item {
         highlight: Rectangle {
             color: "skyblue"
         }
-
         highlightFollowsCurrentItem: true
 
-        delegate: LibraryElement {
-            element_view: artistView
-            element_text: model.artistName
+        delegate: Item {
+            width: artistView.width
+            height: 40
 
-            function setCurrentElement() {
-                console.log("artist set current element")
-                artistView.currentIndex = model.index
-                currentArtistId = model.artistId
-                mediaplayer.currentArtist = model
+            Rectangle {
+                anchors.margins: 5
+                anchors.fill: parent
+                radius: height / 2
+
+
+//                color: model.color
+
+                border {
+                    color: "black"
+                    width: 1
+                }
+                Text {
+                    anchors.centerIn: parent
+                    renderType: Text.NativeRendering
+                    text: model.artistName
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        artistView.currentIndex = model.index
+                        currentArtistId = model.artistId
+                        currentArtist = model
+                        stackView.push(Qt.resolvedUrl("AlbumList.qml"))
+                    }
+                }
             }
 
-            function onPlayTouched() {
-                setCurrentElement()
-                console.log("Play artist touched")
-
-                mediaplayer.stopPlaying()
-                mediaplayer.settingCurrentArtistToPlaylist()
-                mediaplayer.startPlaying()
-            }
-
-            function onPressAndHold() {
-                setCurrentElement()
-                console.log("artist press and hold")
-            }
-
-            function onClicked() {
-                setCurrentElement()
-                console.log("artist click")
-            }
-
-            function onDoubleClicked() {
-                setCurrentElement()
-                console.log("artist double click")
-                stackView.push(Qt.resolvedUrl("AlbumList.qml"))
-            }
         }
     }
 }
