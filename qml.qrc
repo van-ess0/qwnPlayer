@@ -14,5 +14,6 @@
         <file>AlbumList.qml</file>
         <file>TrackList.qml</file>
         <file>TrackInfoPage.qml</file>
+        <file>LibraryElement.qml</file>
     </qresource>
 </RCC>
