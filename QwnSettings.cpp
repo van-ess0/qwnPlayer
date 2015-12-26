@@ -23,47 +23,6 @@ QwnSettings::QwnSettings(QObject* parent) : QObject(parent)
 	connect(this, SIGNAL(usernameChanged()), SLOT(slotUsernameChanged()));
 	connect(this, SIGNAL(passwordChanged()), SLOT(slotPasswordChanged()));
 
-
-}
-
-QString QwnSettings::url() const {
-	return m_url;
-}
-
-QString QwnSettings::username() const {
-	return m_username;
-}
-
-QString QwnSettings::password() const {
-	return m_password;
-}
-
-bool QwnSettings::is_initialized() const {
-	return m_is_initialized;
-}
-
-void QwnSettings::setUrl(const QString& url) {
-	qDebug() << "set url";
-	if (url != m_url) {
-		m_url = url;
-		emit urlChanged();
-	}
-}
-
-void QwnSettings::setUsername(const QString& username) {
-	qDebug() << "set username";
-	if (username != m_username) {
-		m_username = username;
-		emit usernameChanged();
-	}
-}
-
-void QwnSettings::setPassword(const QString& password) {
-	qDebug() << "set username";
-	if (password != m_password) {
-		m_password = password;
-		emit passwordChanged();
-	}
 }
 
 void QwnSettings::slotUrlChanged() {

@@ -3,23 +3,7 @@
 
 #include <QSettings>
 #include "SingletonTemplate.h"
-
-#define GET_STRING(NAME, KEY, DEFAULT_VALUE) \
-	virtual QString get##NAME() const { \
-		QSettings settings(m_filename, QSettings::IniFormat); \
-		return settings.value(KEY, DEFAULT_VALUE).toString(); \
-	}
-
-#define SET_STRING(NAME, KEY) \
-	virtual void set##NAME(const QString& value)  { \
-		QSettings settings(m_filename, QSettings::IniFormat); \
-		settings.setValue(KEY, value); \
-		settings.sync(); \
-	}
-
-#define GET_SET_STRING(NAME, KEY, DEFAULT_VALUE) \
-	GET_STRING(NAME, KEY, DEFAULT_VALUE) \
-	SET_STRING(NAME, KEY)
+#include "Macros.h"
 
 class SettingsManager :
 		public QObject,

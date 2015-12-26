@@ -41,7 +41,8 @@ HEADERS += \
     SingletonTemplate.h \
     GlobalIndex.h \
     SettingsManager.h \
-    QwnSettings.h
+    QwnSettings.h \
+    Macros.h
 
 DISTFILES += \
     settings.conf \
