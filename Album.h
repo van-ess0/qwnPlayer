@@ -16,8 +16,8 @@ private:
 	QString m_name;
 	quint32 m_year;
 
-	/// TODO: add covers
-	// QByteArray m_cover;
+	// path on server (in case OwnCloud music app will work fine)
+	QString m_cover;
 
 	quint64 m_globalId;
 
@@ -25,7 +25,8 @@ private:
 		albumId = Qt::UserRole + 1,
 		albumName,
 		albumYear,
-		albumTracks
+		albumTracks,
+		albumCover
 	};
 
 	QSharedPointer<Models::ListModel> m_tracksModel;
@@ -33,11 +34,13 @@ private:
 public:
 	explicit Album(const QString& name,
 				   const quint32 year,
+				   const QString& cover,
 				   QObject *parent = NULL);
 
 	QString getName() const;
 	quint32 getYear() const;
 	QVariant getTracks() const;
+	QString getCover() const;
 
 	void addTrack(Track* track);
 

@@ -47,6 +47,13 @@ Item {
                 text: "Path: " + mediaplayer.currentTrack.trackServerPath
             }
         }
+        Rectangle {
+            width: parent.width
+            height: 20
+            Text {
+                text: "Cover: " + mediaplayer.currentAlbum.albumCover
+            }
+        }
     }
 }
 

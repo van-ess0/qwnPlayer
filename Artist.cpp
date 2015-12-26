@@ -7,7 +7,7 @@ Artist::Artist(const QString& name, QObject* parent)
 	m_name		= name;
 	m_globalId	= GlobalArtistIndex::instance()->getIndex();
 
-	m_albumsModel = QSharedPointer<Models::SubListedListModel>(new Models::SubListedListModel(new Album("empty", 0, NULL)));
+	m_albumsModel = QSharedPointer<Models::SubListedListModel>(new Models::SubListedListModel(new Album("empty", 0, "empty", NULL)));
 }
 
 QString Artist::getName() const {

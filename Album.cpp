@@ -1,11 +1,15 @@
 #include "Album.h"
 
-Album::Album(const QString& name, const quint32 year, QObject* parent)
+Album::Album(const QString& name,
+			 const quint32 year,
+			 const QString& cover,
+			 QObject* parent)
 	:
 	  SubListedListItem(parent)
 {
 	m_name		= name;
 	m_year		= year;
+	m_cover		= cover;
 	m_globalId	= GlobalAlbumIndex::instance()->getIndex();
 
 	m_tracksModel = QSharedPointer<Models::ListModel>(new Models::ListModel(new Track(0, "empty", "empty", "empty", NULL)));
@@ -21,6 +25,11 @@ quint32 Album::getYear() const {
 
 QVariant Album::getTracks() const {
 	return QVariant::fromValue< QSharedPointer<Models::ListModel> >(m_tracksModel);
+}
+
+QString Album::getCover() const
+{
+	return m_cover;
 }
 
 void Album::addTrack(Track* track) {
@@ -43,6 +52,8 @@ QVariant Album::data(int role) const
 			return this->getYear();
 		case albumTracks:
 			return this->getTracks();
+		case albumCover:
+			return this->getCover();
 		default:
 			return QVariant();
 	}
@@ -56,6 +67,7 @@ QHash<int, QByteArray> Album::roleNames() const
 	roles[albumName]	= "albumName";
 	roles[albumYear]	= "albumYear";
 	roles[albumTracks]	= "albumTracks";
+	roles[albumCover]	= "albumCover";
 
 	return roles;
 }

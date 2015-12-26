@@ -54,12 +54,14 @@ Album* ResponseDecoder::createAlbum(const QJsonObject& jsonObject, QObject* pare
 {
 	// Creating new album object
 	Album* album = new Album(
-						// Album name
-						jsonObject["name"].toString(),
-						// Year
-						jsonObject["year"].toInt(),
-						// parent object
-			parent);
+					   // Album name
+					   jsonObject["name"].toString(),
+					   // Year
+					   jsonObject["year"].toInt(),
+					   // Cover
+					   jsonObject["cover"].toString(),
+					   // parent object
+					   parent);
 
 	return album;
 }
