@@ -2,6 +2,7 @@ TEMPLATE = app
 
 QT += qml quick network widgets multimedia multimediawidgets svg
 CONFIG += c++11
+DEFINES += QT_MESSAGELOGCONTEXT
 
 SOURCES += main.cpp \
     OwnCloudClient.cpp \
