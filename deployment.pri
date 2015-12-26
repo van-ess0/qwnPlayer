@@ -18,8 +18,11 @@ unix:!android {
 #}
 
 ios {
-    QMAKE_MAC_SDK.macosx.version = 10.11
-    QMAKE_INFO_PLIST = Info.plist
+    QMAKE_INFO_PLIST = resources/ios/Info.plist
+}
+
+macx {
+    QMAKE_INFO_PLIST = resources/ios/Info.plist
 }
 
 winrt {

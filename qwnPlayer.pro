@@ -43,5 +43,5 @@ HEADERS += \
 
 DISTFILES += \
     settings.conf \
-    Info.plist
+    resources/ios/Info.plist
 
