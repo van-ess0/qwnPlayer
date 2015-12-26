@@ -6,6 +6,7 @@
 #include <QQmlProperty>
 
 #include "Artist.h"
+#include "SettingsManager.h"
 
 class QwnMediaPlayer : public QObject
 {
@@ -30,8 +31,8 @@ private:
 	QMediaPlayer* m_player;
 	QMediaPlaylist* m_playlist;
 
-	QString m_username;
-	QString m_password;
+//	QString m_username;
+//	QString m_password;
 
 	bool m_isPlaying;
 
@@ -142,8 +143,8 @@ public slots:
 		QString serverPath = QQmlProperty(trackModel, "trackServerPath").read().toString();
 		qDebug() << serverPath;
 		QUrl url(serverPath);
-		url.setUserName(m_username);
-		url.setPassword(m_password);
+		url.setUserName(SettingsManager::instance()->getUserName());
+		url.setPassword(SettingsManager::instance()->getUserPassword());
 
 		m_playlist->addMedia(url);
 	}
@@ -176,8 +177,8 @@ public slots:
 			qDebug() << serverPath;
 
 			QUrl url(serverPath);
-			url.setUserName(m_username);
-			url.setPassword(m_password);
+			url.setUserName(SettingsManager::instance()->getUserName());
+			url.setPassword(SettingsManager::instance()->getUserPassword());
 
 			m_playlist->addMedia(url);
 		}
@@ -214,8 +215,8 @@ public slots:
 				qDebug() << track_obj->getTitle() << serverPath;
 
 				QUrl url(serverPath);
-				url.setUserName(m_username);
-				url.setPassword(m_password);
+				url.setUserName(SettingsManager::instance()->getUserName());
+				url.setPassword(SettingsManager::instance()->getUserPassword());
 
 				m_playlist->addMedia(url);
 			}

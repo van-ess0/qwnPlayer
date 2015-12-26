@@ -4,7 +4,7 @@
 #include "OwnCloudClient.h"
 #include "ResponseDecoder.h"
 #include "QwnMediaPlayer.h"
-//#include "QwnMediaPlaylist.h"
+#include "QwnSettings.h"
 #include "MusicLibrary.h"
 
 #include <QApplication>
@@ -22,8 +22,8 @@ int main(int argc, char *argv[])
 {
 	QGuiApplication app(argc, argv);
 
-	SettingsManager::instance()->setFile("settings.conf");
-	qDebug() << SettingsManager::instance()->getOwnCloudHost();
+//	SettingsManager::instance()->setFile("settings.conf");
+//	qDebug() << SettingsManager::instance()->getOwnCloudHost();
 
 	// For single qml file
 //	QQmlApplicationEngine engine;
@@ -62,10 +62,7 @@ int main(int argc, char *argv[])
 	qRegisterMetaType< QList<Artist*> >("ArtistList");
 //	qRegisterMetaType< Models::SubListedListModel* >("SubListedListModel");
 
-	OwnCloudClient* cloudClient = new OwnCloudClient();
-	ResponseDecoder* decoder = new ResponseDecoder();
-	QObject::connect(cloudClient, SIGNAL(signalCollectionData(QByteArray)),
-					 decoder, SLOT(slotCollectionData(QByteArray)));
+
 
 	MusicLibrary* musicLibrary = new MusicLibrary();
 //	musicLibrary->setArtistList(artists);
@@ -77,7 +74,8 @@ int main(int argc, char *argv[])
 	// Register our component type with QML.
 	// Need for ability to directly call object from qml
 	qmlRegisterType<QwnMediaPlayer>("com.qwnplayer", 1, 0, "QwnMediaPlayer");
-//	qmlRegisterType<QwnMediaPlayer>("com.qwnplayer", 1, 0, "QwnMediaPlaylist");
+	qmlRegisterType<QwnSettings>("com.qwnplayer", 1, 0, "QwnSettings");
+	qmlRegisterType<OwnCloudClient>("com.qwnplayer", 1, 0, "OwnCloudClient");
 
 
 	// Need to connect quit and create qml component
@@ -90,8 +88,7 @@ int main(int argc, char *argv[])
 //	context->setContextProperty("artistList",
 //								QVariant::fromValue(musicLibrary->getArtistList()));
 //	context->setContextProperty("artistModel", m_artistModel);
-	QObject::connect(decoder, SIGNAL(signalCollectionDataParsed(QList<Artist*>)),
-					 musicLibrary, SLOT(slotCollectionDataParsed(QList<Artist*>)));
+
 	context->setContextProperty("artistModel", musicLibrary->getArtistModel());
 
 //	QObject::connect(decoder, SIGNAL(signalCollectionDataParsed(Models::SubListedListModel*)),
@@ -101,7 +98,7 @@ int main(int argc, char *argv[])
 
 	QObject* topLevel = component.create(context);
 	QQuickWindow* window = qobject_cast<QQuickWindow*>(topLevel);
-	Q_UNUSED(window)
+//	Q_UNUSED(window)
 //	view.setSource(QUrl("qrc:/HomePage.qml"));
 //	view.show();
 
@@ -117,14 +114,27 @@ int main(int argc, char *argv[])
 //					 player, SLOT(qmlSlotEmpty()));
 //	QObject::connect(playbutton, SIGNAL(qmlSignalEmpty()),
 //					 player, SIGNAL(testSig()));
+//	QQuickItem* connectionPage = window->findChild<QQuickItem*>("ConnectionPage");
+//	QObject::connect(connectionPage, SIGNAL(qmlSignalAuth()),
+//					 cloudClient, SLOT(auth()));
 
+	QObject* cloudClientObject = window->findChild<QObject*>("cloudClient");
+
+	OwnCloudClient* cloudClient = qobject_cast<OwnCloudClient*>(cloudClientObject);
+
+	ResponseDecoder* decoder = new ResponseDecoder();
+	QObject::connect(cloudClient, SIGNAL(signalCollectionData(QByteArray)),
+					 decoder, SLOT(slotCollectionData(QByteArray)));
+
+	QObject::connect(decoder, SIGNAL(signalCollectionDataParsed(QList<Artist*>)),
+					 musicLibrary, SLOT(slotCollectionDataParsed(QList<Artist*>)));
 
 
 //	QObject::connect(decoder, SIGNAL(signalCollectionDataParsed(QList<Artist*>)),
 //						 &mainWindow, SLOT(slotCollectionDataParsed(QList<Artist*>)));
 //	QObject::connect(cloudClient, SIGNAL(signalLog(QString)),
 //						 &mainWindow, SLOT(slotLog(QString)));
-	cloudClient->auth();
+//	cloudClient->auth();
 
 
 

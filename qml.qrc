@@ -15,5 +15,8 @@
         <file>TrackList.qml</file>
         <file>TrackInfoPage.qml</file>
         <file>LibraryElement.qml</file>
+        <file>ConnectionPage.qml</file>
+        <file>TextField.qml</file>
+        <file>TouchButton.qml</file>
     </qresource>
 </RCC>

@@ -1,7 +1,7 @@
 #include "QwnMediaPlayer.h"
 #include <QFile>
 #include <QStandardPaths>
-#include "SettingsManager.h"
+
 
 QwnMediaPlayer::QwnMediaPlayer(QObject *parent) : QObject(parent)
 {
@@ -10,8 +10,8 @@ QwnMediaPlayer::QwnMediaPlayer(QObject *parent) : QObject(parent)
 	m_player->setPlaylist(m_playlist);
 	m_isPlaying = false;
 
-	m_username = SettingsManager::instance()->getUserName();
-	m_password = SettingsManager::instance()->getUserPassword();
+//	m_username = ;
+//	m_password = ;
 
 	connect(m_player, SIGNAL(audioAvailableChanged(bool)),
 			this, SLOT(slotAudioAvailabilityChanged(bool)));
@@ -154,11 +154,11 @@ void QwnMediaPlayer::cycleToggle()
 void QwnMediaPlayer::currentTrackPath(QString path)
 {
 	qDebug() << path;
-	QUrl url(path);
-	url.setUserName(m_username);
-	url.setPassword(m_password);
-//	m_playlist->clear();
-	m_playlist->addMedia(url);
+//	QUrl url(path);
+//	url.setUserName(m_username);
+//	url.setPassword(m_password);
+////	m_playlist->clear();
+//	m_playlist->addMedia(url);
 }
 
 //void QwnMediaPlayer::setCurrentTrack(Track* track)

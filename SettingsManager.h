@@ -10,6 +10,17 @@
 		return settings.value(KEY, DEFAULT_VALUE).toString(); \
 	}
 
+#define SET_STRING(NAME, KEY) \
+	virtual void set##NAME(const QString& value)  { \
+		QSettings settings(m_filename, QSettings::IniFormat); \
+		settings.setValue(KEY, value); \
+		settings.sync(); \
+	}
+
+#define GET_SET_STRING(NAME, KEY, DEFAULT_VALUE) \
+	GET_STRING(NAME, KEY, DEFAULT_VALUE) \
+	SET_STRING(NAME, KEY)
+
 class SettingsManager :
 		public QObject,
 		public SingletonTemplate<SettingsManager>
@@ -21,10 +32,10 @@ public:
 
 	void setFile(QString filepath);
 
-	GET_STRING(OwnCloudHost, "Network/owncloudhost", "http://vaness0.ga:83/owncloud")
-	GET_STRING(UserName, "Account/username", "degree")
-	GET_STRING(UserPassword, "Account/password", "Fcnhjabpbrf95")
-	GET_STRING(ApiMusicCollection, "OwnCloudAPI/musiccollection", "/owncloud/index.php/apps/music/api/collection")
+	GET_SET_STRING(OwnCloudHost, "Network/owncloudhost", "http://vaness0.ga:83/owncloud")
+	GET_SET_STRING(UserName, "Account/username", "")
+	GET_SET_STRING(UserPassword, "Account/password", "")
+	GET_SET_STRING(ApiMusicCollection, "OwnCloudAPI/musiccollection", "/owncloud/index.php/apps/music/api/collection")
 };
 
 #endif // SETTINGSMANAGER_H
