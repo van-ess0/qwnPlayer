@@ -4,6 +4,7 @@ Item {
     id: trackListView
 
     Text {
+        id: text_page
         text: qsTr("This is track Page")
     }
 
@@ -25,31 +26,40 @@ Item {
         }
         highlightFollowsCurrentItem: true
 
-        delegate: Item {
-            width: trackView.width
-            height: 40
+        delegate: LibraryElement {
+            element_view: trackView
+            element_text: model.trackNumber + ". " + model.trackTitle
 
-            Rectangle {
-                anchors.margins: 5
-                anchors.fill: parent
-                radius: height / 2
-
-                border {
-                    color: "black"
-                    width: 1
-                }
-                Text {
-                    anchors.centerIn: parent
-                    renderType: Text.NativeRendering
-                    text: model.trackTitle
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: trackView.currentIndex = model.index
-                }
+            function setCurrentElement() {
+                console.log("track set current element")
+                trackView.currentIndex = model.index
+                mediaplayer.currentTrack = model
             }
 
+            function onPlayTouched() {
+                setCurrentElement()
+                console.log("Play track touched")
+
+                mediaplayer.stopPlaying()
+                mediaplayer.settingCurrentTrackToPlaylist()
+                mediaplayer.startPlaying()
+            }
+
+            function onPressAndHold() {
+                setCurrentElement()
+                console.log("track press and hold")
+            }
+
+            function onClicked() {
+                setCurrentElement()
+                console.log("track click")
+            }
+
+            function onDoubleClicked() {
+                setCurrentElement()
+                console.log("track double click")
+                stackView.push(Qt.resolvedUrl("TrackInfoPage.qml"))
+            }
         }
     }
 }

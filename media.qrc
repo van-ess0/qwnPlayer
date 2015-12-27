@@ -15,5 +15,6 @@
         <file>resources/images/save.svg</file>
         <file>resources/images/settings.svg</file>
         <file>resources/images/shuffle.svg</file>
+        <file>resources/images/cover_sample.jpg</file>
     </qresource>
 </RCC>

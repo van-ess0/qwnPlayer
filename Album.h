@@ -1,10 +1,11 @@
 #ifndef ALBUM_H
 #define ALBUM_H
 
-#include <QList>
-#include "Track.h"
+#include <QSharedPointer>
+
 #include "Models/SubListedListItem.h"
 #include "Models/ListModel.h"
+#include "Track.h"
 
 class Album : public Models::SubListedListItem
 {
@@ -14,9 +15,9 @@ class Album : public Models::SubListedListItem
 private:
 	QString m_name;
 	quint32 m_year;
-//	QList<Track*> m_tracks;
-	/// TODO
-	// QByteArray m_cover;
+
+	// path on server (in case OwnCloud music app will work fine)
+	QString m_cover;
 
 	quint64 m_globalId;
 
@@ -24,79 +25,35 @@ private:
 		albumId = Qt::UserRole + 1,
 		albumName,
 		albumYear,
-//		albumTracks
+		albumTracks,
+		albumCover
 	};
 
-	Models::ListModel* m_tracksModel;
+	QSharedPointer<Models::ListModel> m_tracksModel;
 
 public:
 	explicit Album(const QString& name,
 				   const quint32 year,
-				   QObject *parent = NULL)
-		:
-		  SubListedListItem(parent)
-	{
-		m_name		= name;
-		m_year		= year;
-		m_globalId	= GlobalAlbumIndex::instance()->getIndex();
+				   const QString& cover,
+				   QObject *parent = NULL);
 
-		m_tracksModel = new Models::ListModel(new Track(0, "empty", "empty", "empty", NULL));
-	}
+	QString getName() const;
+	quint32 getYear() const;
+	QVariant getTracks() const;
+	QString getCover() const;
 
-	QString getName() const {
-		return m_name;
-	}
-	quint32 getYear() const {
-		return m_year;
-	}
-
-	// You need to check on emppty list
-//	QList<Track*> getTrackList() const {
-//		return m_tracks;
-//	}
-	void addTrack(Track* track) {
-//		m_tracks.append(track);
-
-		m_tracksModel->appendRow(track);
-	}
+	void addTrack(Track* track);
 
 	// ListItem interface
 public:
-	virtual int id() const
-	{
-		return m_globalId;
-	}
-	virtual QVariant data(int role) const
-	{
-		switch (role) {
-		case albumId:
-			return this->id();
-		case albumName:
-			return this->getName();
-		case albumYear:
-			return this->getYear();
-		default:
-			return QVariant();
-		}
-	}
-	virtual QHash<int, QByteArray> roleNames() const
-	{
-		QHash<int, QByteArray> roles;
-
-		roles[albumId]		= "albumId";
-		roles[albumName]	= "albumName";
-		roles[albumYear]	= "albumYear";
-//		roles[albumTracks]	= "albumTracks";
-
-		return roles;
-	}
+	virtual int id() const;
+	virtual QVariant data(int role) const;
+	virtual QHash<int, QByteArray> roleNames() const;
+	virtual bool operator <(const ListItem& nextElem);
 
 	// SubListedListItem interface
 public:
-	virtual Models::ListModel* submodel() const
-	{
-		return m_tracksModel;
-	}
+	virtual Models::ListModel* submodel() const;
 };
 
 #endif // ALBUM_H

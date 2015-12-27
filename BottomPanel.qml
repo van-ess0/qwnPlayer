@@ -1,5 +1,4 @@
 import QtQuick 2.5
-import com.qwnplayer 1.0
 import QtQuick.Controls 1.4
 
 Item {
@@ -8,19 +7,17 @@ Item {
     width: parent.width
     anchors.bottom: parent.bottom
 
-    QwnMediaPlayer {
-        id: mediaplayer
-//        onKeyGenerated: {
-//            if (success) {
-//                console.log("Key generation succeeded.")
-//            } else {
-//                console.log("Key generation failed.")
-//            }
-//        }
-//        onTestSig: {
-//            console.log("From C++")
-//        }
+    function onProgressChanged(progress) {
+        console.log("Progress: " + progress)
+        progressSlider.value = progress / 1000
     }
+
+    function onDurationChanged(duration) {
+        console.log("duration: " + duration)
+        progressSlider.maximumValue = duration / 1000
+    }
+
+
     Rectangle {
         anchors.fill: parent
         color: "green"
@@ -43,10 +40,17 @@ Item {
 
         Text {
             id: trackLength
-            text: qsTr(progressSlider.maximumValue.toString())
+            text: filling()
             anchors {
                 verticalCenter: progressSlider.verticalCenter
                 left: progressSlider.right
+            }
+            function filling()
+            {
+                var seconds = (progressSlider.maximumValue % 60).toString();
+                var minutes = ((progressSlider.maximumValue - seconds) / 60).toString();
+
+                return (qsTr(minutes + ":" + seconds))
             }
         }
 
@@ -83,6 +87,8 @@ Item {
 //                playbutton.qmlSignalEmpty()
 //                mediaplayer.qmlSlotEmpty()
                 mediaplayer.playToggle()
+//                console.log(currentTrack.trackServerPath)
+//                mediaplayer.currentTrackPath(currentTrack.trackServerPath)
             }
         }
 

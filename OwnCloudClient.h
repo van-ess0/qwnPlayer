@@ -19,7 +19,6 @@ private:
 
 public:
 	explicit OwnCloudClient(QObject *parent = 0);
-	void auth();
 	void startProcess();
 
 signals:
@@ -27,6 +26,7 @@ signals:
 	void signalLog(QString);
 
 public slots:
+	void auth();
 
 private slots:
 	void slotReplyFinished();
