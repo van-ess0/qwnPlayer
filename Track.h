@@ -41,6 +41,7 @@ public:
 	virtual int id() const;
 	virtual QVariant data(int role) const;
 	virtual QHash<int, QByteArray> roleNames() const;
+	virtual bool operator <(const ListItem& nextElem);
 };
 
 #endif // TRACK_H

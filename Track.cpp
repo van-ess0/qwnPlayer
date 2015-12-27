@@ -62,3 +62,8 @@ QHash<int, QByteArray> Track::roleNames() const
 
 	return roles;
 }
+
+bool Track::operator <(const Models::ListItem& nextElem)
+{
+	return m_number < nextElem.data(TrackModelItemRoles::trackNumber).toUInt();
+}

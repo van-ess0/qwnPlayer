@@ -13,6 +13,7 @@ Album::Album(const QString& name,
 	m_globalId	= GlobalAlbumIndex::instance()->getIndex();
 
 	m_tracksModel = QSharedPointer<Models::ListModel>(new Models::ListModel(new Track(0, "empty", "empty", "empty", NULL)));
+	m_tracksModel->setSorting(true);
 }
 
 QString Album::getName() const {
@@ -70,6 +71,11 @@ QHash<int, QByteArray> Album::roleNames() const
 	roles[albumCover]	= "albumCover";
 
 	return roles;
+}
+
+bool Album::operator <(const Models::ListItem& nextElem)
+{
+	return m_year < nextElem.data(AlbumModelItemRoles::albumYear).toUInt();
 }
 
 Models::ListModel* Album::submodel() const

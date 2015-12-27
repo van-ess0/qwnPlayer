@@ -28,7 +28,7 @@ Item {
 
         delegate: LibraryElement {
             element_view: trackView
-            element_text: model.trackTitle
+            element_text: model.trackNumber + ". " + model.trackTitle
 
             function setCurrentElement() {
                 console.log("track set current element")

@@ -29,7 +29,7 @@ Item {
 
         delegate: LibraryElement {
             element_view: albumView
-            element_text: model.albumName
+            element_text: model.albumYear + " - " + model.albumName
 
             function setCurrentElement() {
                 console.log("album set current element")

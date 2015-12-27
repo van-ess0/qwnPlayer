@@ -16,6 +16,7 @@ public:
 	explicit MusicLibrary(QObject *parent = 0) : QObject(parent)
 	{
 		m_artistModel = new Models::SubListedListModel(new Artist("empty", NULL));
+		m_artistModel->setSorting(true);
 	}
 
 //	QList<QObject*> getArtistList() const {
