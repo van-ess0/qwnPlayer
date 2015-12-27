@@ -7,11 +7,11 @@
 
 QwnSettings::QwnSettings(QObject* parent) : QObject(parent)
 {
-	QString homeLocation =  QStandardPaths::locate(QStandardPaths::AppLocalDataLocation,
+	m_homeLocation =  QStandardPaths::locate(QStandardPaths::AppLocalDataLocation,
 												   QString(),
 												   QStandardPaths::LocateDirectory);
-	qDebug() << homeLocation;
-	m_filePath = homeLocation + "qwnsettings.conf";
+	qDebug() << m_homeLocation;
+	m_filePath = m_homeLocation + "qwnsettings.conf";
 	qDebug() << m_filePath;
 
 	m_url = "OwnCloud URL";
@@ -58,6 +58,7 @@ void QwnSettings::initialize() {
 		setPassword(SettingsManager::instance()->getUserPassword());
 	}
 	SettingsManager::instance()->setApiMusicCollection("/owncloud/index.php/apps/music/api/collection");
+	SettingsManager::instance()->setHomeLocation(m_homeLocation);
 
 	m_is_initialized = true;
 }

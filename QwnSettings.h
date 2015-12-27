@@ -13,6 +13,7 @@ class QwnSettings : public QObject
 	QML_PROPERTY_READONLY(bool, is_initialized)
 
 private:
+	QString m_homeLocation;
 	QString m_filePath;
 
 public:
