@@ -161,6 +161,127 @@ void QwnMediaPlayer::currentTrackPath(QString path)
 //	m_playlist->addMedia(url);
 }
 
+void QwnMediaPlayer::setCurrentPosition(qint64 position) {
+    qDebug() << "Position set to " << position;
+    m_player->setPosition(position);
+}
+
+void QwnMediaPlayer::stopPlaying() {
+    qDebug() << "stop";
+    m_player->stop();
+    m_playlist->clear();
+    m_isPlaying = false;
+}
+
+void QwnMediaPlayer::startPlaying() {
+    qDebug() << "play";
+    m_isPlaying = true;
+    m_player->play();
+}
+
+void QwnMediaPlayer::settingCurrentTrackToPlaylist() {
+    qDebug() << "setting current track to playlist";
+    QObject* trackModel = qvariant_cast<QObject*>(m_currentTrack);
+
+    if (!trackModel) {
+        qDebug() << "cast track error";
+        return;
+    }
+
+    qDebug() << QQmlProperty(trackModel, "trackTitle").read().toString();
+
+    QString serverPath = QQmlProperty(trackModel, "trackServerPath").read().toString();
+    qDebug() << serverPath;
+    QUrl url(serverPath);
+    url.setUserName(SettingsManager::instance()->getUserName());
+    url.setPassword(SettingsManager::instance()->getUserPassword());
+
+    m_playlist->addMedia(url);
+}
+
+void QwnMediaPlayer::settingCurrentAlbumToPlaylist() {
+    qDebug() << "setting current album to playlist";
+
+    QObject* albumModel = qvariant_cast<QObject*>(m_currentAlbum);
+
+    if (!albumModel) {
+        qDebug() << "cast album error";
+        return;
+    }
+
+    qDebug() << QQmlProperty(albumModel, "albumName").read().toString();
+
+    QVariant var = QQmlProperty(albumModel, "albumTracks").read();
+    QSharedPointer<Models::ListModel> tracks = var.value< QSharedPointer<Models::ListModel> >();
+
+    if (tracks.isNull()) {
+        qDebug() << "cast album tracks error";
+        return;
+    }
+
+    foreach (Models::ListItem* track, tracks->toList()) {
+
+        Track* track_obj = qobject_cast<Track*>(track);
+
+        QString serverPath = track_obj->getServerPath();
+        qDebug() << serverPath;
+
+        QUrl url(serverPath);
+        url.setUserName(SettingsManager::instance()->getUserName());
+        url.setPassword(SettingsManager::instance()->getUserPassword());
+
+        m_playlist->addMedia(url);
+    }
+}
+
+void QwnMediaPlayer::settingCurrentArtistToPlaylist() {
+    qDebug() << "setting current artist to playlist";
+
+    QObject* artistModel = qvariant_cast<QObject*>(m_currentArtist);
+
+    if (!artistModel) {
+        qDebug() << "cast album artist";
+        return;
+    }
+
+    qDebug() << QQmlProperty(artistModel, "artistName").read().toString();
+
+    QVariant var = QQmlProperty(artistModel, "artistAlbums").read();
+    QSharedPointer<Models::SubListedListModel> albums = var.value< QSharedPointer<Models::SubListedListModel> >();
+
+    if (albums.isNull()) {
+        qDebug() << "cast album tracks error";
+        return;
+    }
+
+    foreach (Models::ListItem* album, albums->toList()) {
+        Album* album_obj = qobject_cast<Album*>(album);
+        qDebug() << album_obj->getName();
+
+        foreach (Models::ListItem* track, album_obj->submodel()->toList()) {
+            Track* track_obj = qobject_cast<Track*>(track);
+
+            QString serverPath = track_obj->getServerPath();
+            qDebug() << track_obj->getTitle() << serverPath;
+
+            QUrl url(serverPath);
+            url.setUserName(SettingsManager::instance()->getUserName());
+            url.setPassword(SettingsManager::instance()->getUserPassword());
+
+            m_playlist->addMedia(url);
+        }
+    }
+}
+
+//	void setCurrentTrack(Track* track);
+void QwnMediaPlayer::resetPlaylist() {
+    qDebug() << "reset playlist";
+
+//		QObject* trackModel = qvariant_cast<QObject*>(m_currentTrack);
+//		qDebug() << QQmlProperty(trackModel, "trackTitle").read().toString();
+
+    m_playlist->clear();
+}
 //void QwnMediaPlayer::setCurrentTrack(Track* track)
 //{
 //	qDebug() << "set current track";

@@ -114,6 +114,10 @@ Item {
                 console.log("Prev touched")
                 mediaplayer.prevTrack()
             }
+
+            function onPressAndHold() {
+                //Запилить перемотку
+            }
         }
 
         BottomPanelButton {
@@ -127,6 +131,10 @@ Item {
             function onTouched() {
                 console.log("Next touched")
                 mediaplayer.nextTrack()
+            }
+
+            function onPressAndHold() {
+                //Запилить перемотку
             }
         }
 

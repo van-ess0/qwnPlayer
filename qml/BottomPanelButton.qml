@@ -9,6 +9,10 @@ Item {
 
     }
 
+    function onPressAndHold() {
+
+    }
+
     Image {
         id: icon
         anchors.fill: parent
@@ -26,6 +30,7 @@ Item {
             icon.opacity = 1
         }
         onClicked: mamabutton.onTouched()
+        onPressAndHold: mamabutton.onPressAndHold()
     }
 }
 
