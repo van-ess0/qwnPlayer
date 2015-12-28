@@ -133,7 +133,7 @@ Item {
         BottomPanelButton {
             id: shufflebutton
             anchors.verticalCenter: playbutton.verticalCenter
-            x: prevbutton.x - prevbutton.width
+            x: prevbutton.x - 2 * prevbutton.width
             width: playbutton.width / 2
             height: width
             iconSource: "qrc:/resources/images/shuffle.svg"
@@ -147,7 +147,7 @@ Item {
         BottomPanelButton {
             id: cyclebutton
             anchors.verticalCenter: playbutton.verticalCenter
-            x: nextbutton.x + nextbutton.width
+            x: nextbutton.x + 2 * nextbutton.width
             width: playbutton.width / 2
             height: width
             iconSource: "qrc:/resources/images/cycle.svg"
