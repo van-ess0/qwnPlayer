@@ -28,7 +28,8 @@ QVariant Album::getTracks() const {
 	return QVariant::fromValue< QSharedPointer<Models::ListModel> >(m_tracksModel);
 }
 
-QString Album::getCover() const {
+QString Album::getCover() const
+{
 	return m_cover;
 }
 
@@ -36,11 +37,13 @@ void Album::addTrack(Track* track) {
 	m_tracksModel->appendRow(track);
 }
 
-int Album::id() const {
+int Album::id() const
+{
 	return m_globalId;
 }
 
-QVariant Album::data(int role) const {
+QVariant Album::data(int role) const
+{
 	switch (role) {
 		case albumId:
 			return this->id();
@@ -57,7 +60,8 @@ QVariant Album::data(int role) const {
 	}
 }
 
-QHash<int, QByteArray> Album::roleNames() const {
+QHash<int, QByteArray> Album::roleNames() const
+{
 	QHash<int, QByteArray> roles;
 
 	roles[albumId]		= "albumId";
@@ -69,10 +73,12 @@ QHash<int, QByteArray> Album::roleNames() const {
 	return roles;
 }
 
-bool Album::operator <(const Models::ListItem& nextElem) {
+bool Album::operator <(const Models::ListItem& nextElem)
+{
 	return m_year < nextElem.data(AlbumModelItemRoles::albumYear).toUInt();
 }
 
-Models::ListModel* Album::submodel() const {
+Models::ListModel* Album::submodel() const
+{
 	return m_tracksModel.data();
 }

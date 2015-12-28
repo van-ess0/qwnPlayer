@@ -5,16 +5,19 @@
 #include <QJsonArray>
 
 
-ResponseDecoder::ResponseDecoder(QObject *parent) : QObject(parent) {
+ResponseDecoder::ResponseDecoder(QObject *parent) : QObject(parent)
+{
 
 }
 
-void ResponseDecoder::decode(const QString& dataType, const QByteArray& data) {
+void ResponseDecoder::decode(const QString& dataType, const QByteArray& data)
+{
 	Q_UNUSED(dataType)
 	decodeCollection(data);
 }
 
-void ResponseDecoder::decodeCollection(const QByteArray& data) {
+void ResponseDecoder::decodeCollection(const QByteArray& data)
+{
 
 	// Looking for artists in json
 	QJsonDocument doc = QJsonDocument::fromJson(data);
@@ -24,7 +27,8 @@ void ResponseDecoder::decodeCollection(const QByteArray& data) {
 	emit signalCollectionDataParsed(library);
 }
 
-Track* ResponseDecoder::createTrack(const QJsonObject& jsonObject, QObject* parent) {
+Track* ResponseDecoder::createTrack(const QJsonObject& jsonObject, QObject* parent)
+{
 	// Parsing audio type, because
 	// json key is string description of type
 	QJsonObject file = jsonObject["files"].toObject();
@@ -46,7 +50,8 @@ Track* ResponseDecoder::createTrack(const QJsonObject& jsonObject, QObject* pare
 	return track;
 }
 
-Album* ResponseDecoder::createAlbum(const QJsonObject& jsonObject, QObject* parent) {
+Album* ResponseDecoder::createAlbum(const QJsonObject& jsonObject, QObject* parent)
+{
 	// Creating new album object
 	Album* album = new Album(
 					   // Album name
@@ -61,14 +66,16 @@ Album* ResponseDecoder::createAlbum(const QJsonObject& jsonObject, QObject* pare
 	return album;
 }
 
-Artist* ResponseDecoder::createArtist(const QJsonObject& jsonObject, QObject* parent) {
+Artist* ResponseDecoder::createArtist(const QJsonObject& jsonObject, QObject* parent)
+{
 	// Creating new artist object
 	Artist* artist = new Artist(jsonObject["name"].toString(), parent);
 
 	return artist;
 }
 
-Album* ResponseDecoder::assembleAlbum(const QJsonObject& albumJson, Artist* artist) {
+Album* ResponseDecoder::assembleAlbum(const QJsonObject& albumJson, Artist* artist)
+{
 	// Creating album from json
 	Album* album = createAlbum(albumJson, artist);
 
@@ -87,7 +94,8 @@ Album* ResponseDecoder::assembleAlbum(const QJsonObject& albumJson, Artist* arti
 	return album;
 }
 
-Artist* ResponseDecoder::assembleArtist(const QJsonObject& artistJson) {
+Artist* ResponseDecoder::assembleArtist(const QJsonObject& artistJson)
+{
 	// Creating artist from json
 	Artist* artist = createArtist(artistJson);
 
@@ -103,7 +111,8 @@ Artist* ResponseDecoder::assembleArtist(const QJsonObject& artistJson) {
 	return artist;
 }
 
-QList<Artist*> ResponseDecoder::assembleLibrary(const QJsonArray& artistArray) {
+QList<Artist*> ResponseDecoder::assembleLibrary(const QJsonArray& artistArray)
+{
 	QList<Artist*> artists;
 	foreach (const QJsonValue& artistJsonValue, artistArray) {
 		// Adding artist to list
@@ -112,7 +121,8 @@ QList<Artist*> ResponseDecoder::assembleLibrary(const QJsonArray& artistArray) {
 	return artists;
 }
 
-void ResponseDecoder::slotCollectionData(QByteArray rawData) {
+void ResponseDecoder::slotCollectionData(QByteArray rawData)
+{
 	decode("EMPTY", rawData);
 }
 

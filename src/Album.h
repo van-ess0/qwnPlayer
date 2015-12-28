@@ -7,7 +7,8 @@
 #include "Models/ListModel.h"
 #include "Track.h"
 
-class Album : public Models::SubListedListItem {
+class Album : public Models::SubListedListItem
+{
 	Q_OBJECT
 	NEW_GLOBAL_INDEX(GlobalAlbumIndex)
 

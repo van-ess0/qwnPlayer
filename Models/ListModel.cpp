@@ -180,10 +180,12 @@ QHash<int, QByteArray>  Models::ListModel::roleNames() const
  * Returns the ListItem contained at \a row if it has been specified.
  * Otherwise the first ListItem is returned.
  */
-Models::ListItem *Models::ListModel::takeRow(int row, const QModelIndex &index) {
+Models::ListItem *Models::ListModel::takeRow(int row, const QModelIndex &index)
+{
     if (row == -2) // IF ROW HAS NOT BEEN SPECIFIED TAKE FIRST ITEM
         row = 0;
-    if (row >= 0 && row < this->items.size()) {
+    if (row >= 0 && row < this->items.size())
+    {
         beginRemoveRows(index, row, row);
         Models::ListItem *item = this->items.takeAt(row);
         endRemoveRows();
@@ -200,14 +202,16 @@ Models::ListItem *Models::ListModel::takeRow(int row, const QModelIndex &index) 
  * If count is not specified, returns items from \a row to the end of the model.
  * In that case if row is not the first row, nothing will be returned.
  */
-QList<Models::ListItem *> Models::ListModel::takeRows(int row, int count, const QModelIndex &index) {
+QList<Models::ListItem *> Models::ListModel::takeRows(int row, int count, const QModelIndex &index)
+{
     QList<Models::ListItem *> items;
 
     if (row == -2) // IF ROW HAS NOT BEEN SPECIFIED TAKE FIRST ITEM
         row = 0;
     if (count == -1)
         count = this->items.size();
-    if (row >= 0 && count > 0 && (row + count) <= this->items.size()) {
+    if (row >= 0 && count > 0 && (row + count) <= this->items.size())
+    {
         beginRemoveRows(index, row, row + count - 1);
         for (int i = 0; i < count; i++)
             items << this->items.takeAt(row);
@@ -220,8 +224,10 @@ QList<Models::ListItem *> Models::ListModel::takeRows(int row, int count, const 
 /*!
  * Appends a single row \a item to the Model.
  */
-void Models::ListModel::appendRow(Models::ListItem *item) {
-    if (item != NULL) {
+void        Models::ListModel::appendRow(Models::ListItem *item)
+{
+    if (item != NULL)
+    {
         this->appendRows(QList<Models::ListItem *>() << item);
         emit (countChanged(this->rowCount()));
     }
@@ -230,12 +236,14 @@ void Models::ListModel::appendRow(Models::ListItem *item) {
 /*!
  * Appends several rows \a items to the Model.
  */
-void Models::ListModel::appendRows(QList<Models::ListItem *> &items) {
+void        Models::ListModel::appendRows(QList<Models::ListItem *> &items)
+{
     if (items.size() == 0)
         return ;
     // NEEDED TO UPDATE VIEW
     this->beginInsertRows(QModelIndex(), this->rowCount(), this->rowCount() + items.size() - 1);
-    foreach(Models::ListItem *item, items) {
+    foreach(Models::ListItem *item, items)
+    {
         QObject::connect(item, SIGNAL(dataChanged()), this, SLOT(updateItem()));
         this->items.append(item);
     }
@@ -248,7 +256,8 @@ void Models::ListModel::appendRows(QList<Models::ListItem *> &items) {
 /*!
  * Insert new row described by \a item at position defined by \a row.
  */
-void Models::ListModel::insertRow(int row, Models::ListItem *item) {
+void       Models::ListModel::insertRow(int row, Models::ListItem *item)
+{
     if (item == NULL)
         return ;
     this->beginInsertRows(QModelIndex(), row, row);
@@ -264,8 +273,10 @@ void Models::ListModel::insertRow(int row, Models::ListItem *item) {
  * The \a index argument is optional.
  * Returns true if row was removed, false if row not found or \a row is invalid.
  */
-bool Models::ListModel::removeRow(int row, const QModelIndex &index) {
-    if (row >= 0 && row < this->items.size()) {
+bool        Models::ListModel::removeRow(int row, const QModelIndex &index)
+{
+    if (row >= 0 && row < this->items.size())
+    {
         beginRemoveRows(index, row, row);
         Models::ListItem *item = this->items.takeAt(row);
         delete item;
@@ -282,10 +293,13 @@ bool Models::ListModel::removeRow(int row, const QModelIndex &index) {
  * or the model's last row is reached. The \a index argument is optional.
  * Returns true if the rows were removed, false if \a row is invalid.
  */
-bool Models::ListModel::removeRows(int row, int count, const QModelIndex &index) {
-    if (row >= 0 && count > 0 && (row + count) <= this->items.size()) {
+bool        Models::ListModel::removeRows(int row, int count, const QModelIndex &index)
+{
+    if (row >= 0 && count > 0 && (row + count) <= this->items.size())
+    {
         beginRemoveRows(index, row, row + count - 1);
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < count; i++)
+        {
             Models::ListItem *item = this->items.takeAt(row);
             delete item;
             item = NULL;
@@ -300,7 +314,8 @@ bool Models::ListModel::removeRows(int row, int count, const QModelIndex &index)
 /*!
  * Clears the whole model removing all rows.
  */
-void Models::ListModel::clear() {
+void        Models::ListModel::clear()
+{    
     if (this->items.size() == 0)
         return ;
     this->removeRows(0, this->items.size());
@@ -328,10 +343,13 @@ bool compareFunc(void *a, void *b)
 /*!
  * Sorts the elements of the models
  */
-void Models::ListModel::sort() {
-    if (this->sortEnabled) {
+void Models::ListModel::sort()
+{
+    if (this->sortEnabled)
+    {
         qSort(this->items.begin(), this->items.end(), compareFunc);
-        foreach (Models::ListItem *item, this->items) {
+        foreach (Models::ListItem *item, this->items)
+        {
             QModelIndex index = this->indexFromItem(item);
             if (index.isValid())
                 emit dataChanged(index, index);
@@ -342,8 +360,10 @@ void Models::ListModel::sort() {
 /*!
  * Returns the index of the row in the model containing \a item.
  */
-QModelIndex     Models::ListModel::indexFromItem(Models::ListItem *item) const {
-    if (item != NULL) {
+QModelIndex     Models::ListModel::indexFromItem(Models::ListItem *item) const
+{
+    if (item != NULL)
+    {
         for (int i = 0; i < this->items.size(); i++)
             if (this->items.at(i) == item)
                 return index(i);
@@ -354,7 +374,8 @@ QModelIndex     Models::ListModel::indexFromItem(Models::ListItem *item) const {
 /*!
  * Returns the item whose id matches \a itemId.
  */
-Models::ListItem *  Models::ListModel::find(int itemId) const {
+Models::ListItem *  Models::ListModel::find(int itemId) const
+{
     foreach(Models::ListItem *item, this->items)
         if (item->id() == itemId)
             return item;
@@ -363,7 +384,8 @@ Models::ListItem *  Models::ListModel::find(int itemId) const {
 /*!
  * Returns row index at which \a item can be found in the model.
  */
-int Models::ListModel::getRowFromItem(ListItem *item) const {
+int         Models::ListModel::getRowFromItem(ListItem *item) const
+{
     if (item != NULL)
         for (int i = 0; i < this->items.size(); i++)
             if (this->items.at(i) == item)
@@ -374,14 +396,16 @@ int Models::ListModel::getRowFromItem(ListItem *item) const {
 /*!
  * Returns model as a QList.
  */
-QList<Models::ListItem *> Models::ListModel::toList() const {
+QList<Models::ListItem *>   Models::ListModel::toList() const
+{
     return this->items;
 }
 
 /*!
  * Slot triggered when a row item needs to be updated to reflect data changes.
  */
-void Models::ListModel::updateItem() {
+void        Models::ListModel::updateItem()
+{
     Models::ListItem *item = static_cast<Models::ListItem *>(sender());
     QModelIndex index = this->indexFromItem(item);
     if (index.isValid())
@@ -391,14 +415,16 @@ void Models::ListModel::updateItem() {
 /*!
  * Returns a QVariant containg the data of the row item at \a index in the model.
  */
-QVariant    Models::ListModel::get(int index) {
+QVariant    Models::ListModel::get(int index)
+{
     if (index >= this->items.size() || index < 0)
         return QVariant();
     Models::ListItem * item = this->items.at(index);
     QMap<QString, QVariant> itemData;
     QHashIterator<int, QByteArray> hashItr(item->roleNames());
 
-    while(hashItr.hasNext()) {
+    while(hashItr.hasNext())
+    {
         hashItr.next();
         itemData.insert(hashItr.value(),QVariant(item->data(hashItr.key())));
     }
@@ -408,7 +434,8 @@ QVariant    Models::ListModel::get(int index) {
 /*!
  * Returns the index for item identified by \a id  in the model.
  */
-int Models::ListModel::rowIndexFromId(int id) {
+int         Models::ListModel::rowIndexFromId(int id)
+{
     Models::ListItem* item = find(id);
 
     if (item)

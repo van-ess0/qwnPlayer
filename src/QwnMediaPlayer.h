@@ -8,7 +8,8 @@
 #include "Artist.h"
 #include "SettingsManager.h"
 
-class QwnMediaPlayer : public QObject {
+class QwnMediaPlayer : public QObject
+{
 	Q_OBJECT
 
 	QML_PROPERTY(QVariant, currentTrack, setCurrentTrack, currentTrackChanged)

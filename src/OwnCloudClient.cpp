@@ -2,7 +2,8 @@
 #include <QDebug>
 #include "SettingsManager.h"
 
-OwnCloudClient::OwnCloudClient(QObject *parent) : QObject(parent) {
+OwnCloudClient::OwnCloudClient(QObject *parent) : QObject(parent)
+{
 	connect(&m_networkManager, SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)),
 			this, SLOT(slotAuthenticationRequired(QNetworkReply*,QAuthenticator*)));
 	connect(&m_networkManager, SIGNAL(finished(QNetworkReply*)),
@@ -10,7 +11,8 @@ OwnCloudClient::OwnCloudClient(QObject *parent) : QObject(parent) {
 //	connect(&m_networkManager, SIGNAL())
 }
 
-void OwnCloudClient::auth() {
+void OwnCloudClient::auth()
+{
 	emit signalLog("HI!!!");
 	m_username = SettingsManager::instance()->getUserName();
 	m_password = SettingsManager::instance()->getUserPassword();
@@ -33,10 +35,12 @@ void OwnCloudClient::auth() {
 			reply, SLOT(ignoreSslErrors()));
 }
 
-void OwnCloudClient::startProcess() {
+void OwnCloudClient::startProcess()
+{
 }
 
-void OwnCloudClient::slotReplyFinished() {
+void OwnCloudClient::slotReplyFinished()
+{
 	QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
 
 	qDebug() << "reply finished" << reply->readAll();
@@ -46,23 +50,27 @@ void OwnCloudClient::slotReplyFinished() {
 	reply = NULL;
 }
 
-void OwnCloudClient::readyRead() {
+void OwnCloudClient::readyRead()
+{
 	qDebug() << "ready read";
 	emit signalLog("ready read");
 }
 
-void OwnCloudClient::updateDataReadProgress(qint64,qint64) {
+void OwnCloudClient::updateDataReadProgress(qint64,qint64)
+{
 	qDebug() << "update download progress";
 	emit signalLog("update download progress");
 }
 
-void OwnCloudClient::slotAuthenticationRequired(QNetworkReply*, QAuthenticator*) {
+void OwnCloudClient::slotAuthenticationRequired(QNetworkReply*, QAuthenticator*)
+{
 	qDebug() << "Auth required";
 	emit signalLog("Auth required");
 
 }
 
-void OwnCloudClient::slotReplyFinished(QNetworkReply* reply) {
+void OwnCloudClient::slotReplyFinished(QNetworkReply* reply)
+{
 	qDebug() << "Reply from " << reply->url().path();
 	emit signalLog("Reply from " + reply->url().path());
 
@@ -77,7 +85,8 @@ void OwnCloudClient::slotReplyFinished(QNetworkReply* reply) {
 	reply = NULL;
 }
 
-void OwnCloudClient::addAuthHeader(QNetworkRequest* request) {
+void OwnCloudClient::addAuthHeader(QNetworkRequest* request)
+{
 	if (!request) {
 		return;
 	}

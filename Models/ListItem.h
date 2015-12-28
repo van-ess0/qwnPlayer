@@ -5,11 +5,12 @@
 #include <QVariant>
 #include <QHash>
 
-namespace Models {
+namespace Models
+{
 
-class ListItem : public QObject {
+class ListItem : public QObject
+{
     Q_OBJECT
-
 public :
     ListItem(QObject *parent = 0) : QObject(parent) {}
     virtual ~ListItem() {}
@@ -18,7 +19,6 @@ public :
     virtual QHash<int, QByteArray> roleNames() const = 0;
     virtual void triggerItemUpdate() {emit dataChanged();}
     virtual bool operator<(const ListItem &nextElem) {Q_UNUSED(nextElem); return false;}
-
 signals:
     void dataChanged();
 };

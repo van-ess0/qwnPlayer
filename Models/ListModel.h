@@ -12,13 +12,14 @@
 
 bool compareFunc(void *a, void *b);
 
-namespace Models {
+namespace Models
+{
 
-class ListModel : public QAbstractListModel {
+class ListModel : public QAbstractListModel
+{
     Q_OBJECT
     Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
     Q_PROPERTY(bool sorting READ sortingEnabled WRITE setSorting NOTIFY sortingChanged)
-
 public:
     explicit ListModel(ListItem *prototype, QObject *parent = 0);
     ~ListModel();
@@ -54,7 +55,7 @@ protected:
     bool        sortEnabled;
 
 private:
-    void        sort();
+    void                    sort();
 
 private slots :
     void        updateItem();

@@ -89,14 +89,15 @@
  * Construcst a new Models::SubListedListModel instance with the provided \a prototype item template.
  */
 
-Models::SubListedListModel::SubListedListModel(Models::SubListedListItem *prototype, QObject *parent)
-    : Models::ListModel(prototype, parent) {
+Models::SubListedListModel::SubListedListModel(Models::SubListedListItem *prototype, QObject *parent) : Models::ListModel(prototype, parent)
+{
 }
 
 /*!
  * Returns the model contained by row Item identified by \a id.
  */
-QObject* Models::SubListedListModel::subModelFromId(int id) {
+QObject*        Models::SubListedListModel::subModelFromId(int id)
+{
     Models::SubListedListItem* item = (Models::SubListedListItem *)this->find(id);
     if (item != NULL)
         return item->submodel();

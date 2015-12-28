@@ -7,7 +7,7 @@
 
 class SettingsManager :
 		public QObject,
-        public SingletonTemplate<SettingsManager>
+		public SingletonTemplate<SettingsManager>
 {
 	QString m_filename;
 

@@ -3,7 +3,8 @@
 
 #include "Macros.h"
 
-class QwnSettings : public QObject {
+class QwnSettings : public QObject
+{
 	Q_OBJECT
 
 	QML_PROPERTY(QString, url, setUrl, urlChanged)
