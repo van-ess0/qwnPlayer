@@ -113,9 +113,8 @@ void QwnMediaPlayer::playToggle()
 
 //	m_player->setMedia(QUrl::fromLocalFile(homeLocation + "sound_cut2.mp3"));
 
-	if (m_playlist->isEmpty()) {
+    if (m_playlist->isEmpty())
 		return;
-	}
 
 	if (m_isPlaying) {
 		m_player->pause();
@@ -161,25 +160,29 @@ void QwnMediaPlayer::currentTrackPath(QString path)
 //	m_playlist->addMedia(url);
 }
 
-void QwnMediaPlayer::setCurrentPosition(qint64 position) {
+void QwnMediaPlayer::setCurrentPosition(qint64 position)
+{
     qDebug() << "Position set to " << position;
     m_player->setPosition(position);
 }
 
-void QwnMediaPlayer::stopPlaying() {
+void QwnMediaPlayer::stopPlaying()
+{
     qDebug() << "stop";
     m_player->stop();
     m_playlist->clear();
     m_isPlaying = false;
 }
 
-void QwnMediaPlayer::startPlaying() {
+void QwnMediaPlayer::startPlaying()
+{
     qDebug() << "play";
     m_isPlaying = true;
     m_player->play();
 }
 
-void QwnMediaPlayer::settingCurrentTrackToPlaylist() {
+void QwnMediaPlayer::settingCurrentTrackToPlaylist()
+{
     qDebug() << "setting current track to playlist";
     QObject* trackModel = qvariant_cast<QObject*>(m_currentTrack);
 
@@ -199,7 +202,8 @@ void QwnMediaPlayer::settingCurrentTrackToPlaylist() {
     m_playlist->addMedia(url);
 }
 
-void QwnMediaPlayer::settingCurrentAlbumToPlaylist() {
+void QwnMediaPlayer::settingCurrentAlbumToPlaylist()
+{
     qDebug() << "setting current album to playlist";
 
     QObject* albumModel = qvariant_cast<QObject*>(m_currentAlbum);
@@ -219,7 +223,8 @@ void QwnMediaPlayer::settingCurrentAlbumToPlaylist() {
         return;
     }
 
-    foreach (Models::ListItem* track, tracks->toList()) {
+    foreach (Models::ListItem* track, tracks->toList())
+    {
 
         Track* track_obj = qobject_cast<Track*>(track);
 
@@ -234,7 +239,8 @@ void QwnMediaPlayer::settingCurrentAlbumToPlaylist() {
     }
 }
 
-void QwnMediaPlayer::settingCurrentArtistToPlaylist() {
+void QwnMediaPlayer::settingCurrentArtistToPlaylist()
+{
     qDebug() << "setting current artist to playlist";
 
     QObject* artistModel = qvariant_cast<QObject*>(m_currentArtist);
@@ -274,7 +280,8 @@ void QwnMediaPlayer::settingCurrentArtistToPlaylist() {
 }
 
 //	void setCurrentTrack(Track* track);
-void QwnMediaPlayer::resetPlaylist() {
+void QwnMediaPlayer::resetPlaylist()
+{
     qDebug() << "reset playlist";
 
 //		QObject* trackModel = qvariant_cast<QObject*>(m_currentTrack);

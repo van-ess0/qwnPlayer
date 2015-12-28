@@ -25,22 +25,26 @@ QwnSettings::QwnSettings(QObject* parent) : QObject(parent)
 
 }
 
-void QwnSettings::slotUrlChanged() {
+void QwnSettings::slotUrlChanged()
+{
 	qDebug() << "slot url";
 	SettingsManager::instance()->setOwnCloudHost(m_url);
 }
 
-void QwnSettings::slotUsernameChanged() {
+void QwnSettings::slotUsernameChanged()
+{
 	qDebug() << "slot username";
 	SettingsManager::instance()->setUserName(m_username);
 }
 
-void QwnSettings::slotPasswordChanged() {
+void QwnSettings::slotPasswordChanged()
+{
 	qDebug() << "slot password";
 	SettingsManager::instance()->setUserPassword(m_password);
 }
 
-void QwnSettings::initialize() {
+void QwnSettings::initialize()
+{
 	if (m_is_initialized) {
 		qDebug() << "already initialized";
 		return;

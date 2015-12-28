@@ -11,19 +11,23 @@ Track::Track(const quint32 number, const QString& title, const QString& type, co
 	m_globalId		= GlobalTrackIndex::instance()->getIndex();
 }
 
-quint32 Track::getNumber() const {
+quint32 Track::getNumber() const
+{
 	return m_number;
 }
 
-QString Track::getTitle() const {
+QString Track::getTitle() const
+{
 	return m_title;
 }
 
-QString Track::getAudioType() const {
+QString Track::getAudioType() const
+{
 	return m_audioType;
 }
 
-QString Track::getServerPath() const {
+QString Track::getServerPath() const
+{
 	return m_serverPath;
 }
 

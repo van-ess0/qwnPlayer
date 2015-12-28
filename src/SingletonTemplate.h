@@ -2,22 +2,26 @@
 #define SINGLETONTEMPLATE
 
 template <class T>
-class SingletonTemplate {
+class SingletonTemplate
+{
 
 private:
 	static T* m_obj;
 
 protected:
-	SingletonTemplate() {
+    SingletonTemplate()
+    {
 		m_obj = 0;
 	}
-public:
 
-	~SingletonTemplate() {
+public:
+    ~SingletonTemplate()
+    {
 		delete m_obj;
 	}
 
-	static T* instance() {
+    static T* instance()
+    {
 		if (!m_obj) {
 			m_obj = new T();
 		}

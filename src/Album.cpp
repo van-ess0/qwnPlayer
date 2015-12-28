@@ -16,15 +16,18 @@ Album::Album(const QString& name,
 	m_tracksModel->setSorting(true);
 }
 
-QString Album::getName() const {
+QString Album::getName() const
+{
 	return m_name;
 }
 
-quint32 Album::getYear() const {
+quint32 Album::getYear() const
+{
 	return m_year;
 }
 
-QVariant Album::getTracks() const {
+QVariant Album::getTracks() const
+{
 	return QVariant::fromValue< QSharedPointer<Models::ListModel> >(m_tracksModel);
 }
 
@@ -33,7 +36,8 @@ QString Album::getCover() const
 	return m_cover;
 }
 
-void Album::addTrack(Track* track) {
+void Album::addTrack(Track* track)
+{
 	m_tracksModel->appendRow(track);
 }
 

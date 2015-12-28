@@ -11,15 +11,18 @@ Artist::Artist(const QString& name, QObject* parent)
 	m_albumsModel->setSorting(true);
 }
 
-QString Artist::getName() const {
+QString Artist::getName() const
+{
 	return m_name;
 }
 
-QVariant Artist::getAlbums() const {
+QVariant Artist::getAlbums() const
+{
 	return QVariant::fromValue< QSharedPointer<Models::SubListedListModel> >(m_albumsModel);
 }
 
-void Artist::addAlbum(Album* album) {
+void Artist::addAlbum(Album* album)
+{
 	m_albumsModel->appendRow(album);
 }
 

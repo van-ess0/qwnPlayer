@@ -10,12 +10,13 @@ private:
 	quint64 m_index;
 
 public:
-	GlobalIndex() {
+    GlobalIndex()
+    {
 		m_index = 0;
 	}
-	~GlobalIndex() {
-	}
-	virtual quint64 getIndex() {
+	~GlobalIndex() {}
+    virtual quint64 getIndex()
+    {
 		return m_index++;
 	}
 };

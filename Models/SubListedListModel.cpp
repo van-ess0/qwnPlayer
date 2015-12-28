@@ -89,7 +89,8 @@
  * Construcst a new Models::SubListedListModel instance with the provided \a prototype item template.
  */
 
-Models::SubListedListModel::SubListedListModel(Models::SubListedListItem *prototype, QObject *parent) : Models::ListModel(prototype, parent)
+Models::SubListedListModel::SubListedListModel(Models::SubListedListItem *prototype, QObject *parent)
+    : Models::ListModel(prototype, parent)
 {
 }
 

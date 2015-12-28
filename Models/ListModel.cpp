@@ -184,8 +184,7 @@ Models::ListItem *Models::ListModel::takeRow(int row, const QModelIndex &index)
 {
     if (row == -2) // IF ROW HAS NOT BEEN SPECIFIED TAKE FIRST ITEM
         row = 0;
-    if (row >= 0 && row < this->items.size())
-    {
+    if (row >= 0 && row < this->items.size()) {
         beginRemoveRows(index, row, row);
         Models::ListItem *item = this->items.takeAt(row);
         endRemoveRows();
@@ -210,8 +209,7 @@ QList<Models::ListItem *> Models::ListModel::takeRows(int row, int count, const 
         row = 0;
     if (count == -1)
         count = this->items.size();
-    if (row >= 0 && count > 0 && (row + count) <= this->items.size())
-    {
+    if (row >= 0 && count > 0 && (row + count) <= this->items.size()) {
         beginRemoveRows(index, row, row + count - 1);
         for (int i = 0; i < count; i++)
             items << this->items.takeAt(row);
@@ -242,8 +240,7 @@ void        Models::ListModel::appendRows(QList<Models::ListItem *> &items)
         return ;
     // NEEDED TO UPDATE VIEW
     this->beginInsertRows(QModelIndex(), this->rowCount(), this->rowCount() + items.size() - 1);
-    foreach(Models::ListItem *item, items)
-    {
+    foreach(Models::ListItem *item, items) {
         QObject::connect(item, SIGNAL(dataChanged()), this, SLOT(updateItem()));
         this->items.append(item);
     }
@@ -275,8 +272,7 @@ void       Models::ListModel::insertRow(int row, Models::ListItem *item)
  */
 bool        Models::ListModel::removeRow(int row, const QModelIndex &index)
 {
-    if (row >= 0 && row < this->items.size())
-    {
+    if (row >= 0 && row < this->items.size()) {
         beginRemoveRows(index, row, row);
         Models::ListItem *item = this->items.takeAt(row);
         delete item;
@@ -295,11 +291,9 @@ bool        Models::ListModel::removeRow(int row, const QModelIndex &index)
  */
 bool        Models::ListModel::removeRows(int row, int count, const QModelIndex &index)
 {
-    if (row >= 0 && count > 0 && (row + count) <= this->items.size())
-    {
+    if (row >= 0 && count > 0 && (row + count) <= this->items.size()) {
         beginRemoveRows(index, row, row + count - 1);
-        for (int i = 0; i < count; i++)
-        {
+        for (int i = 0; i < count; i++) {
             Models::ListItem *item = this->items.takeAt(row);
             delete item;
             item = NULL;
@@ -345,11 +339,9 @@ bool compareFunc(void *a, void *b)
  */
 void Models::ListModel::sort()
 {
-    if (this->sortEnabled)
-    {
+    if (this->sortEnabled) {
         qSort(this->items.begin(), this->items.end(), compareFunc);
-        foreach (Models::ListItem *item, this->items)
-        {
+        foreach (Models::ListItem *item, this->items) {
             QModelIndex index = this->indexFromItem(item);
             if (index.isValid())
                 emit dataChanged(index, index);
@@ -362,8 +354,7 @@ void Models::ListModel::sort()
  */
 QModelIndex     Models::ListModel::indexFromItem(Models::ListItem *item) const
 {
-    if (item != NULL)
-    {
+    if (item != NULL) {
         for (int i = 0; i < this->items.size(); i++)
             if (this->items.at(i) == item)
                 return index(i);
@@ -423,8 +414,7 @@ QVariant    Models::ListModel::get(int index)
     QMap<QString, QVariant> itemData;
     QHashIterator<int, QByteArray> hashItr(item->roleNames());
 
-    while(hashItr.hasNext())
-    {
+    while(hashItr.hasNext()) {
         hashItr.next();
         itemData.insert(hashItr.value(),QVariant(item->data(hashItr.key())));
     }

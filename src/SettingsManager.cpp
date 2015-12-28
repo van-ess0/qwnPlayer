@@ -6,6 +6,7 @@ SettingsManager::SettingsManager(QObject* parent) :
 	m_filename = "";
 }
 
-void SettingsManager::setFile(QString filepath) {
+void SettingsManager::setFile(QString filepath)
+{
 	m_filename = filepath;
 }
