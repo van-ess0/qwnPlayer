@@ -2,7 +2,7 @@ import QtQuick 2.5
 import QtQuick.Controls 1.4
 
 Item {
-
+    id: bottomPanelItem
     height: parent.height / 7
     width: parent.width
     anchors.bottom: parent.bottom
@@ -20,7 +20,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: "green"
+        color: "grey"
 
         Text {
             id: currentPos
@@ -76,19 +76,12 @@ Item {
             id: playbutton
             objectName: "playbutton"
             anchors.centerIn: parent
-            width: 40
-            height: 40
+            width: bottomPanelItem.height / 2
+            height: width
             iconSource: "qrc:/resources/images/play.svg"
-//            signal qmlSignal(string msg)
-//            signal qmlSignalEmpty()
             function onTouched() {
                 console.log("Play touched")
-//                playbutton.qmlSignal("Hi from qml")
-//                playbutton.qmlSignalEmpty()
-//                mediaplayer.qmlSlotEmpty()
                 mediaplayer.playToggle()
-//                console.log(currentTrack.trackServerPath)
-//                mediaplayer.currentTrackPath(currentTrack.trackServerPath)
             }
         }
 
@@ -96,8 +89,8 @@ Item {
             id: prevbutton
             anchors.verticalCenter: playbutton.verticalCenter
             anchors.right: playbutton.left
-            width: 20
-            height: 20
+            width: playbutton.width / 2
+            height: width
             iconSource: "qrc:/resources/images/previous.svg"
 
             function onTouched() {
@@ -110,8 +103,8 @@ Item {
             id: nextbutton
             anchors.verticalCenter: playbutton.verticalCenter
             anchors.left: playbutton.right
-            width: 20
-            height: 20
+            width: playbutton.width / 2
+            height: width
             iconSource: "qrc:/resources/images/next.svg"
 
             function onTouched() {
@@ -124,8 +117,8 @@ Item {
             id: shufflebutton
             anchors.verticalCenter: playbutton.verticalCenter
             x: prevbutton.x - 40
-            width: 20
-            height: 20
+            width: playbutton.width / 2
+            height: width
             iconSource: "qrc:/resources/images/shuffle.svg"
 
             function onTouched() {
@@ -138,8 +131,8 @@ Item {
             id: cyclebutton
             anchors.verticalCenter: playbutton.verticalCenter
             x: nextbutton.x + 40
-            width: 20
-            height: 20
+            width: playbutton.width / 2
+            height: width
             iconSource: "qrc:/resources/images/cycle.svg"
 
             function onTouched() {

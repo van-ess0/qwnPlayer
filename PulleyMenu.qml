@@ -6,7 +6,7 @@ Item {
     anchors.top: parent.top
     property bool menu_shown: false
     property int minWidth: parent.width / 8
-    property int maxWidth: parent.width / 2
+    property int maxWidth: parent.width / 3
     width: minWidth
     //height: parent.height
 
@@ -17,7 +17,7 @@ Item {
 
     Rectangle {
         id: mamarect
-        color: "green"
+        color: "gray"
         height: parent.height
         width: parent.width
         property bool textopacity: false

@@ -15,27 +15,11 @@ Item {
 
     }
 
-//    Rectangle {
-
-//        id: smallbutton
-//        //width: parent.width
-//        height: parent.heigth
-//        //anchors.top: parent.top
-//        //anchors.left: parent.left
-//        color: parent.colorel
-
-//        Behavior on width {
-//            NumberAnimation {
-//                duration: 400
-//                easing.type: Easing.OutQuad
-//            }
-//        }
-
         Text {
             id: text
             width: mamabutton.width - mamabutton.minWidth
-            anchors.left: parent.left
-            anchors.right: icon.left
+            anchors.left: icon.right
+            anchors.right: parent.right
             text: mamabutton.label
             visible: mamabutton.textopacity
             Behavior on visible {
@@ -51,8 +35,7 @@ Item {
             id: icon
             width: parent.height
             height: width
-            //anchors.fill: parent
-            anchors.right: parent.right
+            anchors.left: parent.left
             anchors.top: parent.top
             source: mamabutton.iconSource
         }
@@ -69,6 +52,5 @@ Item {
             }
             onClicked: mamabutton.onTouched()
         }
-//    }
 }
 
