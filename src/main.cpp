@@ -23,7 +23,8 @@ int main(int argc, char *argv[])
 	QGuiApplication app(argc, argv);
 
 	qSetMessagePattern("[%{time yyyyMMdd h:mm:ss.zzz}]\
-	[%{if-debug}DEBUG%{endif}\%{if-info}INFO%{endif}%{if-warning}WARNING%{endif}%{if-critical}CRITICAL%{endif}%{if-fatal}FATAL%{endif}]\
+    [%{if-debug}DEBUG%{endif}\%{if-info}INFO%{endif}%{if-warning}WARNING%{endif}\
+%{if-critical}CRITICAL%{endif}%{if-fatal}FATAL%{endif}]\
 	[%{file}:%{line} %{function}] - %{message}");
 
 

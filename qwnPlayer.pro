@@ -4,19 +4,19 @@ QT += qml quick network widgets multimedia multimediawidgets svg
 CONFIG += c++11
 DEFINES += QT_MESSAGELOGCONTEXT
 
-SOURCES += main.cpp \
-    OwnCloudClient.cpp \
-    Track.cpp \
-    Album.cpp \
-    Artist.cpp \
-    ResponseDecoder.cpp \
-    QwnMediaPlayer.cpp \
-    MusicLibrary.cpp \
+SOURCES += src/main.cpp \
+    src/OwnCloudClient.cpp \
+    src/Track.cpp \
+    src/Album.cpp \
+    src/Artist.cpp \
+    src/ResponseDecoder.cpp \
+    src/QwnMediaPlayer.cpp \
+    src/MusicLibrary.cpp \
     Models/ListModel.cpp \
     Models/SubListedListModel.cpp \
-    GlobalIndex.cpp \
-    SettingsManager.cpp \
-    QwnSettings.cpp
+    src/GlobalIndex.cpp \
+    src/SettingsManager.cpp \
+    src/QwnSettings.cpp
 
 RESOURCES += qml.qrc \
     media.qrc
@@ -28,22 +28,22 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    OwnCloudClient.h \
-    Track.h \
-    Album.h \
-    Artist.h \
-    ResponseDecoder.h \
-    QwnMediaPlayer.h \
-    MusicLibrary.h \
+    src/OwnCloudClient.h \
+    src/Track.h \
+    src/Album.h \
+    src/Artist.h \
+    src/ResponseDecoder.h \
+    src/QwnMediaPlayer.h \
+    src/MusicLibrary.h \
     Models/ListItem.h \
     Models/ListModel.h \
     Models/SubListedListItem.h \
     Models/SubListedListModel.h \
-    SingletonTemplate.h \
-    GlobalIndex.h \
-    SettingsManager.h \
-    QwnSettings.h \
-    Macros.h
+    src/SingletonTemplate.h \
+    src/GlobalIndex.h \
+    src/SettingsManager.h \
+    src/QwnSettings.h \
+    src/Macros.h
 
 DISTFILES += \
     settings.conf \
