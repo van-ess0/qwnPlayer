@@ -1,7 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>resources/sound_cut.mp3</file>
-        <file>resources/sound_cut2.mp3</file>
         <file>resources/images/account.svg</file>
         <file>resources/images/cycle.svg</file>
         <file>resources/images/hamburgermenu.svg</file>

@@ -1,22 +1,22 @@
 <RCC>
     <qresource prefix="/">
-        <file>HomePage.qml</file>
-        <file>PulleyMenu.qml</file>
-        <file>PulleyButton.qml</file>
-        <file>SettingsPage.qml</file>
-        <file>PlaylistPage.qml</file>
-        <file>LibraryPage.qml</file>
-        <file>BottomPanel.qml</file>
-        <file>BottomPanelButton.qml</file>
-        <file>AboutPage.qml</file>
-        <file>main.qml</file>
-        <file>ArtistList.qml</file>
-        <file>AlbumList.qml</file>
-        <file>TrackList.qml</file>
-        <file>TrackInfoPage.qml</file>
-        <file>LibraryElement.qml</file>
-        <file>ConnectionPage.qml</file>
-        <file>TextField.qml</file>
-        <file>TouchButton.qml</file>
+        <file>qml/main.qml</file>
+        <file>qml/PulleyMenu.qml</file>
+        <file>qml/BottomPanel.qml</file>
+        <file>qml/PulleyButton.qml</file>
+        <file>qml/AlbumList.qml</file>
+        <file>qml/ArtistList.qml</file>
+        <file>qml/ConnectionPage.qml</file>
+        <file>qml/HomePage.qml</file>
+        <file>qml/LibraryElement.qml</file>
+        <file>qml/SettingsPage.qml</file>
+        <file>qml/TextField.qml</file>
+        <file>qml/TouchButton.qml</file>
+        <file>qml/TrackInfoPage.qml</file>
+        <file>qml/TrackList.qml</file>
+        <file>qml/LibraryPage.qml</file>
+        <file>qml/AboutPage.qml</file>
+        <file>qml/BottomPanelButton.qml</file>
+        <file>qml/PlaylistPage.qml</file>
     </qresource>
 </RCC>

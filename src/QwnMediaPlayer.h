@@ -235,9 +235,6 @@ public slots:
 //		QObject* trackModel = qvariant_cast<QObject*>(m_currentTrack);
 //		qDebug() << QQmlProperty(trackModel, "trackTitle").read().toString();
 
-
-
-
 		m_playlist->clear();
 	}
 };

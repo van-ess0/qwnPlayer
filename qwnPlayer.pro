@@ -4,7 +4,7 @@ QT += qml quick network widgets multimedia multimediawidgets svg
 CONFIG += c++11
 DEFINES += QT_MESSAGELOGCONTEXT
 
-SOURCES += src/main.cpp \
+SOURCES += \
     src/OwnCloudClient.cpp \
     src/Track.cpp \
     src/Album.cpp \
@@ -16,10 +16,12 @@ SOURCES += src/main.cpp \
     Models/SubListedListModel.cpp \
     src/GlobalIndex.cpp \
     src/SettingsManager.cpp \
-    src/QwnSettings.cpp
+    src/QwnSettings.cpp \
+    src/main.cpp
 
-RESOURCES += qml.qrc \
-    media.qrc
+RESOURCES += \
+    media.qrc \
+    qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -46,6 +48,5 @@ HEADERS += \
     src/Macros.h
 
 DISTFILES += \
-    settings.conf \
-    resources/ios/Info.plist
+    resources/ios/Info.plist \
 
