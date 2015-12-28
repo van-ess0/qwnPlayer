@@ -7,8 +7,7 @@
 #include <QNetworkRequest>
 #include <QUrl>
 
-class OwnCloudClient : public QObject
-{
+class OwnCloudClient : public QObject {
 	Q_OBJECT
 
 private:

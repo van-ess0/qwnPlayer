@@ -23,13 +23,11 @@ void Artist::addAlbum(Album* album) {
 	m_albumsModel->appendRow(album);
 }
 
-int Artist::id() const
-{
+int Artist::id() const {
 	return m_globalId;
 }
 
-QVariant Artist::data(int role) const
-{
+QVariant Artist::data(int role) const {
 	switch (role) {
 		case artistId:
 			return this->id();
@@ -42,8 +40,7 @@ QVariant Artist::data(int role) const
 	}
 }
 
-QHash<int, QByteArray> Artist::roleNames() const
-{
+QHash<int, QByteArray> Artist::roleNames() const {
 	QHash<int, QByteArray> roles;
 
 	roles[artistId]		= "artistId";
@@ -53,12 +50,10 @@ QHash<int, QByteArray> Artist::roleNames() const
 	return roles;
 }
 
-bool Artist::operator <(const Models::ListItem& nextElem)
-{
+bool Artist::operator <(const Models::ListItem& nextElem) {
 	return (this->m_name.compare(nextElem.data(ArtistModelItemRoles::artistName).toString()) < 0);
 }
 
-Models::ListModel*Artist::submodel() const
-{
+Models::ListModel*Artist::submodel() const {
 	return m_albumsModel.data();
 }

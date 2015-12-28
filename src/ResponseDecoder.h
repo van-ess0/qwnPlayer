@@ -4,8 +4,7 @@
 #include <QJsonObject>
 #include "Artist.h"
 
-class ResponseDecoder : public QObject
-{
+class ResponseDecoder : public QObject {
 	Q_OBJECT
 public:
 	explicit ResponseDecoder(QObject *parent = 0);

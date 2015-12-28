@@ -4,12 +4,10 @@
 #include "ListItem.h"
 
 
-namespace Models
-{
+namespace Models {
 class ListModel;
 
-class SubListedListItem : public Models::ListItem
-{
+class SubListedListItem : public Models::ListItem {
     Q_OBJECT
 public :
     SubListedListItem(QObject *parent = 0) : Models::ListItem(parent) {}

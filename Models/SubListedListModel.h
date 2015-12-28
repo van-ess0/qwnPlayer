@@ -4,11 +4,9 @@
 #include "ListModel.h"
 #include "SubListedListItem.h"
 
-namespace Models
-{
+namespace Models {
 
-class SubListedListModel : public Models::ListModel
-{
+class SubListedListModel : public Models::ListModel {
     Q_OBJECT
 
 public:

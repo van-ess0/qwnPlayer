@@ -4,8 +4,7 @@
 #include "Models/SubListedListModel.h"
 #include "Album.h"
 
-class Artist : public Models::SubListedListItem
-{
+class Artist : public Models::SubListedListItem {
 	Q_OBJECT
 	NEW_GLOBAL_INDEX(GlobalArtistIndex)
 

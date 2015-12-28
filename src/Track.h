@@ -4,8 +4,7 @@
 #include "Models/ListItem.h"
 #include "GlobalIndex.h"
 
-class Track : public Models::ListItem
-{
+class Track : public Models::ListItem {
 	Q_OBJECT
 	NEW_GLOBAL_INDEX(GlobalTrackIndex)
 

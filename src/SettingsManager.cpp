@@ -1,8 +1,7 @@
 #include "SettingsManager.h"
 
 SettingsManager::SettingsManager(QObject* parent) :
-	QObject(parent)
-{
+    QObject(parent) {
 	m_filename = "";
 }
 

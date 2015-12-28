@@ -5,8 +5,7 @@
 #include <QStandardPaths>
 #include <QDebug>
 
-QwnSettings::QwnSettings(QObject* parent) : QObject(parent)
-{
+QwnSettings::QwnSettings(QObject* parent) : QObject(parent) {
 	m_homeLocation =  QStandardPaths::locate(QStandardPaths::AppLocalDataLocation,
 												   QString(),
 												   QStandardPaths::LocateDirectory);

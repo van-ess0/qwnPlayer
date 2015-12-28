@@ -27,13 +27,11 @@ QString Track::getServerPath() const {
 	return m_serverPath;
 }
 
-int Track::id() const
-{
+int Track::id() const {
 	return m_globalId;
 }
 
-QVariant Track::data(int role) const
-{
+QVariant Track::data(int role) const {
 	switch (role) {
 		case trackId:
 			return this->id();
@@ -50,8 +48,7 @@ QVariant Track::data(int role) const
 	}
 }
 
-QHash<int, QByteArray> Track::roleNames() const
-{
+QHash<int, QByteArray> Track::roleNames() const {
 	QHash<int, QByteArray> roles;
 
 	roles[trackId]			= "trackId";
@@ -63,7 +60,6 @@ QHash<int, QByteArray> Track::roleNames() const
 	return roles;
 }
 
-bool Track::operator <(const Models::ListItem& nextElem)
-{
+bool Track::operator <(const Models::ListItem& nextElem) {
 	return m_number < nextElem.data(TrackModelItemRoles::trackNumber).toUInt();
 }
