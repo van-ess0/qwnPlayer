@@ -36,12 +36,7 @@ public:
 //	void artistListChanged();
 
 public slots:
-	void slotCollectionDataParsed(QList<Artist*> artists) {
-		foreach (Artist* value, artists) {
-			m_artistModel->appendRow(value);
-		}
-//		setArtistList(artists);
-	}
+    void slotCollectionDataParsed(QList<Artist*> artists);
 //	void slotCollectionDataParsed(Models::SubListedListModel* artistModel) {
 //		m_artistModel = artistModel;
 //		emit artistListChanged();
