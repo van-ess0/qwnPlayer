@@ -10,7 +10,6 @@ Item {
 
 //    settings.onUrlChanged: connectionPage.onUrlChanged()
 
-
     Column {
             anchors.centerIn: parent
             anchors.alignWhenCentered: true
@@ -76,16 +75,9 @@ Item {
 
     function login() {
         statusText.text = "Logging in..."
-//        enginioClient.identity = null
-//        auth.user = nameInput.text
-//        auth.password = passwordInput.text
-//        enginioClient.identity = auth
         settings.url = urlInput.text
         settings.username = nameInput.text
         settings.password = passwordInput.text
-
-//        connectionPage.qmlSignalAuth()
-
         cloudClient.auth()
     }
 
