@@ -14,7 +14,7 @@ Item {
 
     function onDurationChanged(duration) {
         console.log("duration: " + duration)
-        progressSlider.maximumValue = duration / 1000
+        progressSlider.maximumValue = Math.round(duration / 1000)
     }
 
 
@@ -31,7 +31,16 @@ Item {
             }
             function filling()
             {
-                var seconds = (progressSlider.value % 60).toString();
+                var seconds = ""
+                var nseconds = (progressSlider.value % 60)
+                if (nseconds < 10){
+
+                    seconds = "0" + nseconds.toString()
+                }
+                else {
+                    seconds = nseconds.toString()
+                }
+
                 var minutes = ((progressSlider.value - seconds) / 60).toString();
 
                 return (qsTr(minutes + ":" + seconds))
@@ -47,7 +56,16 @@ Item {
             }
             function filling()
             {
-                var seconds = (progressSlider.maximumValue % 60).toString();
+                var seconds = ""
+                var nseconds = progressSlider.maximumValue % 60
+                if (nseconds < 10){
+
+                    seconds = "0" + nseconds.toString()
+                }
+                else {
+                    seconds = nseconds.toString()
+                }
+
                 var minutes = ((progressSlider.maximumValue - seconds) / 60).toString();
 
                 return (qsTr(minutes + ":" + seconds))
@@ -57,15 +75,14 @@ Item {
         Slider {
             id: progressSlider
             width: parent.width / 1.5
-            //Get lenght of the track
-            maximumValue: 100
+            maximumValue: 0
             minimumValue: 0
             stepSize: 1.0
             anchors.horizontalCenter: parent.horizontalCenter
 
             onPressedChanged: {
                 if (!pressed) {
-                    //set the Position
+                    mediaplayer.setCurrentPosition(value * 1000)
                     console.log("Position set to ", value)
                 }
             }

@@ -16,72 +16,14 @@ class QwnMediaPlayer : public QObject
 	QML_PROPERTY(QVariant, currentAlbum, setCurrentAlbum, currentAlbumChanged)
 	QML_PROPERTY(QVariant, currentArtist, setCurrentArtist, currentArtistChanged)
 
-//	Q_PROPERTY(QVariant currentTrack
-//			   READ currentTrack
-//			   WRITE setCurrentTrack
-//			   NOTIFY currentTrackChanged)
-
-//	Q_PROPERTY(QVariant currentAlbum
-//			   READ currentAlbum
-//			   WRITE setCurrentAlbum
-//			   NOTIFY currentAlbumChanged)
-
-//	Q_PROPERTY(QVariant currentArtist
-//			   READ currentArtist
-//			   WRITE setCurrentArtist
-//			   NOTIFY currentArtistChanged)
-
 private:
 	QMediaPlayer* m_player;
 	QMediaPlaylist* m_playlist;
 
-//	QString m_username;
-//	QString m_password;
-
 	bool m_isPlaying;
-
-//	QVariant m_currentTrack;
-//	QVariant m_currentAlbum;
-//	QVariant m_currentArtist;
 
 public:
 	explicit QwnMediaPlayer(QObject *parent = 0);
-
-//	QVariant currentTrack() const {
-//		return m_currentTrack;
-//	}
-
-//	QVariant currentAlbum() const {
-//		return m_currentAlbum;
-//	}
-
-//	QVariant currentArtist() const {
-//		return m_currentArtist;
-//	}
-
-//	void setCurrentTrack(const QVariant& track) {
-//		qDebug() << "set current track";
-//		if (track != m_currentTrack) {
-//			m_currentTrack = track;
-//			emit currentTrackChanged();
-//		}
-//	}
-
-//	void setCurrentAlbum(const QVariant& album) {
-//		qDebug() << "set current album";
-//		if (album != m_currentAlbum) {
-//			m_currentAlbum = album;
-//			emit currentAlbumChanged();
-//		}
-//	}
-
-//	void setCurrentArtist(const QVariant& artist) {
-//		qDebug() << "set current artist";
-//		if (artist != m_currentArtist) {
-//			m_currentArtist = artist;
-//			emit currentArtistChanged();
-//		}
-//	}
 
 	// Create 'onNameOfSignal' handler in qml for signal 'nameOfSignal'
 	// if you want to handle it :)
@@ -118,6 +60,9 @@ public slots:
 	void prevTrack();
 	void shuffleToggle();
 	void cycleToggle();
+    void setCurrentPosition(qint64 position) {
+        m_player->setPosition(position);
+    }
 
 	void currentTrackPath(QString path);
 
