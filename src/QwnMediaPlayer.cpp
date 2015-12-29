@@ -10,6 +10,8 @@ QwnMediaPlayer::QwnMediaPlayer(QObject *parent) : QObject(parent)
 	m_player->setPlaylist(m_playlist);
 	m_isPlaying = false;
 
+	m_musicLibrary = NULL;
+
 //	m_username = ;
 //	m_password = ;
 
@@ -30,7 +32,14 @@ QwnMediaPlayer::QwnMediaPlayer(QObject *parent) : QObject(parent)
 	connect(m_player, SIGNAL(error(QMediaPlayer::Error)),
 			this, SLOT(error(QMediaPlayer::Error)));
 
+	connect(m_player, SIGNAL(mediaChanged(QMediaContent)),
+			this, SLOT(slotMediaChanged(QMediaContent)));
 
+}
+
+void QwnMediaPlayer::setMusicLibrary(MusicLibrary* library)
+{
+	m_musicLibrary = library;
 }
 
 void QwnMediaPlayer::slotAudioAvailabilityChanged(bool value)
@@ -78,6 +87,30 @@ void QwnMediaPlayer::stateChanged(QMediaPlayer::State state)
 void QwnMediaPlayer::error(QMediaPlayer::Error error)
 {
 	qDebug() << "error" << error << m_player->errorString();
+}
+
+void QwnMediaPlayer::slotMediaChanged(QMediaContent content)
+{
+	qDebug() << "media changed";
+
+	QObject* trackModel = qvariant_cast<QObject*>(m_currentTrack);
+
+	if (!trackModel) {
+		qDebug() << "cast track error";
+		return;
+	}
+
+	QString trackTitle = QQmlProperty(trackModel, "trackTitle").read().toString();
+
+	quint64 albumId = QQmlProperty(trackModel, "trackAlbumId").read().toLongLong();
+	Album* album = qobject_cast<Album*>(m_musicLibrary->getAlbumById(albumId));
+	QString albumName = album->getName();
+
+	quint64 artistId = album->getArtistId();
+	Artist* artist = qobject_cast<Artist*>(m_musicLibrary->getArtistModel()->find(artistId));
+	QString artistName = artist->getName();
+
+	emit signalPlayingTrackChanged(trackTitle, artistName, albumName);
 }
 
 //void QwnMediaPlayer::qmlSlot(QString string)

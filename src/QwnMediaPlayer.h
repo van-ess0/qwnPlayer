@@ -5,8 +5,8 @@
 #include <QMediaPlaylist>
 #include <QQmlProperty>
 
-#include "Artist.h"
 #include "SettingsManager.h"
+#include "MusicLibrary.h"
 
 class QwnMediaPlayer : public QObject
 {
@@ -22,12 +22,16 @@ private:
 
 	bool m_isPlaying;
 
+	QString m_currentArtistName;
+	QString m_currentAlbumName;
+
+	MusicLibrary* m_musicLibrary;
+
 public:
 	explicit QwnMediaPlayer(QObject *parent = 0);
 
-	// Create 'onNameOfSignal' handler in qml for signal 'nameOfSignal'
-	// if you want to handle it :)
-signals:
+	void setMusicLibrary(MusicLibrary* library);
+
 //	void testSig();
 //	void keyGenerated(bool success);
 //public slots:
@@ -38,8 +42,12 @@ signals:
 //	void currentAlbumChanged();
 //	void currentArtistChanged();
 
+	// Create 'onNameOfSignal' handler in qml for signal 'nameOfSignal'
+	// if you want to handle it :)
+signals:
 	void signalPositionChanged(qint64 progress);
 	void signalDurationChanged(qint64 duration);
+	void signalPlayingTrackChanged(QString title, QString artist, QString album);
 
 	// connections with qmediaplayer
 private slots:
@@ -52,6 +60,7 @@ private slots:
 	void seek(int seconds);
 	void stateChanged(QMediaPlayer::State);
 	void error(QMediaPlayer::Error);
+	void slotMediaChanged(QMediaContent);
 
 	// This methods will be called from qml file
 public slots:

@@ -10,6 +10,7 @@ ApplicationWindow {
     property real scaleFactor: 1.0
     property int intScaleFactor: Math.max(1, scaleFactor)
 
+    // Do not touch!!!
     property int currentArtistId: 0;
     property int currentAlbumId: 0;
 
@@ -46,8 +47,11 @@ ApplicationWindow {
 
     QwnMediaPlayer {
         id: mediaplayer
+        objectName: "mediaPlayer"
         onSignalPositionChanged: bottomPanel.onProgressChanged(progress)
         onSignalDurationChanged: bottomPanel.onDurationChanged(duration)
+        onSignalPlayingTrackChanged: playingTrack.fillingMeta(title, artist, album)
+
     }
 
     StackView {
@@ -76,6 +80,19 @@ ApplicationWindow {
     BottomPanel {
         id: bottomPanel
 
+    }
+
+    Item {
+        id: playingTrack
+        property var track: ""
+        property var artist: "value"
+        property var album: "value"
+
+        function fillingMeta (title, artist, album){
+            playingTrack.track = title
+            playingTrack.artist = artist
+            playingTrack.album = album
+        }
     }
 
 }

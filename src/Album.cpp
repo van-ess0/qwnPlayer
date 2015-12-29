@@ -3,6 +3,7 @@
 Album::Album(const QString& name,
 			 const quint32 year,
 			 const QString& cover,
+			 const quint64& artistId,
 			 QObject* parent)
 	:
 	  SubListedListItem(parent)
@@ -11,8 +12,8 @@ Album::Album(const QString& name,
 	m_year		= year;
 	m_cover		= cover;
 	m_globalId	= GlobalAlbumIndex::instance()->getIndex();
-
-	m_tracksModel = QSharedPointer<Models::ListModel>(new Models::ListModel(new Track(0, "empty", "empty", "empty", NULL)));
+	m_artistId	= artistId;
+	m_tracksModel = QSharedPointer<Models::ListModel>(new Models::ListModel(new Track(0, "empty", "empty", "empty", 0, NULL)));
 	m_tracksModel->setSorting(true);
 }
 
@@ -36,6 +37,11 @@ QString Album::getCover() const
 	return m_cover;
 }
 
+quint64 Album::getArtistId() const
+{
+	return m_artistId;
+}
+
 void Album::addTrack(Track* track)
 {
 	m_tracksModel->appendRow(track);
@@ -50,15 +56,17 @@ QVariant Album::data(int role) const
 {
 	switch (role) {
 		case albumId:
-			return this->id();
+			return id();
 		case albumName:
-			return this->getName();
+			return getName();
 		case albumYear:
-			return this->getYear();
+			return getYear();
 		case albumTracks:
-			return this->getTracks();
+			return getTracks();
 		case albumCover:
-			return this->getCover();
+			return getCover();
+		case albumArtistId:
+			return getArtistId();
 		default:
 			return QVariant();
 	}
@@ -68,11 +76,12 @@ QHash<int, QByteArray> Album::roleNames() const
 {
 	QHash<int, QByteArray> roles;
 
-	roles[albumId]		= "albumId";
-	roles[albumName]	= "albumName";
-	roles[albumYear]	= "albumYear";
-	roles[albumTracks]	= "albumTracks";
-	roles[albumCover]	= "albumCover";
+	roles[albumId]			= "albumId";
+	roles[albumName]		= "albumName";
+	roles[albumYear]		= "albumYear";
+	roles[albumTracks]		= "albumTracks";
+	roles[albumCover]		= "albumCover";
+	roles[albumArtistId]	= "albumArtistId";
 
 	return roles;
 }

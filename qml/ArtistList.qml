@@ -35,6 +35,7 @@ Item {
                 artistView.currentIndex = model.index
                 currentArtistId = model.artistId
                 mediaplayer.currentArtist = model
+                playingTrack.artist = model.artistName
             }
 
             function onPlayTouched() {

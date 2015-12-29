@@ -40,7 +40,6 @@ int main(int argc, char *argv[])
 
 
 
-    MusicLibrary* musicLibrary = new MusicLibrary();
 //	musicLibrary->setArtistList(artists);
 //	QObject::connect(decoder, SIGNAL(signalCollectionDataParsed(QList<Artist*>)),
 //					 musicLibrary, SLOT(slotCollectionDataParsed(QList<Artist*>)));
@@ -65,6 +64,7 @@ int main(int argc, char *argv[])
 //								QVariant::fromValue(musicLibrary->getArtistList()));
 //	context->setContextProperty("artistModel", m_artistModel);
 
+	MusicLibrary* musicLibrary = new MusicLibrary();
     context->setContextProperty("artistModel", musicLibrary->getArtistModel());
 
 //	QObject::connect(decoder, SIGNAL(signalCollectionDataParsed(Models::SubListedListModel*)),
@@ -94,18 +94,19 @@ int main(int argc, char *argv[])
 //	QObject::connect(connectionPage, SIGNAL(qmlSignalAuth()),
 //					 cloudClient, SLOT(auth()));
 
-    QObject* cloudClientObject = window->findChild<QObject*>("cloudClient");
-
-    OwnCloudClient* cloudClient = qobject_cast<OwnCloudClient*>(cloudClientObject);
+	QObject* cloudClientObject = window->findChild<QObject*>("cloudClient");
+	OwnCloudClient* cloudClient = qobject_cast<OwnCloudClient*>(cloudClientObject);
 
     ResponseDecoder* decoder = new ResponseDecoder();
     QObject::connect(cloudClient, SIGNAL(signalCollectionData(QByteArray)),
                      decoder, SLOT(slotCollectionData(QByteArray)));
 
-    QObject::connect(decoder, SIGNAL(signalCollectionDataParsed(QList<Artist*>)),
-                     musicLibrary, SLOT(slotCollectionDataParsed(QList<Artist*>)));
+	QObject* mediaPlayerObject = window->findChild<QObject*>("mediaPlayer");
+	QwnMediaPlayer* mediaPlayer = qobject_cast<QwnMediaPlayer*>(mediaPlayerObject);
+	mediaPlayer->setMusicLibrary(musicLibrary);
 
-
+	QObject::connect(decoder, SIGNAL(signalCollectionDataParsed(QList<Artist*>)),
+					 musicLibrary, SLOT(slotCollectionDataParsed(QList<Artist*>)));
 //	QObject::connect(decoder, SIGNAL(signalCollectionDataParsed(QList<Artist*>)),
 //						 &mainWindow, SLOT(slotCollectionDataParsed(QList<Artist*>)));
 //	QObject::connect(cloudClient, SIGNAL(signalLog(QString)),

@@ -15,26 +15,31 @@ private:
 	QString m_audioType;
 	QString m_serverPath;
 
-	quint64 m_globalId;
+	quint64 m_globalId; // track
+	quint64 m_albumId;
 	
 	enum TrackModelItemRoles {
 		trackId = Qt::UserRole + 1,
 		trackNumber,
 		trackTitle,
 		trackAudioType,
-		trackServerPath
+		trackServerPath,
+		trackAlbumId
 	};
+
 
 public:
 	explicit Track(const quint32 number,
 				   const QString& title,
 				   const QString& type,
 				   const QString& path,
+				   const quint64& trackAlbumId,
 				   QObject *parent = 0);
 	quint32 getNumber() const;
 	QString getTitle() const;
 	QString getAudioType() const;
 	QString getServerPath() const;
+	quint64 getAlbumId() const;
 
 	// ListItem interface
 public:

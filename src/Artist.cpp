@@ -7,7 +7,7 @@ Artist::Artist(const QString& name, QObject* parent)
 	m_name		= name;
 	m_globalId	= GlobalArtistIndex::instance()->getIndex();
 
-	m_albumsModel = QSharedPointer<Models::SubListedListModel>(new Models::SubListedListModel(new Album("empty", 0, "empty", NULL)));
+	m_albumsModel = QSharedPointer<Models::SubListedListModel>(new Models::SubListedListModel(new Album("empty", 0, "empty", 0, NULL)));
 	m_albumsModel->setSorting(true);
 }
 
@@ -61,7 +61,7 @@ bool Artist::operator <(const Models::ListItem& nextElem)
 	return (this->m_name.compare(nextElem.data(ArtistModelItemRoles::artistName).toString()) < 0);
 }
 
-Models::ListModel*Artist::submodel() const
+Models::ListModel* Artist::submodel() const
 {
 	return m_albumsModel.data();
 }

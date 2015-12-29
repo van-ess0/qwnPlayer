@@ -1,6 +1,11 @@
 #include "Track.h"
 
-Track::Track(const quint32 number, const QString& title, const QString& type, const QString& path, QObject* parent)
+Track::Track(const quint32 number,
+			 const QString& title,
+			 const QString& type,
+			 const QString& path,
+			 const quint64& albumId,
+			 QObject* parent)
 	:
 	  Models::ListItem(parent)
 {
@@ -9,6 +14,7 @@ Track::Track(const quint32 number, const QString& title, const QString& type, co
 	m_audioType		= type;
 	m_serverPath	= path;
 	m_globalId		= GlobalTrackIndex::instance()->getIndex();
+	m_albumId		= albumId;
 }
 
 quint32 Track::getNumber() const
@@ -31,6 +37,11 @@ QString Track::getServerPath() const
 	return m_serverPath;
 }
 
+quint64 Track::getAlbumId() const
+{
+	return m_albumId;
+}
+
 int Track::id() const
 {
 	return m_globalId;
@@ -40,15 +51,17 @@ QVariant Track::data(int role) const
 {
 	switch (role) {
 		case trackId:
-			return this->id();
+			return id();
 		case trackNumber:
-			return this->getNumber();
+			return getNumber();
 		case trackTitle:
-			return this->getTitle();
+			return getTitle();
 		case trackAudioType:
-			return this->getAudioType();
+			return getAudioType();
 		case trackServerPath:
-			return this->getServerPath();
+			return getServerPath();
+		case trackAlbumId:
+			return getAlbumId();
 		default:
 			return QVariant();
 	}
@@ -63,6 +76,7 @@ QHash<int, QByteArray> Track::roleNames() const
 	roles[trackTitle]		= "trackTitle";
 	roles[trackAudioType]	= "trackAudioType";
 	roles[trackServerPath]	= "trackServerPath";
+	roles[trackAlbumId]		= "trackAlbumId";
 
 	return roles;
 }

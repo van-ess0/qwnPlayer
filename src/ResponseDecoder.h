@@ -16,8 +16,8 @@ public:
 private:
 	void decodeCollection(const QByteArray& data);
 
-	Track* createTrack(const QJsonObject& jsonObject, QObject* parent = NULL);
-	Album* createAlbum(const QJsonObject& jsonObject, QObject* parent = NULL);
+	Track* createTrack(const QJsonObject& jsonObject, Album* albumParent);
+	Album* createAlbum(const QJsonObject& jsonObject, Artist* artistParent);
 	Artist* createArtist(const QJsonObject& jsonObject, QObject* parent = NULL);
 
 	Album* assembleAlbum(const QJsonObject& albumJson, Artist* artist);

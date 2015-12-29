@@ -21,17 +21,17 @@ Item {
 
         Label {
             id: trackLabel
-            text: "Track: " + mediaplayer.currentTrack.trackTitle
+            text: "Track: " + playingTrack.track
         }
 
         Label {
             id: artistLabel
-            text: "Artist: " + mediaplayer.currentArtist.artistName
+            text: "Artist: " + playingTrack.artist
         }
 
         Label {
             id: albumLabel
-            text: "Album: " + mediaplayer.currentAlbum.albumName
+            text: "Album: " + playingTrack.album
         }
     }
 

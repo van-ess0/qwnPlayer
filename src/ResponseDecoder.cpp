@@ -27,7 +27,7 @@ void ResponseDecoder::decodeCollection(const QByteArray& data)
 	emit signalCollectionDataParsed(library);
 }
 
-Track* ResponseDecoder::createTrack(const QJsonObject& jsonObject, QObject* parent)
+Track* ResponseDecoder::createTrack(const QJsonObject& jsonObject, Album* albumParent)
 {
 	// Parsing audio type, because
 	// json key is string description of type
@@ -36,32 +36,38 @@ Track* ResponseDecoder::createTrack(const QJsonObject& jsonObject, QObject* pare
 
 	// Creating new track object
 	Track* track = new Track(
-						// Track number
-						jsonObject["number"].toInt(),
-						// Title
-						jsonObject["title"].toString(),
-						// Audio type (flac, mpeg)
-						type,
-						// Server path to file
-						jsonObject["files"].toObject()[type].toString(),
-						// parent object
-						parent);
+							// Track number
+							jsonObject["number"].toInt(),
+							// Title
+							jsonObject["title"].toString(),
+							// Audio type (flac, mpeg)
+							type,
+							// Server path to file
+							jsonObject["files"].toObject()[type].toString(),
+							// Album ID
+							albumParent->id(),
+							// parent object
+							albumParent
+						);
 
 	return track;
 }
 
-Album* ResponseDecoder::createAlbum(const QJsonObject& jsonObject, QObject* parent)
+Album* ResponseDecoder::createAlbum(const QJsonObject& jsonObject, Artist* artistParent)
 {
 	// Creating new album object
 	Album* album = new Album(
-					   // Album name
-					   jsonObject["name"].toString(),
-					   // Year
-					   jsonObject["year"].toInt(),
-					   // Cover
-					   jsonObject["cover"].toString(),
-					   // parent object
-					   parent);
+							// Album name
+							jsonObject["name"].toString(),
+							// Year
+							jsonObject["year"].toInt(),
+							// Cover
+							jsonObject["cover"].toString(),
+							// Artist ID
+							artistParent->id(),
+							// parent object
+							artistParent
+						);
 
 	return album;
 }
