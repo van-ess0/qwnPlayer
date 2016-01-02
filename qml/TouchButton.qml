@@ -37,7 +37,7 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
-import QtQuick 2.1
+import QtQuick 2.0
 
 Item {
     id: button
@@ -47,7 +47,7 @@ Item {
     property color textColor: "#fff"
     height: Math.round(40 * scaleFactor)
     width: Math.round(160 * scaleFactor)
-    activeFocusOnTab: true
+    //activeFocusOnTab: true
 
     Rectangle {
         anchors.fill: button

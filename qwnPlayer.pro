@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick network widgets multimedia svg
+QT += qml quick network multimedia svg
 CONFIG += c++11
 DEFINES += QT_MESSAGELOGCONTEXT
 
@@ -52,11 +52,12 @@ DISTFILES += \
     rpm/qwnPlayer.yaml \
     rpm/qwnPlayer.changes.in \
     rpm/qwnPlayer.spec \
-    qwnPlayer.desktop
+    qwnPlayer.desktop \
+    icons/86x86/qwnPlayer.png
 
 # SFOS
 
 CONFIG += sailfishapp sailfishapp_i18n
 
-SAILFISHAPP_ICONS = 86x86 108x108 128x128 256x256
+SAILFISHAPP_ICONS = 86x86
 

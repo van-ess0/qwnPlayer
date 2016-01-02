@@ -37,7 +37,7 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
-import QtQuick 2.1
+import QtQuick 2.0
 
 FocusScope {
     id: textfield
@@ -47,7 +47,7 @@ FocusScope {
     property alias echoMode: textInput.echoMode
     signal accepted
 
-    activeFocusOnTab: true
+    //activeFocusOnTab: true
 
     implicitHeight: Math.round(40 * scaleFactor)
     implicitWidth: Math.round(parent.width)

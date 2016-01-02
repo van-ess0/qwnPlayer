@@ -1,7 +1,6 @@
-import QtQuick 2.5
-import QtQuick.Controls 1.4
+import QtQuick 2.0
+import QtQuick.Controls 1.1
 import com.qwnplayer 1.0
-import Enginio 1.0
 
 ApplicationWindow {
 
@@ -84,9 +83,9 @@ ApplicationWindow {
 
     Item {
         id: playingTrack
-        property var track: ""
-        property var artist: "value"
-        property var album: "value"
+        property string track: ""
+        property string artist: "value"
+        property string album: "value"
 
         function fillingMeta (title, artist, album){
             playingTrack.track = title

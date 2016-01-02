@@ -7,7 +7,7 @@
 #include "QwnSettings.h"
 #include "MusicLibrary.h"
 
-#include <QApplication>
+//#include <QApplication>
 #include <QQuickView>
 #include <QQuickItem>
 #include <QQmlEngine>
