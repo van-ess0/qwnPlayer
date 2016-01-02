@@ -7,7 +7,7 @@
 
 QwnSettings::QwnSettings(QObject* parent) : QObject(parent)
 {
-	m_homeLocation =  QStandardPaths::locate(QStandardPaths::AppLocalDataLocation,
+    m_homeLocation =  QStandardPaths::locate(QStandardPaths::DataLocation,
 												   QString(),
 												   QStandardPaths::LocateDirectory);
 	qDebug() << m_homeLocation;

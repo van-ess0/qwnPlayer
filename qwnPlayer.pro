@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick network widgets multimedia multimediawidgets svg
+QT += qml quick network widgets multimedia svg
 CONFIG += c++11
 DEFINES += QT_MESSAGELOGCONTEXT
 
@@ -24,7 +24,7 @@ RESOURCES += \
     qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
+#QML_IMPORT_PATH =
 
 # Default rules for deployment.
 include(deployment.pri)
@@ -49,4 +49,14 @@ HEADERS += \
 
 DISTFILES += \
     resources/ios/Info.plist \
+    rpm/qwnPlayer.yaml \
+    rpm/qwnPlayer.changes.in \
+    rpm/qwnPlayer.spec \
+    qwnPlayer.desktop
+
+# SFOS
+
+CONFIG += sailfishapp sailfishapp_i18n
+
+SAILFISHAPP_ICONS = 86x86 108x108 128x128 256x256
 
