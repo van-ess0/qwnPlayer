@@ -24,7 +24,7 @@ RESOURCES += \
     qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
-#QML_IMPORT_PATH =
+#  QML_IMPORT_PATH =
 
 # Default rules for deployment.
 include(deployment.pri)
@@ -47,17 +47,10 @@ HEADERS += \
     src/QwnSettings.h \
     src/Macros.h
 
-DISTFILES += \
-    resources/ios/Info.plist \
-    rpm/qwnPlayer.yaml \
+# SFOS
+
+    DISTFILES += rpm/qwnPlayer.yaml \
     rpm/qwnPlayer.changes.in \
     rpm/qwnPlayer.spec \
     qwnPlayer.desktop \
     icons/86x86/qwnPlayer.png
-
-# SFOS
-
-CONFIG += sailfishapp sailfishapp_i18n
-
-SAILFISHAPP_ICONS = 86x86
-

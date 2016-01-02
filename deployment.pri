@@ -19,10 +19,12 @@ unix:!android {
 
 ios {
     QMAKE_INFO_PLIST = resources/ios/Info.plist
+    DISTFILES += resources/ios/Info.plist
 }
 
 macx {
     QMAKE_INFO_PLIST = resources/ios/Info.plist
+    DISTFILES += resources/ios/Info.plist
 }
 
 winrt {
@@ -38,11 +40,20 @@ winrt {
     CONFIG += windeployqt
 }
 
-win32 {
-    install_it.path = $$OUT_PWD
-    install_it.files += $$PWD/settings.conf
-    INSTALLS += install_it
-}
+#win32 {
+#    install_it.path = $$OUT_PWD
+#    install_it.files += $$PWD/settings.conf
+#    INSTALLS += install_it
+#}
 
+packagesExist(sailfishapp) {
+    CONFIG += sailfishapp sailfishapp_i18n
+    SAILFISHAPP_ICONS = 86x86
+    DISTFILES += rpm/qwnPlayer.yaml \
+    rpm/qwnPlayer.changes.in \
+    rpm/qwnPlayer.spec \
+    qwnPlayer.desktop \
+    icons/86x86/qwnPlayer.png
+}
 export(INSTALLS)
 
