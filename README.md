@@ -4,7 +4,7 @@
 This is early version of ownCloud music player wrote with Qt.
 
 Tested on:
-    1) Win32 - everything is working\n
+    1) Win32 - everything is working<br>
     2) WinRT - playback isn't working - Qt bug (reported)\n
     3) Android (4.*)- everything is working\n
     4) iOS (9.2)- everything is working\n
