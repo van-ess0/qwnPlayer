@@ -6,7 +6,7 @@ Item {
     property string element_text: ""
 
     width: element_view.width
-    height: 40
+    height: 60
 
     function onPlayTouched() {
 
@@ -38,8 +38,8 @@ Item {
             objectName: "playbutton"
             anchors.left: parent
             anchors.verticalCenter: parent.verticalCenter
-            width: 20
-            height: 20
+            height: parent.height
+            width: height
             iconSource: "qrc:/resources/images/play.svg"
             function onTouched() {
                 library_element.onPlayTouched()
@@ -56,7 +56,7 @@ Item {
 
         MouseArea {
             id: mouse_area_element
-            height: 40
+            height: parent.height
             width: parent.width - playbutton_element.width
             anchors.left: playbutton_element.right
             onPressAndHold: library_element.onPressAndHold()
