@@ -33,6 +33,7 @@ private:
 		QString artist;
 //		quint64 year;
 		QUrl url;
+		quint32 albumId;
 	};
 
 	QList< QSharedPointer<NowPlaying> > m_nowplayingPlaylist;
@@ -59,6 +60,7 @@ signals:
 	void signalPositionChanged(qint64 progress);
 	void signalDurationChanged(qint64 duration);
 	void signalPlayingTrackChanged(QString title, QString artist, QString album);
+	void signalCoverChanged(quint32 coverId);
 
 	// connections with qmediaplayer
 private slots:

@@ -50,7 +50,7 @@ ApplicationWindow {
         onSignalPositionChanged: bottomPanel.onProgressChanged(progress)
         onSignalDurationChanged: bottomPanel.onDurationChanged(duration)
         onSignalPlayingTrackChanged: playingTrack.fillingMeta(title, artist, album)
-
+        onSignalCoverChanged: playingTrack.fillingCover(coverId)
     }
 
     StackView {
@@ -86,11 +86,16 @@ ApplicationWindow {
         property string track: "value"
         property string artist: "value"
         property string album: "value"
+        property int coverId: 17
 
         function fillingMeta (title, artist, album){
             playingTrack.track = title
             playingTrack.artist = artist
             playingTrack.album = album
+        }
+
+        function fillingCover (coverId) {
+            playingTrack.coverId = coverId
         }
     }
 

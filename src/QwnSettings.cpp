@@ -62,6 +62,7 @@ void QwnSettings::initialize()
 		setPassword(SettingsManager::instance()->getUserPassword());
 	}
 	SettingsManager::instance()->setApiMusicCollection("/owncloud/index.php/apps/music/api/collection");
+	SettingsManager::instance()->setApiCover("/owncloud/index.php/apps/music/api/album/");
 	SettingsManager::instance()->setHomeLocation(m_homeLocation);
 
 	m_is_initialized = true;

@@ -16,7 +16,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width * 0.8
             height: width
-            source: "qrc:/resources/images/cover_sample.jpg"
+            source: "image://qwnImageProvider/" + playingTrack.coverId
         }
 
         Label {
@@ -35,4 +35,7 @@ Item {
         }
     }
 
+    Component.onCompleted: {
+//        cover_side.source: "image://qwnImageProvider/500/500/"
+    }
 }
