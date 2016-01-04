@@ -7,6 +7,7 @@ Item {
             text: qsTr("This is About Page")
         }
         Text {
+            // http://www.flaticon.com/authors/daniel-bruce
             text: "Thanks for the icons to Daniel Bruce"
         }
     }

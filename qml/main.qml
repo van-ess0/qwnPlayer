@@ -87,7 +87,7 @@ ApplicationWindow {
         property string track: "value"
         property string artist: "value"
         property string album: "value"
-        property int coverId: 17
+        property int coverId: -1
 
         function fillingMeta (title, artist, album){
             playingTrack.track = title

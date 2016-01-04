@@ -12,7 +12,17 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width * 0.8
             height: width
-            source: "image://qwnImageProvider/" + playingTrack.coverId
+            source: filling()
+
+            function filling()
+            {
+                if (playingTrack.coverId == -1) {
+                    source = "qrc://qrc:/resources/images/cover_sample.jpg"
+                }
+                else {
+                    source = "image://qwnImageProvider/" + playingTrack.coverId
+                }
+            }
         }
 
         Label {
