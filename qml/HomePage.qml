@@ -17,7 +17,7 @@ Item {
             function filling()
             {
                 if (playingTrack.coverId == -1) {
-                    source = "qrc://qrc:/resources/images/cover_sample.jpg"
+                    source = "qrc:/resources/images/cover_sample.jpg"
                 }
                 else {
                     source = "image://qwnImageProvider/" + playingTrack.coverId
