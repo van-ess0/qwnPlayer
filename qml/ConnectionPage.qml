@@ -21,6 +21,7 @@ Item {
                 onAccepted: passwordInput.forceActiveFocus()
                 placeholderText: "OwnCloud URL"
                 KeyNavigation.tab: nameInput
+                text: "http://"
             }
 
             TextField {

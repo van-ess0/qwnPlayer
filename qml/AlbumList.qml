@@ -4,11 +4,6 @@ import QtQuick.Controls 1.1
 Item {
 
     id: albumListView
-
-    Text {
-        text: qsTr("This is album Page")
-    }
-
     width: parent.width
     height: parent.height
 

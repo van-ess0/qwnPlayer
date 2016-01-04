@@ -10,6 +10,12 @@ Item {
     width: minWidth
     //height: parent.height
 
+    function stateChange() {
+        mamarect.width = pulleymenu.menu_shown ? minWidth : maxWidth
+        pulleymenu.menu_shown = !pulleymenu.menu_shown
+        mamarect.textVisibility = !mamarect.textVisibility
+    }
+
     Loader {
         id: loadNewPage
 
@@ -20,7 +26,7 @@ Item {
         color: "grey"
         height: parent.height
         width: parent.width
-        property bool textopacity: false
+        property bool textVisibility: false
 
         Behavior on width {
             NumberAnimation {
@@ -41,15 +47,13 @@ Item {
                 anchors.left: parent.left
                 minWidth: pulleymenu.minWidth
                 maxWidth: pulleymenu.maxWidth
-                textopacity: mamarect.textopacity
+                textVisibility: mamarect.textVisibility
                 iconSource: "qrc:/resources/images/hamburgermenu.svg"
                 label: "Menu"
 
                 function onTouched() {
                     console.log("Menu touched")
-                    mamarect.width = pulleymenu.menu_shown ? minWidth : maxWidth
-                    pulleymenu.menu_shown = !pulleymenu.menu_shown;
-                    mamarect.textopacity = !mamarect.textopacity;
+                    pulleyMenu.stateChange()
                 }
             }
 
@@ -58,11 +62,14 @@ Item {
                 width: parent.width
                 minWidth: pulleymenu.minWidth
                 maxWidth: pulleymenu.maxWidth
-                textopacity: mamarect.textopacity
+                textVisibility: mamarect.textVisibility
                 iconSource: "qrc:/resources/images/home.svg"
                 label: "Home"
                 function onTouched() {
                     console.log("Home touched")
+                    if (pulleyMenu.menu_shown) {
+                        pulleyMenu.stateChange()
+                    }
                     stackView.clear()
                     stackView.push(Qt.resolvedUrl("HomePage.qml"))
 
@@ -74,11 +81,14 @@ Item {
                 width: parent.width
                 minWidth: pulleymenu.minWidth
                 maxWidth: pulleymenu.maxWidth
-                textopacity: mamarect.textopacity
+                textVisibility: mamarect.textVisibility
                 iconSource: "qrc:/resources/images/playlist.svg"
                 label: "Playlist"
                 function onTouched() {
                     console.log("Playlist touched")
+                    if (pulleyMenu.menu_shown) {
+                        pulleyMenu.stateChange()
+                    }
                     stackView.clear()
                     stackView.push(Qt.resolvedUrl("PlaylistPage.qml"))
 
@@ -90,11 +100,14 @@ Item {
                 width: parent.width
                 minWidth: pulleymenu.minWidth
                 maxWidth: pulleymenu.maxWidth
-                textopacity: mamarect.textopacity
+                textVisibility: mamarect.textVisibility
                 iconSource: "qrc:/resources/images/library.svg"
                 label: "Library"
                 function onTouched() {
                     console.log("Library touched")
+                    if (pulleyMenu.menu_shown) {
+                        pulleyMenu.stateChange()
+                    }
                     stackView.clear()
                     stackView.push(Qt.resolvedUrl("LibraryPage.qml"))
 
@@ -106,11 +119,14 @@ Item {
                 width: parent.width
                 minWidth: pulleymenu.minWidth
                 maxWidth: pulleymenu.maxWidth
-                textopacity: mamarect.textopacity
+                textVisibility: mamarect.textVisibility
                 iconSource: "qrc:/resources/images/previous.svg"
-                label: "Library"
+                label: "Back"
                 function onTouched() {
                     console.log("Back touched")
+                    if (pulleyMenu.menu_shown) {
+                        pulleyMenu.stateChange()
+                    }
                     stackView.pop()
 
                 }
@@ -123,18 +139,19 @@ Item {
             anchors.bottom: parent.bottom
             minWidth: pulleymenu.minWidth
             maxWidth: pulleymenu.maxWidth
-            textopacity: mamarect.textopacity
+            textVisibility: mamarect.textVisibility
 
             iconSource: "qrc:/resources/images/settings.svg"
             label: "Settings"
             function onTouched() {
                 console.log("Settings touched")
+                if (pulleyMenu.menu_shown) {
+                    pulleyMenu.stateChange()
+                }
                 stackView.clear()
                 stackView.push(Qt.resolvedUrl("SettingsPage.qml"))
 
             }
         }
     }
-
-
 }

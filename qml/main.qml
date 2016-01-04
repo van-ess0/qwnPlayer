@@ -19,21 +19,21 @@ ApplicationWindow {
 
     QwnSettings {
         id: settings
-
+//Костыль ToFix
         onUrlChanged: {
-            if (stackView.currentItem.objectName == "ConnectionPage") {
+            if (stackView.currentItem.objectName === "ConnectionPage") {
                 stackView.currentItem.onUrlChanged()
             }
         }
 
         onUsernameChanged: {
-            if (stackView.currentItem.objectName == "ConnectionPage") {
+            if (stackView.currentItem.objectName === "ConnectionPage") {
                 stackView.currentItem.onUsernameChanged()
             }
         }
 
         onPasswordChanged: {
-            if (stackView.currentItem.objectName == "ConnectionPage") {
+            if (stackView.currentItem.objectName === "ConnectionPage") {
                 stackView.currentItem.onPasswordChanged()
             }
         }

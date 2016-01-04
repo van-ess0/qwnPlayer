@@ -2,12 +2,6 @@ import QtQuick 2.0
 
 Item {
     id: trackListView
-
-    Text {
-        id: text_page
-        text: qsTr("This is track Page")
-    }
-
     width: parent.width
     height: parent.height
 

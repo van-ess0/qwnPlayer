@@ -1,14 +1,15 @@
 import QtQuick 2.0
 
 Item {
-
     id: mamabutton
-    property string iconSource: "";
-    //property color colorel: "green";
+
     property int minWidth: 40
     property int maxWidth: 200
-    property string label: ""
-    property bool textopacity: false
+
+    property alias iconSource: icon.source
+    property alias label: text.text
+    property alias textVisibility: text.visible
+
     width: minWidth
     height: minWidth
     function onTouched() {
@@ -20,8 +21,8 @@ Item {
             width: mamabutton.width - mamabutton.minWidth
             anchors.left: icon.right
             anchors.right: parent.right
-            text: mamabutton.label
-            visible: mamabutton.textopacity
+            text: ""
+            visible: false
             Behavior on visible {
                 NumberAnimation {
                     duration: 400

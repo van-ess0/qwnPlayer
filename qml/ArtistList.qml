@@ -3,10 +3,6 @@ import QtQuick.Controls 1.1
 
 Item {
 
-    Text {
-        text: qsTr("This is artist Page")
-    }
-
     width: parent.width
     height: parent.height
 

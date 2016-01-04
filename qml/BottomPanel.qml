@@ -137,34 +137,35 @@ Item {
                 //Запилить перемотку
             }
         }
+/// Commented until working
+        //!!!DO NOT DELETE, FIX BACKEND!!!
+//        BottomPanelButton {
+//            id: shufflebutton
+//            anchors.verticalCenter: playbutton.verticalCenter
+//            x: prevbutton.x - 2 * prevbutton.width
+//            width: playbutton.width / 2
+//            height: width
+//            iconSource: "qrc:/resources/images/shuffle.svg"
 
-        BottomPanelButton {
-            id: shufflebutton
-            anchors.verticalCenter: playbutton.verticalCenter
-            x: prevbutton.x - 2 * prevbutton.width
-            width: playbutton.width / 2
-            height: width
-            iconSource: "qrc:/resources/images/shuffle.svg"
+//            function onTouched() {
+//                console.log("Shuffle touched")
+//                mediaplayer.shuffleToggle()
+//            }
+//        }
 
-            function onTouched() {
-                console.log("Shuffle touched")
-                mediaplayer.shuffleToggle()
-            }
-        }
+//        BottomPanelButton {
+//            id: cyclebutton
+//            anchors.verticalCenter: playbutton.verticalCenter
+//            x: nextbutton.x + 2 * nextbutton.width
+//            width: playbutton.width / 2
+//            height: width
+//            iconSource: "qrc:/resources/images/cycle.svg"
 
-        BottomPanelButton {
-            id: cyclebutton
-            anchors.verticalCenter: playbutton.verticalCenter
-            x: nextbutton.x + 2 * nextbutton.width
-            width: playbutton.width / 2
-            height: width
-            iconSource: "qrc:/resources/images/cycle.svg"
-
-            function onTouched() {
-                console.log("Cycle touched")
-                mediaplayer.cycleToggle()
-            }
-        }
+//            function onTouched() {
+//                console.log("Cycle touched")
+//                mediaplayer.cycleToggle()
+//            }
+//        }
 
     }
 }
