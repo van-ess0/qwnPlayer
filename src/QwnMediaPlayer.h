@@ -27,6 +27,17 @@ private:
 
 	MusicLibrary* m_musicLibrary;
 
+	struct NowPlaying{
+		QString title;
+		QString album;
+		QString artist;
+//		quint64 year;
+		QUrl url;
+	};
+
+	QList< QSharedPointer<NowPlaying> > m_nowplayingPlaylist;
+	QSharedPointer<NowPlaying> m_nowPlaying;
+
 public:
 	explicit QwnMediaPlayer(QObject *parent = 0);
 
@@ -62,6 +73,8 @@ private slots:
 	void error(QMediaPlayer::Error);
 	void slotMediaChanged(QMediaContent);
 
+	void slotCurrentIndexChanged(int);
+
 	// This methods will be called from qml file
 public slots:
 	void playToggle();
@@ -76,7 +89,7 @@ public slots:
     void settingCurrentTrackToPlaylist();
     void settingCurrentAlbumToPlaylist();
     void settingCurrentArtistToPlaylist();
-    void resetPlaylist();
+//    void resetPlaylist();
 };
 
 #endif // QWNMEDIAPLAYER_H

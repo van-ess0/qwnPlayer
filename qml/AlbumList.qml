@@ -36,7 +36,6 @@ Item {
                 albumView.currentIndex = model.index
                 currentAlbumId = model.albumId
                 mediaplayer.currentAlbum = model
-                playingTrack.album = model.albumName
             }
 
             function onPlayTouched() {

@@ -28,6 +28,7 @@ Models::ListItem* MusicLibrary::getAlbumById(const quint64& id)
 
 void MusicLibrary::slotCollectionDataParsed(QList<Artist*> artists)
 {
+	m_artistModel->clear();
 	foreach (Artist* value, artists) {
 		m_artistModel->appendRow(value);
 	}
