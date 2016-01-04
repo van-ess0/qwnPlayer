@@ -17,7 +17,8 @@ SOURCES += \
     src/GlobalIndex.cpp \
     src/SettingsManager.cpp \
     src/QwnSettings.cpp \
-    src/main.cpp
+    src/main.cpp \
+    src/QwnImageProvider.cpp
 
 RESOURCES += \
     media.qrc \
@@ -45,7 +46,8 @@ HEADERS += \
     src/GlobalIndex.h \
     src/SettingsManager.h \
     src/QwnSettings.h \
-    src/Macros.h
+    src/Macros.h \
+    src/QwnImageProvider.h
 
 # SFOS
 

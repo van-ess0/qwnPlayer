@@ -1,7 +1,7 @@
 #include "QwnMediaPlayer.h"
 #include <QFile>
 #include <QStandardPaths>
-
+#include <QStringList>
 
 QwnMediaPlayer::QwnMediaPlayer(QObject *parent) : QObject(parent)
 {
@@ -130,6 +130,7 @@ void QwnMediaPlayer::slotCurrentIndexChanged(int index)
 
 	m_nowPlaying = m_nowplayingPlaylist.at(index);
 	emit signalPlayingTrackChanged(m_nowPlaying->title, m_nowPlaying->artist, m_nowPlaying->album);
+	emit signalCoverChanged(m_nowPlaying->albumId);
 }
 
 //void QwnMediaPlayer::qmlSlot(QString string)
@@ -305,6 +306,10 @@ void QwnMediaPlayer::settingCurrentTrackToPlaylist()
 	nowplaying->album	= QQmlProperty(albumModel, "albumName").read().toString();
 	nowplaying->artist	= QQmlProperty(artistModel, "artistName").read().toString();
 
+	QStringList stringList = QQmlProperty(albumModel, "albumCover").read().toString().split("/");
+	QString strTemp = stringList.at(7);
+	nowplaying->albumId	= strTemp.toInt();
+
 	nowplaying->url = QUrl(QQmlProperty(trackModel, "trackServerPath").read().toString());
 	nowplaying->url.setUserName(SettingsManager::instance()->getUserName());
 	nowplaying->url.setPassword(SettingsManager::instance()->getUserPassword());
@@ -350,6 +355,10 @@ void QwnMediaPlayer::settingCurrentAlbumToPlaylist()
 		nowplaying->album	= QQmlProperty(albumModel, "albumName").read().toString();
 		nowplaying->artist	= QQmlProperty(artistModel, "artistName").read().toString();
 
+		QStringList stringList = QQmlProperty(albumModel, "albumCover").read().toString().split("/");
+		QString strTemp = stringList.at(7);
+		nowplaying->albumId	= strTemp.toInt();
+
 		nowplaying->url = QUrl(track_obj->getServerPath());
 		nowplaying->url.setUserName(SettingsManager::instance()->getUserName());
 		nowplaying->url.setPassword(SettingsManager::instance()->getUserPassword());
@@ -391,6 +400,10 @@ void QwnMediaPlayer::settingCurrentArtistToPlaylist()
 			nowplaying->title	= track_obj->getTitle();
 			nowplaying->album	= album_obj->getName();
 			nowplaying->artist	= QQmlProperty(artistModel, "artistName").read().toString();
+
+			QStringList stringList = album_obj->getCover().split("/");
+			QString strTemp = stringList.at(7);
+			nowplaying->albumId	= strTemp.toInt();
 
 			nowplaying->url = QUrl(track_obj->getServerPath());
 			nowplaying->url.setUserName(SettingsManager::instance()->getUserName());

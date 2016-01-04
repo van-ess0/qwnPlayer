@@ -17,6 +17,7 @@
 
 #include <QStringList>
 #include "SettingsManager.h"
+#include "QwnImageProvider.h"
 
 int main(int argc, char *argv[])
 {
@@ -53,9 +54,15 @@ int main(int argc, char *argv[])
     qmlRegisterType<OwnCloudClient>("com.qwnplayer", 1, 0, "OwnCloudClient");
 
 
+
     // Need to connect quit and create qml component
     QQuickView view;
     QQmlEngine* engine = view.engine();
+
+	QwnImageProvider* imageProvider = new QwnImageProvider(QQmlImageProviderBase::Image);
+	engine->addImageProvider("qwnImageProvider", imageProvider);
+
+
     QObject::connect(engine, SIGNAL(quit()), QCoreApplication::instance(), SLOT(quit()));
 
     QQmlContext* context = engine->rootContext();
@@ -66,6 +73,7 @@ int main(int argc, char *argv[])
 
 	MusicLibrary* musicLibrary = new MusicLibrary();
     context->setContextProperty("artistModel", musicLibrary->getArtistModel());
+
 
 //	QObject::connect(decoder, SIGNAL(signalCollectionDataParsed(Models::SubListedListModel*)),
 //					 musicLibrary, SLOT(slotCollectionDataParsed(Models::SubListedListModel*)));

@@ -20,6 +20,7 @@ public:
 	GET_SET_STRING(UserName, "Account/username", "")
 	GET_SET_STRING(UserPassword, "Account/password", "")
 	GET_SET_STRING(ApiMusicCollection, "OwnCloudAPI/musiccollection", "/owncloud/index.php/apps/music/api/collection")
+	GET_SET_STRING(ApiCover, "OwnCloudAPI/cover", "/owncloud/index.php/apps/music/api/album/")
 
 	GET_SET_STRING(HomeLocation, "App/homelocation", "./")
 };
