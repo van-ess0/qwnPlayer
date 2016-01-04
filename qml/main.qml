@@ -50,7 +50,7 @@ ApplicationWindow {
         onSignalPositionChanged: bottomPanel.onProgressChanged(progress)
         onSignalDurationChanged: bottomPanel.onDurationChanged(duration)
         onSignalPlayingTrackChanged: playingTrack.fillingMeta(title, artist, album)
-
+        onSignalPlayingStateChanged: bottomPanel.onPlayingStateChanged(state)
     }
 
     StackView {

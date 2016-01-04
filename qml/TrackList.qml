@@ -47,6 +47,7 @@ Item {
             function onClicked() {
                 setCurrentElement()
                 console.log("track click")
+                stackView.push(Qt.resolvedUrl("TrackInfoPage.qml"))
             }
 
             function onDoubleClicked() {

@@ -120,7 +120,7 @@ Item {
                 minWidth: pulleymenu.minWidth
                 maxWidth: pulleymenu.maxWidth
                 textVisibility: mamarect.textVisibility
-                iconSource: "qrc:/resources/images/previous.svg"
+                iconSource: "qrc:/resources/images/back.svg"
                 label: "Back"
                 function onTouched() {
                     console.log("Back touched")

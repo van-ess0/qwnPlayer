@@ -17,6 +17,15 @@ Item {
         progressSlider.maximumValue = Math.round(duration / 1000)
     }
 
+    function onPlayingStateChanged(state) {
+        if (state === 1) {
+            playbutton.iconSource = "qrc:/resources/images/pause.svg"
+        }
+        else {
+            playbutton.iconSource = "qrc:/resources/images/play.svg"
+        }
+    }
+
 
     Rectangle {
         anchors.fill: parent
@@ -108,8 +117,8 @@ Item {
             anchors.right: playbutton.left
             width: playbutton.width / 2
             height: width
-            iconSource: "qrc:/resources/images/previous.svg"
-
+            iconSource: "qrc:/resources/images/forward.svg"
+            iconRotation: 180
             function onTouched() {
                 console.log("Prev touched")
                 mediaplayer.prevTrack()
@@ -126,7 +135,7 @@ Item {
             anchors.left: playbutton.right
             width: playbutton.width / 2
             height: width
-            iconSource: "qrc:/resources/images/next.svg"
+            iconSource: "qrc:/resources/images/forward.svg"
 
             function onTouched() {
                 console.log("Next touched")
@@ -137,35 +146,34 @@ Item {
                 //Запилить перемотку
             }
         }
-/// Commented until working
-        //!!!DO NOT DELETE, FIX BACKEND!!!
-//        BottomPanelButton {
-//            id: shufflebutton
-//            anchors.verticalCenter: playbutton.verticalCenter
-//            x: prevbutton.x - 2 * prevbutton.width
-//            width: playbutton.width / 2
-//            height: width
-//            iconSource: "qrc:/resources/images/shuffle.svg"
 
-//            function onTouched() {
-//                console.log("Shuffle touched")
-//                mediaplayer.shuffleToggle()
-//            }
-//        }
+        BottomPanelButton {
+            id: shufflebutton
+            anchors.verticalCenter: playbutton.verticalCenter
+            x: prevbutton.x - 2 * prevbutton.width
+            width: playbutton.width / 2
+            height: width
+            iconSource: "qrc:/resources/images/shuffle.svg"
 
-//        BottomPanelButton {
-//            id: cyclebutton
-//            anchors.verticalCenter: playbutton.verticalCenter
-//            x: nextbutton.x + 2 * nextbutton.width
-//            width: playbutton.width / 2
-//            height: width
-//            iconSource: "qrc:/resources/images/cycle.svg"
+            function onTouched() {
+                console.log("Shuffle touched")
+                mediaplayer.shuffleToggle()
+            }
+        }
 
-//            function onTouched() {
-//                console.log("Cycle touched")
-//                mediaplayer.cycleToggle()
-//            }
-//        }
+        BottomPanelButton {
+            id: cyclebutton
+            anchors.verticalCenter: playbutton.verticalCenter
+            x: nextbutton.x + 2 * nextbutton.width
+            width: playbutton.width / 2
+            height: width
+            iconSource: "qrc:/resources/images/cycle.svg"
+
+            function onTouched() {
+                console.log("Cycle touched")
+                mediaplayer.cycleToggle()
+            }
+        }
 
     }
 }

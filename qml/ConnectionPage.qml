@@ -13,7 +13,7 @@ Item {
     Column {
             anchors.centerIn: parent
             anchors.alignWhenCentered: true
-            width: 360 * scaleFactor
+            width: parent.width * 0.95
             spacing: 14 * intScaleFactor
 
             TextField {
@@ -39,17 +39,17 @@ Item {
                 KeyNavigation.tab: loginButton
             }
 
-            Row {
-                // button
-                spacing: 20 * scaleFactor
-                width: 360 * scaleFactor
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.alignWhenCentered: true
+//            Row {
+//                // button
+//                spacing: 20 * scaleFactor
+//                width: 360 * scaleFactor
+//                anchors.horizontalCenter: parent.horizontalCenter
+//                anchors.alignWhenCentered: true
                 TouchButton {
                     id: loginButton
                     text: "Login"
                     baseColor: "#7a5"
-                    width: (parent.width - parent.spacing)/2
+                    width: parent.width
                     onClicked: login()
 //                    enabled: enginioClient.authenticationState !== Enginio.Authenticating && nameInput.text.length && passwordInput.text.length
 //                    KeyNavigation.tab: registerButton
@@ -62,7 +62,7 @@ Item {
 ////                    enabled: enginioClient.authenticationState !== Enginio.Authenticating && nameInput.text.length && passwordInput.text.length
 //                    KeyNavigation.tab: nameInput
 //                }
-            }
+//            }
         }
 
     Text {

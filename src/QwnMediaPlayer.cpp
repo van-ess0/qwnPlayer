@@ -29,6 +29,8 @@ QwnMediaPlayer::QwnMediaPlayer(QObject *parent) : QObject(parent)
 //			this, SLOT(seek(int)));
 	connect(m_player, SIGNAL(stateChanged(QMediaPlayer::State)),
 			this, SLOT(stateChanged(QMediaPlayer::State)));
+    connect(m_player, SIGNAL(stateChanged(QMediaPlayer::State)),
+            this, SIGNAL(signalPlayingStateChanged(QMediaPlayer::State)));
 	connect(m_player, SIGNAL(error(QMediaPlayer::Error)),
 			this, SLOT(error(QMediaPlayer::Error)));
 

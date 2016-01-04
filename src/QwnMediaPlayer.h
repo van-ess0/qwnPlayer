@@ -59,6 +59,7 @@ signals:
 	void signalPositionChanged(qint64 progress);
 	void signalDurationChanged(qint64 duration);
 	void signalPlayingTrackChanged(QString title, QString artist, QString album);
+    void signalPlayingStateChanged(QMediaPlayer::State state);
 
 	// connections with qmediaplayer
 private slots:

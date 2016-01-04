@@ -3,6 +3,7 @@ import QtQuick 2.0
 Item {
     id: mamabutton
     property alias iconSource: icon.source
+    property alias iconRotation: icon.rotation
 
     function onTouched() {
 
@@ -18,6 +19,7 @@ Item {
         anchors.right: parent.right
         anchors.top: parent.top
         source: ""
+        rotation: 0
     }
 
     MouseArea {

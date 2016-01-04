@@ -50,6 +50,7 @@ Item {
             function onClicked() {
                 setCurrentElement()
                 console.log("album click")
+                stackView.push(Qt.resolvedUrl("TrackList.qml"))
             }
 
             function onDoubleClicked() {
