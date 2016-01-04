@@ -83,7 +83,7 @@ ApplicationWindow {
 
     Item {
         id: playingTrack
-        property string track: ""
+        property string track: "value"
         property string artist: "value"
         property string album: "value"
 
