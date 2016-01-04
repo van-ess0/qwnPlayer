@@ -54,6 +54,7 @@ packagesExist(sailfishapp) {
     rpm/qwnPlayer.spec \
     qwnPlayer.desktop \
     icons/86x86/qwnPlayer.png
+    DEFINES += SAILFISH_OS_HACK
 }
 export(INSTALLS)
 
