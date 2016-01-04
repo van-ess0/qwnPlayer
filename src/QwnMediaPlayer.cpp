@@ -189,15 +189,52 @@ void QwnMediaPlayer::prevTrack()
 
 void QwnMediaPlayer::shuffleToggle()
 {
+
+	if (m_nowplayingPlaylist.isEmpty()) {
+		return;
+	}
 	qDebug() << "shuffle toggled";
+
+	m_player->stop();
+	m_playlist->clear();
+	m_nowPlaying.clear();
+
+	QList< QSharedPointer<NowPlaying> > newNowPlaylist;
+
+	while (!m_nowplayingPlaylist.isEmpty()) {
+		QSharedPointer<NowPlaying> nowplaying = m_nowplayingPlaylist.takeAt(qrand() % m_nowplayingPlaylist.size());
+		newNowPlaylist.append(nowplaying);
+		m_playlist->addMedia(nowplaying->url);
+	}
+
+	m_nowplayingPlaylist = newNowPlaylist;
+
+	m_player->play();
+
 	/// TODO: make real shuffle
-	m_playlist->shuffle();
+//	m_playlist->shuffle();
 }
 
 void QwnMediaPlayer::cycleToggle()
 {
-	qDebug() << "cycle toggled";
-//	m_playlist
+	qint32 mode = m_playlist->playbackMode();
+	switch(mode) {
+		case QMediaPlaylist::Sequential:
+			qDebug() << "cycle toggled to item loop";
+			m_playlist->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+			break;
+		case QMediaPlaylist::CurrentItemInLoop:
+			qDebug() << "cycle toggled to all loop";
+			m_playlist->setPlaybackMode(QMediaPlaylist::Loop);
+			break;
+		case QMediaPlaylist::Loop:
+			qDebug() << "cycle toggled to sequential";
+			m_playlist->setPlaybackMode(QMediaPlaylist::Sequential);
+			break;
+		default:
+			qDebug() << "cycle isn't toggled";
+			break;
+	}
 }
 
 void QwnMediaPlayer::currentTrackPath(QString path)
