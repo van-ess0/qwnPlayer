@@ -2,10 +2,6 @@ import QtQuick 2.0
 import QtQuick.Controls 1.1
 
 Item {
-    Text {
-        text: qsTr("This is Home Page")
-    }
-
     Column{
         anchors.fill: parent
         spacing: 10
@@ -16,7 +12,17 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width * 0.8
             height: width
-            source: "image://qwnImageProvider/" + playingTrack.coverId
+            source: filling()
+
+            function filling()
+            {
+                if (playingTrack.coverId == -1) {
+                    source = "qrc:/resources/images/cover_sample.jpg"
+                }
+                else {
+                    source = "image://qwnImageProvider/" + playingTrack.coverId
+                }
+            }
         }
 
         Label {

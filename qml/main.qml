@@ -19,21 +19,21 @@ ApplicationWindow {
 
     QwnSettings {
         id: settings
-
+//Костыль ToFix
         onUrlChanged: {
-            if (stackView.currentItem.objectName == "ConnectionPage") {
+            if (stackView.currentItem.objectName === "ConnectionPage") {
                 stackView.currentItem.onUrlChanged()
             }
         }
 
         onUsernameChanged: {
-            if (stackView.currentItem.objectName == "ConnectionPage") {
+            if (stackView.currentItem.objectName === "ConnectionPage") {
                 stackView.currentItem.onUsernameChanged()
             }
         }
 
         onPasswordChanged: {
-            if (stackView.currentItem.objectName == "ConnectionPage") {
+            if (stackView.currentItem.objectName === "ConnectionPage") {
                 stackView.currentItem.onPasswordChanged()
             }
         }
@@ -50,6 +50,7 @@ ApplicationWindow {
         onSignalPositionChanged: bottomPanel.onProgressChanged(progress)
         onSignalDurationChanged: bottomPanel.onDurationChanged(duration)
         onSignalPlayingTrackChanged: playingTrack.fillingMeta(title, artist, album)
+        onSignalPlayingStateChanged: bottomPanel.onPlayingStateChanged(state)
         onSignalCoverChanged: playingTrack.fillingCover(coverId)
     }
 
@@ -86,7 +87,7 @@ ApplicationWindow {
         property string track: "value"
         property string artist: "value"
         property string album: "value"
-        property int coverId: 17
+        property int coverId: -1
 
         function fillingMeta (title, artist, album){
             playingTrack.track = title

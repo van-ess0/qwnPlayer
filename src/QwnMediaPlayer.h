@@ -33,11 +33,17 @@ private:
 		QString artist;
 //		quint64 year;
 		QUrl url;
-		quint32 albumId;
+        qint32 albumId;
 	};
 
 	QList< QSharedPointer<NowPlaying> > m_nowplayingPlaylist;
 	QSharedPointer<NowPlaying> m_nowPlaying;
+
+    QSharedPointer<NowPlaying> getMeta(const QString& title,
+                                       const QString& album,
+                                       const QString& artist,
+                                       const QString& cover,
+                                       const QString& url);
 
 public:
 	explicit QwnMediaPlayer(QObject *parent = 0);
@@ -60,7 +66,8 @@ signals:
 	void signalPositionChanged(qint64 progress);
 	void signalDurationChanged(qint64 duration);
 	void signalPlayingTrackChanged(QString title, QString artist, QString album);
-	void signalCoverChanged(quint32 coverId);
+    void signalPlayingStateChanged(QMediaPlayer::State state);
+    void signalCoverChanged(qint32 coverId);
 
 	// connections with qmediaplayer
 private slots:

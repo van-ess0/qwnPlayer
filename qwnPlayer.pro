@@ -51,7 +51,8 @@ HEADERS += \
 
 # SFOS
 
-    DISTFILES += rpm/qwnPlayer.yaml \
+DISTFILES += \
+    rpm/qwnPlayer.yaml \
     rpm/qwnPlayer.changes.in \
     rpm/qwnPlayer.spec \
     qwnPlayer.desktop \

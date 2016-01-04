@@ -14,5 +14,10 @@
         <file>resources/images/settings.svg</file>
         <file>resources/images/shuffle.svg</file>
         <file>resources/images/cover_sample.jpg</file>
+        <file>resources/images/back.svg</file>
+        <file>resources/images/pause.svg</file>
+        <file>resources/images/playlistadd.svg</file>
+        <file>resources/images/forward.svg</file>
+        <file>resources/images/retweet9.svg</file>
     </qresource>
 </RCC>

@@ -3,10 +3,6 @@ import QtQuick.Controls 1.1
 
 Item {
 
-    Text {
-        text: qsTr("This is settings Page")
-    }
-
     ListModel {
         id: settingsPageModel
 
@@ -58,16 +54,16 @@ Item {
                 setCurrentElement()
             }
 
+//            function onClicked() {
+//                setCurrentElement()
+//            }
+
             function onClicked() {
                 setCurrentElement()
-            }
-
-            function onDoubleClicked() {
-                setCurrentElement()
                 stackView.push(Qt.resolvedUrl(model.pageUrl))
-                if (stackView.currentItem.objectName == "ConnectionPage") {
+                if (stackView.currentItem.objectName === "ConnectionPage") {
                     console.log("init settings")
-                    if (settings.is_initialized == true) {
+                    if (settings.is_initialized === true) {
                         stackView.currentItem.onInitFields()
                     } else {
                         settings.initialize()

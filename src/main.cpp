@@ -19,10 +19,17 @@
 #include "SettingsManager.h"
 #include "QwnImageProvider.h"
 
+#ifdef SAILFISH_OS_HACK
+#include <sailfishapp.h>
+#endif
+
 int main(int argc, char *argv[])
 {
+#ifdef SAILFISH_OS_HACK
+    QGuiApplication* app = SailfishApp::application(argc, argv);
+#else
     QGuiApplication app(argc, argv);
-
+#endif
     qSetMessagePattern("[%{time yyyyMMdd h:mm:ss.zzz}]\
     [%{if-debug}DEBUG%{endif}\%{if-info}INFO%{endif}%{if-warning}WARNING%{endif}\
 %{if-critical}CRITICAL%{endif}%{if-fatal}FATAL%{endif}]\
@@ -125,5 +132,9 @@ int main(int argc, char *argv[])
 
 //	mainWindow.show();
 //	view->show();
+#ifdef SAILFISH_OS_HACK
+    return app->exec();
+#else
     return app.exec();
+#endif
 }
