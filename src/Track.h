@@ -27,7 +27,6 @@ private:
 		trackAlbumId
 	};
 
-
 public:
 	explicit Track(const quint32 number,
 				   const QString& title,
@@ -35,6 +34,8 @@ public:
 				   const QString& path,
 				   const quint64& trackAlbumId,
 				   QObject *parent = 0);
+	explicit Track(const Track& track, QObject* parent = 0);
+
 	quint32 getNumber() const;
 	QString getTitle() const;
 	QString getAudioType() const;

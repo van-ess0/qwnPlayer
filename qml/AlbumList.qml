@@ -8,58 +8,11 @@ Item {
     height: parent.height
     z: stackView.z
 
-    ListView {
+
+    LibraryView {
         id: albumView
-
+        objectName: "AlbumView"
         model: artistModel.subModelFromId(currentArtistId)
-
-        anchors.margins: 10
-        anchors.fill: parent
-        spacing: 10
-        clip: true
-
-        highlight: Rectangle {
-            color: "skyblue"
-        }
-        highlightFollowsCurrentItem: true
-
-        delegate: LibraryElement {
-            element_view: albumView
-            element_text: model.albumYear + " - " + model.albumName
-
-            function setCurrentElement() {
-                console.log("album set current element")
-                albumView.currentIndex = model.index
-                currentAlbumId = model.albumId
-                mediaplayer.currentAlbum = model
-            }
-
-            function onPlayTouched() {
-                setCurrentElement()
-                console.log("Play album touched")
-
-                mediaplayer.stopPlaying()
-                mediaplayer.settingCurrentAlbumToPlaylist()
-                mediaplayer.startPlaying()
-            }
-
-            function onPressAndHold() {
-                setCurrentElement()
-                console.log("album press and hold")
-            }
-
-            function onClicked() {
-                setCurrentElement()
-                console.log("album click")
-                stackView.push(Qt.resolvedUrl("TrackList.qml"))
-            }
-
-            function onDoubleClicked() {
-                setCurrentElement()
-                console.log("album double click")
-                stackView.push(Qt.resolvedUrl("TrackList.qml"))
-            }
-        }
     }
 }
 

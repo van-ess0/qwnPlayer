@@ -9,19 +9,19 @@ private:
 	static T* m_obj;
 
 protected:
-    SingletonTemplate()
-    {
+	SingletonTemplate()
+	{
 		m_obj = 0;
 	}
 
 public:
-    ~SingletonTemplate()
-    {
+	~SingletonTemplate()
+	{
 		delete m_obj;
 	}
 
-    static T* instance()
-    {
+	static T* instance()
+	{
 		if (!m_obj) {
 			m_obj = new T();
 		}
@@ -33,4 +33,3 @@ template <class T>
 T* SingletonTemplate<T>::m_obj = 0;
 
 #endif // SINGLETONTEMPLATE
-

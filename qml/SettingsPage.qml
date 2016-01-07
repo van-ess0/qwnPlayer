@@ -31,13 +31,10 @@ Item {
         }
         highlightFollowsCurrentItem: true
 
-        delegate: Item {
-            id: library_element
-            property var element_view: settingsPageView
-            property string element_text: model.text
-
-            width: element_view.width
-            height: 40
+        delegate: LibraryElement {
+            element_view: settingsPageView
+            element_text: model.text
+            elemet_playbutton_visible: false
 
             function setCurrentElement() {
                 console.log("set current element")
@@ -45,18 +42,6 @@ Item {
 //                currentAlbumId = model.albumId
 //                mediaplayer.currentAlbum = model
             }
-
-//            function onPlayTouched() {
-//                setCurrentElement()
-//            }
-
-            function onPressAndHold() {
-                setCurrentElement()
-            }
-
-//            function onClicked() {
-//                setCurrentElement()
-//            }
 
             function onClicked() {
                 setCurrentElement()
@@ -72,45 +57,8 @@ Item {
                 }
             }
 
-            Rectangle {
-                anchors.margins: 5
-                anchors.fill: parent
-
-                border {
-                    color: "black"
-                    width: 1
-                }
-
-//                BottomPanelButton {
-//                    id: playbutton_element
-//                    objectName: "playbutton"
-//                    anchors.left: parent
-//                    anchors.verticalCenter: parent.verticalCenter
-//                    width: 20
-//                    height: 20
-//                    iconSource: "qrc:/resources/images/play.svg"
-//                    function onTouched() {
-//                        library_element.onPlayTouched()
-//                    }
-//                }
-
-                Text {
-                    id: text_element
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent
-                    anchors.margins: 5
-                    renderType: Text.NativeRendering
-                    text: element_text
-                }
-
-                MouseArea {
-                    id: mouse_area_element
-                    height: 40
-                    anchors.fill: parent
-                    onPressAndHold: library_element.onPressAndHold()
-                    onClicked: library_element.onClicked()
-                    onDoubleClicked: library_element.onDoubleClicked()
-                }
+            function onPressAndHold() {
+                setCurrentElement()
             }
 
         }
