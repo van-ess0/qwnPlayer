@@ -4,6 +4,7 @@ Item {
     id: trackListView
     width: parent.width
     height: parent.height
+    z: stackView.z
 
     ListView {
         id: trackView

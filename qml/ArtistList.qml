@@ -13,6 +13,7 @@ Item {
 
         anchors.margins: 10
         anchors.fill: parent
+        z: stackView.z
         spacing: 10
         clip: true
 
