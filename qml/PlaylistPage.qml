@@ -29,6 +29,7 @@ Item {
         delegate: LibraryElement {
             element_view: playlistView
             element_text: model.trackTitle
+            elemet_playbutton_visible: false
 
             function setCurrentElement() {
                 console.log("playlist set current element")

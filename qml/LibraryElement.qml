@@ -4,6 +4,7 @@ Item {
     id: library_element
     property var element_view: null
     property string element_text: ""
+    property bool elemet_playbutton_visible: true
 
     width: element_view.width
     height: 60
@@ -44,6 +45,8 @@ Item {
             function onTouched() {
                 library_element.onPlayTouched()
             }
+
+            visible: library_element.elemet_playbutton_visible
         }
 
         Text {
