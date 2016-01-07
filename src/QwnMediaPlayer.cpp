@@ -1,31 +1,4 @@
 #include "QwnMediaPlayer.h"
-#include <QFile>
-#include <QStandardPaths>
-#include <QStringList>
-
-QSharedPointer<QwnMediaPlayer::NowPlaying> QwnMediaPlayer::getMeta(const QString &title, const QString &album, const QString &artist, const QString &cover, const QString &url)
-{
-    QSharedPointer<NowPlaying> nowplaying = QSharedPointer<NowPlaying>(new NowPlaying());
-
-    nowplaying->title	= title;
-    nowplaying->album	= album;
-    nowplaying->artist	= artist;
-
-    if (!cover.isNull()) {
-        QStringList stringList = cover.split("/");
-        QString strTemp = stringList.at(7);
-        nowplaying->albumId	= strTemp.toInt();
-    }
-    else {
-        nowplaying->albumId = -1;
-    }
-
-    nowplaying->url = QUrl(url);
-    nowplaying->url.setUserName(SettingsManager::instance()->getUserName());
-    nowplaying->url.setPassword(SettingsManager::instance()->getUserPassword());
-
-    return nowplaying;
-}
 
 QwnMediaPlayer::QwnMediaPlayer(QObject *parent) : QObject(parent)
 {
@@ -35,9 +8,6 @@ QwnMediaPlayer::QwnMediaPlayer(QObject *parent) : QObject(parent)
 	m_isPlaying = false;
 
 	m_musicLibrary = NULL;
-
-//	m_username = ;
-//	m_password = ;
 
 	connect(m_player, SIGNAL(audioAvailableChanged(bool)),
 			this, SLOT(slotAudioAvailabilityChanged(bool)));
@@ -49,12 +19,11 @@ QwnMediaPlayer::QwnMediaPlayer(QObject *parent) : QObject(parent)
 			this, SLOT(positionChanged(qint64)));
 	connect(m_player, SIGNAL(durationChanged(qint64)),
 			this, SLOT(durationChanged(qint64)));
-//	connect(ui->horizontalSlider, SIGNAL(sliderMoved(int)),
-//			this, SLOT(seek(int)));
+
 	connect(m_player, SIGNAL(stateChanged(QMediaPlayer::State)),
 			this, SLOT(stateChanged(QMediaPlayer::State)));
-    connect(m_player, SIGNAL(stateChanged(QMediaPlayer::State)),
-            this, SIGNAL(signalPlayingStateChanged(QMediaPlayer::State)));
+	connect(m_player, SIGNAL(stateChanged(QMediaPlayer::State)),
+			this, SIGNAL(signalPlayingStateChanged(QMediaPlayer::State)));
 	connect(m_player, SIGNAL(error(QMediaPlayer::Error)),
 			this, SLOT(error(QMediaPlayer::Error)));
 
@@ -63,11 +32,23 @@ QwnMediaPlayer::QwnMediaPlayer(QObject *parent) : QObject(parent)
 
 	connect(m_playlist, SIGNAL(currentIndexChanged(int)),
 			this, SLOT(slotCurrentIndexChanged(int)));
+
+
+	m_currentPlaylist = new Models::ListModel(new Track(0, "empty", "empty", "empty", 0, NULL));
+	m_currentPlaylist->setSorting(false);
+	m_currentTrackIndex = 0;
+
+//	connect(this, SIGNAL(currentIndexChanged()));
 }
 
 void QwnMediaPlayer::setMusicLibrary(MusicLibrary* library)
 {
 	m_musicLibrary = library;
+}
+
+void QwnMediaPlayer::setContext(QQmlContext* context)
+{
+	context->setContextProperty("currentPlaylist", m_currentPlaylist);
 }
 
 void QwnMediaPlayer::slotAudioAvailabilityChanged(bool value)
@@ -89,17 +70,12 @@ void QwnMediaPlayer::positionChanged(qint64 progress)
 {
 	qDebug() << "positionChanged" << progress;
 	emit signalPositionChanged(progress);
-//	if (!ui->horizontalSlider->isSliderDown()) {
-//		ui->horizontalSlider->setValue(progress / 1000);
-//	}
-//	updateDurationInfo(progress / 1000);
 }
 
 void QwnMediaPlayer::durationChanged(qint64 duration)
 {
 	qDebug() << "durationChanged" << duration;
 	emit signalDurationChanged(duration);
-//	ui->horizontalSlider->setMaximum(duration / 1000);
 }
 
 void QwnMediaPlayer::seek(int seconds)
@@ -121,25 +97,6 @@ void QwnMediaPlayer::slotMediaChanged(QMediaContent content)
 {
 	Q_UNUSED(content)
 	qDebug() << "media changed";
-
-//	QObject* trackModel = qvariant_cast<QObject*>(m_currentTrack);
-
-//	if (!trackModel) {
-//		qDebug() << "cast track error";
-//		return;
-//	}
-
-//	QString trackTitle = QQmlProperty(trackModel, "trackTitle").read().toString();
-
-//	quint64 albumId = QQmlProperty(trackModel, "trackAlbumId").read().toLongLong();
-//	Album* album = qobject_cast<Album*>(m_musicLibrary->getAlbumById(albumId));
-//	QString albumName = album->getName();
-
-//	quint64 artistId = album->getArtistId();
-//	Artist* artist = qobject_cast<Artist*>(m_musicLibrary->getArtistModel()->find(artistId));
-//	QString artistName = artist->getName();
-
-//	emit signalPlayingTrackChanged(trackTitle, artistName, albumName);
 }
 
 void QwnMediaPlayer::slotCurrentIndexChanged(int index)
@@ -148,50 +105,41 @@ void QwnMediaPlayer::slotCurrentIndexChanged(int index)
 	if (index < 0) {
 		return;
 	}
-	if (index >= m_nowplayingPlaylist.size()) {
+	if (index >= m_currentPlaylist->rowCount()) {
 		return;
 	}
 
-	m_nowPlaying = m_nowplayingPlaylist.at(index);
-	emit signalPlayingTrackChanged(m_nowPlaying->title, m_nowPlaying->artist, m_nowPlaying->album);
-	emit signalCoverChanged(m_nowPlaying->albumId);
+	setCurrentTrackIndex(index);
+
+	QMap<QString, QVariant> itemData = m_currentPlaylist->get(index).toMap();
+
+	QString trackTitle = itemData["trackTitle"].toString();
+	quint64 albumId = itemData["trackAlbumId"].toULongLong();
+
+	Album* album = m_musicLibrary->getAlbum(albumId);
+	quint64 artistId = album->getArtistId();
+	Artist* artist = m_musicLibrary->getArtist(artistId);
+
+	qint32 coverId = -1;
+	QString coverPath = album->getCover();
+	if (!coverPath.isNull()) {
+		QStringList stringList = coverPath.split("/");
+		QString strTemp = stringList.at(7);
+		coverId = strTemp.toInt();
+	}
+
+	emit signalPlayingTrackChanged(trackTitle, artist->getName(), album->getName());
+	emit signalCoverChanged(coverId);
+	emit signalCurrentTrackIndexChanged(index);
 }
-
-//void QwnMediaPlayer::qmlSlot(QString string)
-//{
-//	qDebug() << string;
-//	emit keyGenerated(false);
-//	emit testSig();
-//}
-
-//void QwnMediaPlayer::qmlSlotEmpty()
-//{
-//	qDebug() << "Empty slot from qml";
-//	emit keyGenerated(true);
-//	emit testSig();
-
-//}
 
 void QwnMediaPlayer::playToggle()
 {
 	qDebug() << "play toggled";
 
-//	QString homeLocation =  QStandardPaths::locate(QStandardPaths::AppLocalDataLocation,
-//												   QString(),
-//												   QStandardPaths::LocateDirectory);
-//	qDebug() << homeLocation;
-
-//	QFile::copy(":/resources/sound_cut2.mp3" , homeLocation + "sound_cut2.mp3");
-
-//	QUrl url("http://vaness0.ga:83/owncloud/remote.php/webdav/04. Narcissistic Cannibal.mp3");
-//	url.setUserName("degree");
-//	url.setPassword("Fcnhjabpbrf95");
-//	player->setMedia(url);
-
-//	m_player->setMedia(QUrl::fromLocalFile(homeLocation + "sound_cut2.mp3"));
-
-    if (m_playlist->isEmpty())
+	if (m_playlist->isEmpty()) {
 		return;
+	}
 
 	if (m_isPlaying) {
 		m_player->pause();
@@ -216,30 +164,31 @@ void QwnMediaPlayer::prevTrack()
 
 void QwnMediaPlayer::shuffleToggle()
 {
-
-	if (m_nowplayingPlaylist.isEmpty()) {
+	if (0 == m_currentPlaylist->rowCount()) {
 		return;
 	}
 	qDebug() << "shuffle toggled";
 
 	m_player->stop();
+	m_isPlaying = false;
 	m_playlist->clear();
-	m_nowPlaying.clear();
 
-	QList< QSharedPointer<NowPlaying> > newNowPlaylist;
+	QList<Models::ListItem*> tempList;
 
-	while (!m_nowplayingPlaylist.isEmpty()) {
-		QSharedPointer<NowPlaying> nowplaying = m_nowplayingPlaylist.takeAt(qrand() % m_nowplayingPlaylist.size());
-		newNowPlaylist.append(nowplaying);
-		m_playlist->addMedia(nowplaying->url);
+	while (0 != m_currentPlaylist->rowCount()) {
+
+		Track* track = qobject_cast<Track*>(m_currentPlaylist->takeRow(qrand() % m_currentPlaylist->rowCount()));
+		tempList.append(track);
+
+		QUrl url = QUrl(track->getServerPath());
+		url.setUserName(SettingsManager::instance()->getUserName());
+		url.setPassword(SettingsManager::instance()->getUserPassword());
+		m_playlist->addMedia(url);
 	}
 
-	m_nowplayingPlaylist = newNowPlaylist;
-
+	m_currentPlaylist->appendRows(tempList);
 	m_player->play();
-
-	/// TODO: make real shuffle
-//	m_playlist->shuffle();
+	m_isPlaying = true;
 }
 
 void QwnMediaPlayer::cycleToggle()
@@ -264,38 +213,28 @@ void QwnMediaPlayer::cycleToggle()
 	}
 }
 
-void QwnMediaPlayer::currentTrackPath(QString path)
-{
-	qDebug() << path;
-//	QUrl url(path);
-//	url.setUserName(m_username);
-//	url.setPassword(m_password);
-////	m_playlist->clear();
-//	m_playlist->addMedia(url);
-}
-
 void QwnMediaPlayer::setCurrentPosition(qint64 position)
 {
-    qDebug() << "Position set to " << position;
-    m_player->setPosition(position);
+	qDebug() << "Position set to " << position;
+	m_player->setPosition(position);
 }
 
 void QwnMediaPlayer::stopPlaying()
 {
-    qDebug() << "stop";
-    m_player->stop();
+	qDebug() << "stop";
+	m_player->stop();
 
-	m_nowplayingPlaylist.clear();
-    m_playlist->clear();
+	m_playlist->clear();
+	m_currentPlaylist->clear();
 
-    m_isPlaying = false;
+	m_isPlaying = false;
 }
 
 void QwnMediaPlayer::startPlaying()
 {
-    qDebug() << "play";
-    m_isPlaying = true;
-    m_player->play();
+	qDebug() << "play";
+	m_isPlaying = true;
+	m_player->play();
 }
 
 void QwnMediaPlayer::settingCurrentTrackToPlaylist()
@@ -320,19 +259,11 @@ void QwnMediaPlayer::settingCurrentTrackToPlaylist()
 		return;
 	}
 
-//	qDebug() << QQmlProperty(artistModel, "artistName").read().toString();
-//	qDebug() << QQmlProperty(artistModel, "artistName").read().toString();
-//	qDebug() << QQmlProperty(trackModel, "trackTitle").read().toString();
+	quint64 artistId = QQmlProperty(artistModel, "artistId").read().toULongLong();
+	quint64 albumId = QQmlProperty(albumModel, "albumId").read().toULongLong();
+	quint64 trackId = QQmlProperty(trackModel, "trackId").read().toULongLong();
 
-
-    QSharedPointer<NowPlaying> nowplaying =
-            getMeta(QQmlProperty(trackModel, "trackTitle").read().toString(),
-                    QQmlProperty(albumModel, "albumName").read().toString(),
-                    QQmlProperty(artistModel, "artistName").read().toString(),
-                    QQmlProperty(albumModel, "albumCover").read().toString(),
-                    QQmlProperty(trackModel, "trackServerPath").read().toString());
-	m_nowplayingPlaylist.append(nowplaying);
-	m_playlist->addMedia(nowplaying->url);
+	addTrackToCurrentPlaylist(m_musicLibrary->getTrack(artistId, albumId, trackId));
 }
 
 void QwnMediaPlayer::settingCurrentAlbumToPlaylist()
@@ -351,8 +282,6 @@ void QwnMediaPlayer::settingCurrentAlbumToPlaylist()
 		return;
 	}
 
-//    qDebug() << QQmlProperty(albumModel, "albumName").read().toString();
-
 	QVariant var = QQmlProperty(albumModel, "albumTracks").read();
 	QSharedPointer<Models::ListModel> tracks = var.value< QSharedPointer<Models::ListModel> >();
 
@@ -361,34 +290,8 @@ void QwnMediaPlayer::settingCurrentAlbumToPlaylist()
 		return;
 	}
 
-	foreach (Models::ListItem* track, tracks->toList())
-	{
-
-		Track* track_obj = qobject_cast<Track*>(track);
-
-//		QSharedPointer<NowPlaying> nowplaying = QSharedPointer<NowPlaying>(new NowPlaying());
-
-//		nowplaying->title	= track_obj->getTitle();
-//		nowplaying->album	= QQmlProperty(albumModel, "albumName").read().toString();
-//		nowplaying->artist	= QQmlProperty(artistModel, "artistName").read().toString();
-
-//		QStringList stringList = QQmlProperty(albumModel, "albumCover").read().toString().split("/");
-//		QString strTemp = stringList.at(7);
-//		nowplaying->albumId	= strTemp.toInt();
-
-        QSharedPointer<NowPlaying> nowplaying =
-                getMeta(track_obj->getTitle(),
-                        QQmlProperty(albumModel, "albumName").read().toString(),
-                        QQmlProperty(artistModel, "artistName").read().toString(),
-                        QQmlProperty(albumModel, "albumCover").read().toString(),
-                        track_obj->getServerPath());
-
-//		nowplaying->url = QUrl(track_obj->getServerPath());
-//		nowplaying->url.setUserName(SettingsManager::instance()->getUserName());
-//		nowplaying->url.setPassword(SettingsManager::instance()->getUserPassword());
-
-		m_nowplayingPlaylist.append(nowplaying);
-		m_playlist->addMedia(nowplaying->url);
+	foreach (Models::ListItem* track, tracks->toList()) {
+		addTrackToCurrentPlaylist(qobject_cast<Track*>(track));
 	}
 }
 
@@ -402,8 +305,6 @@ void QwnMediaPlayer::settingCurrentArtistToPlaylist()
 		return;
 	}
 
-//    qDebug() << QQmlProperty(artistModel, "artistName").read().toString();
-
 	QVariant var = QQmlProperty(artistModel, "artistAlbums").read();
 	QSharedPointer<Models::SubListedListModel> albums = var.value< QSharedPointer<Models::SubListedListModel> >();
 
@@ -414,51 +315,28 @@ void QwnMediaPlayer::settingCurrentArtistToPlaylist()
 
 	foreach (Models::ListItem* album, albums->toList()) {
 		Album* album_obj = qobject_cast<Album*>(album);
-//        qDebug() << album_obj->getName();
 
 		foreach (Models::ListItem* track, album_obj->submodel()->toList()) {
-			Track* track_obj = qobject_cast<Track*>(track);
-
-//			QSharedPointer<NowPlaying> nowplaying = QSharedPointer<NowPlaying>(new NowPlaying());
-
-//			nowplaying->title	= track_obj->getTitle();
-//			nowplaying->album	= album_obj->getName();
-//			nowplaying->artist	= QQmlProperty(artistModel, "artistName").read().toString();
-
-//			QStringList stringList = album_obj->getCover().split("/");
-//			QString strTemp = stringList.at(7);
-//			nowplaying->albumId	= strTemp.toInt();
-
-//			nowplaying->url = QUrl(track_obj->getServerPath());
-
-            QSharedPointer<NowPlaying> nowplaying =
-                    getMeta(track_obj->getTitle(),
-                            album_obj->getName(),
-                            QQmlProperty(artistModel, "artistName").read().toString(),
-                            album_obj->getCover(),
-                            track_obj->getServerPath());
-
-//			nowplaying->url.setUserName(SettingsManager::instance()->getUserName());
-//			nowplaying->url.setPassword(SettingsManager::instance()->getUserPassword());
-
-			m_nowplayingPlaylist.append(nowplaying);
-			m_playlist->addMedia(nowplaying->url);
+			addTrackToCurrentPlaylist(qobject_cast<Track*>(track));
 		}
 	}
 }
 
-//	void setCurrentTrack(Track* track);
-//void QwnMediaPlayer::resetPlaylist()
-//{
-//    qDebug() << "reset playlist";
+void QwnMediaPlayer::changeCurrentTrackIndex(int index)
+{
+	m_playlist->setCurrentIndex(index);
+}
 
-//		QObject* trackModel = qvariant_cast<QObject*>(m_currentTrack);
-//		qDebug() << QQmlProperty(trackModel, "trackTitle").read().toString();
+void QwnMediaPlayer::addTrackToCurrentPlaylist(Track* track)
+{
+	// TODO: rewrite memory eating
 
-//    m_playlist->clear();
-//}
-//void QwnMediaPlayer::setCurrentTrack(Track* track)
-//{
-//	qDebug() << "set current track";
-//}
+	Track* newTrackObj = new Track(*track);
 
+	QUrl url = QUrl(newTrackObj->getServerPath());
+	url.setUserName(SettingsManager::instance()->getUserName());
+	url.setPassword(SettingsManager::instance()->getUserPassword());
+
+	m_currentPlaylist->appendRow(newTrackObj);
+	m_playlist->addMedia(url);
+}

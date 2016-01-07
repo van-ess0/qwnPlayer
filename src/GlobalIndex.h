@@ -10,21 +10,15 @@ private:
 	quint64 m_index;
 
 public:
-    GlobalIndex()
-    {
-		m_index = 0;
-	}
-	~GlobalIndex() {}
-    virtual quint64 getIndex()
-    {
-		return m_index++;
-	}
+	GlobalIndex();
+	~GlobalIndex();
+	virtual quint64 getIndex();
 };
 
 #define NEW_GLOBAL_INDEX(CLASS_NAME) \
 	class CLASS_NAME : \
-		public GlobalIndex, \
-		public SingletonTemplate<CLASS_NAME> \
-	{};
+	public GlobalIndex, \
+	public SingletonTemplate<CLASS_NAME> \
+{};
 
 #endif // GLOBALINDEX_H

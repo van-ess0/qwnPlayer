@@ -15,6 +15,7 @@ class QwnMediaPlayer : public QObject
 	QML_PROPERTY(QVariant, currentTrack, setCurrentTrack, currentTrackChanged)
 	QML_PROPERTY(QVariant, currentAlbum, setCurrentAlbum, currentAlbumChanged)
 	QML_PROPERTY(QVariant, currentArtist, setCurrentArtist, currentArtistChanged)
+	QML_PROPERTY(QVariant, currentTrackIndex, setCurrentTrackIndex, currentTrackIndexChanged)
 
 private:
 	QMediaPlayer* m_player;
@@ -22,43 +23,15 @@ private:
 
 	bool m_isPlaying;
 
-	QString m_currentArtistName;
-	QString m_currentAlbumName;
-
 	MusicLibrary* m_musicLibrary;
 
-	struct NowPlaying{
-		QString title;
-		QString album;
-		QString artist;
-//		quint64 year;
-		QUrl url;
-        qint32 albumId;
-	};
-
-	QList< QSharedPointer<NowPlaying> > m_nowplayingPlaylist;
-	QSharedPointer<NowPlaying> m_nowPlaying;
-
-    QSharedPointer<NowPlaying> getMeta(const QString& title,
-                                       const QString& album,
-                                       const QString& artist,
-                                       const QString& cover,
-                                       const QString& url);
+	Models::ListModel* m_currentPlaylist;
 
 public:
 	explicit QwnMediaPlayer(QObject *parent = 0);
 
 	void setMusicLibrary(MusicLibrary* library);
-
-//	void testSig();
-//	void keyGenerated(bool success);
-//public slots:
-//	void qmlSlot(QString string);
-//	void qmlSlotEmpty();
-
-//	void currentTrackChanged();
-//	void currentAlbumChanged();
-//	void currentArtistChanged();
+	void setContext(QQmlContext* context);
 
 	// Create 'onNameOfSignal' handler in qml for signal 'nameOfSignal'
 	// if you want to handle it :)
@@ -66,8 +39,9 @@ signals:
 	void signalPositionChanged(qint64 progress);
 	void signalDurationChanged(qint64 duration);
 	void signalPlayingTrackChanged(QString title, QString artist, QString album);
-    void signalPlayingStateChanged(QMediaPlayer::State state);
-    void signalCoverChanged(qint32 coverId);
+	void signalPlayingStateChanged(QMediaPlayer::State state);
+	void signalCoverChanged(qint32 coverId);
+	void signalCurrentTrackIndexChanged(qint32 index);
 
 	// connections with qmediaplayer
 private slots:
@@ -91,14 +65,16 @@ public slots:
 	void prevTrack();
 	void shuffleToggle();
 	void cycleToggle();
-    void setCurrentPosition(qint64 position);
-	void currentTrackPath(QString path);
-    void stopPlaying();
-    void startPlaying();
-    void settingCurrentTrackToPlaylist();
-    void settingCurrentAlbumToPlaylist();
-    void settingCurrentArtistToPlaylist();
-//    void resetPlaylist();
+	void setCurrentPosition(qint64 position);
+	void stopPlaying();
+	void startPlaying();
+	void settingCurrentTrackToPlaylist();
+	void settingCurrentAlbumToPlaylist();
+	void settingCurrentArtistToPlaylist();
+	void changeCurrentTrackIndex(int index);
+
+private:
+	void addTrackToCurrentPlaylist(Track* track);
 };
 
 #endif // QWNMEDIAPLAYER_H

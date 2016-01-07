@@ -29,7 +29,6 @@ public slots:
 
 signals:
 	void signalCollectionDataParsed(QList<Artist*>);
-//	void signalCollectionDataParsed(Models::SubListedListModel*);
 };
 
 #endif // RESPONSEDECODER_H

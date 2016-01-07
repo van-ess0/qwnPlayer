@@ -12,6 +12,8 @@ QwnImageProvider::~QwnImageProvider()
 
 QImage QwnImageProvider::requestImage(const QString& id, QSize* size, const QSize& requestedSize)
 {
+	Q_UNUSED(requestedSize)
+
 	QUrl url(SettingsManager::instance()->getOwnCloudHost() + SettingsManager::instance()->getApiCover() + id + "/cover");
 	QNetworkRequest request(url);
 	addAuthHeader(&request);
@@ -38,9 +40,11 @@ void QwnImageProvider::addAuthHeader(QNetworkRequest* request)
 		return;
 	}
 
-	QString concatenated = SettingsManager::instance()->getUserName()
-						   + ":"
-						   + SettingsManager::instance()->getUserPassword();
+	QString concatenated =
+			SettingsManager::instance()->getUserName()
+			+ ":"
+			+ SettingsManager::instance()->getUserPassword();
+
 	QByteArray data = concatenated.toLocal8Bit().toBase64();
 	QString headerData = "Basic " + data;
 	request->setRawHeader("Authorization", headerData.toLocal8Bit());

@@ -17,6 +17,17 @@ Track::Track(const quint32 number,
 	m_albumId		= albumId;
 }
 
+Track::Track(const Track& track, QObject* parent) :
+	Models::ListItem(parent)
+{
+	m_number		= track.getNumber();
+	m_title			= track.getTitle();
+	m_audioType		= track.getAudioType();
+	m_serverPath	= track.getServerPath();
+	m_globalId		= track.id();
+	m_albumId		= track.getAlbumId();
+}
+
 quint32 Track::getNumber() const
 {
 	return m_number;

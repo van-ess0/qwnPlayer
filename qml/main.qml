@@ -52,6 +52,7 @@ ApplicationWindow {
         onSignalPlayingTrackChanged: playingTrack.fillingMeta(title, artist, album)
         onSignalPlayingStateChanged: bottomPanel.onPlayingStateChanged(state)
         onSignalCoverChanged: playingTrack.fillingCover(coverId)
+        onSignalCurrentTrackIndexChanged: playingTrack.updatePlaylistPage(index)
     }
 
     StackView {
@@ -120,6 +121,12 @@ ApplicationWindow {
 
         function fillingCover (coverId) {
             playingTrack.coverId = coverId
+        }
+
+        function updatePlaylistPage(index) {
+            if (stackView.currentItem.objectName === "PlaylistPage") {
+                stackView.currentItem.updateCurrentIndex(index)
+            }
         }
     }
 
