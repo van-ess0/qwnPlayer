@@ -19,5 +19,6 @@
         <file>qml/BottomPanelButton.qml</file>
         <file>qml/PlaylistPage.qml</file>
         <file>qml/SFOSCover.qml</file>
+        <file>qml/LibraryView.qml</file>
     </qresource>
 </RCC>
