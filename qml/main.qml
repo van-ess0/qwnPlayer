@@ -57,6 +57,7 @@ ApplicationWindow {
 
     StackView {
         id: stackView
+        z: -1
         anchors {
             top: parent.top
             bottom: bottomPanel.top
