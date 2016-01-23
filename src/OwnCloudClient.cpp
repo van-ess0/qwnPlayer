@@ -18,9 +18,7 @@ void OwnCloudClient::auth()
 	m_password = SettingsManager::instance()->getUserPassword();
 
 	QUrl url(SettingsManager::instance()->getOwnCloudHost());
-//	url.setScheme("http");
-//	url.setHost("vaness0.ga");
-//	url.setPort(83);
+
 	url.setPath(SettingsManager::instance()->getApiMusicCollection());
 	url.setUserName(m_username);
 	url.setPassword(m_password);

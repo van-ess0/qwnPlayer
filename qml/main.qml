@@ -57,7 +57,6 @@ ApplicationWindow {
 
     StackView {
         id: stackView
-        z: -1
         anchors {
             top: parent.top
             bottom: bottomPanel.top
@@ -72,29 +71,6 @@ ApplicationWindow {
                              event.accepted = true;
                          }
         initialItem: Qt.resolvedUrl("HomePage.qml")
-
-        MouseArea {
-            id: dragArea
-            anchors.fill: parent
-            property int initX: 0
-            property int confSwipe: parent.width / 5
-            z: stackView.z
-
-            onPressed: {
-                initX = mouse.x
-                console.log("Touched on " + initX.toString())
-                //mouse.accepted = false
-            }
-
-            onReleased: {
-                var swipeLength = mouse.x - initX
-                console.log("Released on " + mouse.x.toString())
-                if (swipeLength >= confSwipe && stackView.depth > 1) {
-                    stackView.pop()
-                }
-                //mouse.accepted = true
-            }
-        }
     }
 
     PulleyMenu {
@@ -109,9 +85,9 @@ ApplicationWindow {
 
     Item {
         id: playingTrack
-        property string track: "value"
-        property string artist: "value"
-        property string album: "value"
+        property string track: "No track name"
+        property string artist: "No artist name"
+        property string album: "No album name"
         property int coverId: -1
 
         function fillingMeta (title, artist, album){

@@ -19,18 +19,17 @@
 #include "QwnImageProvider.h"
 
 #ifdef SAILFISH_OS_HACK
-#include <sailfishapp.h>
+    #include <sailfishapp.h>
+    #define LoadGui SailfishApp::application(argc, argv)
+#else
+    #define LoadGui new QGuiApplication(argc, argv)
 #endif
 
 int main(int argc, char *argv[])
 {
 
 	// Run right application with params
-#ifdef SAILFISH_OS_HACK
-	QGuiApplication* app = SailfishApp::application(argc, argv);
-#else
-	QGuiApplication* app = new QGuiApplication(argc, argv);
-#endif
+    QGuiApplication* app = LoadGui;
 
 	// Debug message pattern
 	qSetMessagePattern("[%{time yyyyMMdd h:mm:ss.zzz}]\

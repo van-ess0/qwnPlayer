@@ -24,6 +24,7 @@ Item {
                    <a href='https://twitter.com/suratovvlad'>@suratovvlad</a><br>
                    <a href='https://github.com/suratovvlad'>GitHub</a>"
         }
+
         Text {
             textFormat: Text.RichText
             text: "Piskunov Ivan<br>
