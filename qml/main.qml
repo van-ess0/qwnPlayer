@@ -14,8 +14,8 @@ ApplicationWindow {
 
     initialPage: Component { HomePage { } }
     cover: Qt.resolvedUrl("SFOSCover.qml")
-//    allowedOrientations: Orientaiton.Portrait
-//    _defaultPageOrientations: Orientation.Portrait
+    allowedOrientations: Orientaiton.Portrait
+    _defaultPageOrientations: Orientation.Portrait
 
     QwnSettings {
         id: settings
