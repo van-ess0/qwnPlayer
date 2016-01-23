@@ -1,7 +1,7 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.1
+import Sailfish.Silica 1.0
 
-Item {
+Page {
 
     id: playlistPage
     objectName: "PlaylistPage"
@@ -16,7 +16,7 @@ Item {
 
         anchors.margins: 10
         anchors.fill: parent
-        z: stackView.z
+        z: pageStack.z
         spacing: 10
         clip: true
 
@@ -55,14 +55,14 @@ Item {
             function onClicked() {
                 setCurrentElement()
                 console.log("playlist element click")
-//                stackView.push(Qt.resolvedUrl("AlbumList.qml"))
+//                pageStack.push(Qt.resolvedUrl("AlbumList.qml"))
             }
 
             function onDoubleClicked() {
                 setCurrentElement()
                 console.log("playlist element double click")
                 mediaplayer.changeCurrentTrackIndex(model.index)
-//                stackView.push(Qt.resolvedUrl("AlbumList.qml"))
+//                pageStack.push(Qt.resolvedUrl("AlbumList.qml"))
             }
         }
     }

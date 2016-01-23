@@ -1,7 +1,7 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.1
+import Sailfish.Silica 1.0
 
-Item {
+Page {
 
     ListModel {
         id: settingsPageModel
@@ -50,11 +50,11 @@ Item {
 
             function onClicked() {
                 setCurrentElement()
-                stackView.push(Qt.resolvedUrl(model.pageUrl))
-                if (stackView.currentItem.objectName === "ConnectionPage") {
+                pageStack.push(Qt.resolvedUrl(model.pageUrl))
+                if (pageStack.currentItem.objectName === "ConnectionPage") {
                     console.log("init settings")
                     if (settings.is_initialized === true) {
-                        stackView.currentItem.onInitFields()
+                        pageStack.currentItem.onInitFields()
                     } else {
                         settings.initialize()
                     }

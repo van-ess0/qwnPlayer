@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.1
+import Sailfish.Silica 1.0
 
 Item {
     id: pulleymenu
@@ -70,8 +70,8 @@ Item {
                     if (pulleyMenu.menu_shown) {
                         pulleyMenu.stateChange()
                     }
-                    stackView.clear()
-                    stackView.push(Qt.resolvedUrl("HomePage.qml"))
+                    pageStack.clear()
+                    pageStack.push(Qt.resolvedUrl("HomePage.qml"))
 
                 }
             }
@@ -89,8 +89,8 @@ Item {
                     if (pulleyMenu.menu_shown) {
                         pulleyMenu.stateChange()
                     }
-                    stackView.clear()
-                    stackView.push(Qt.resolvedUrl("PlaylistPage.qml"))
+                    pageStack.clear()
+                    pageStack.push(Qt.resolvedUrl("PlaylistPage.qml"))
 
                 }
             }
@@ -108,8 +108,8 @@ Item {
                     if (pulleyMenu.menu_shown) {
                         pulleyMenu.stateChange()
                     }
-                    stackView.clear()
-                    stackView.push(Qt.resolvedUrl("LibraryPage.qml"))
+                    pageStack.clear()
+                    pageStack.push(Qt.resolvedUrl("LibraryPage.qml"))
 
                 }
             }
@@ -127,7 +127,7 @@ Item {
                     if (pulleyMenu.menu_shown) {
                         pulleyMenu.stateChange()
                     }
-                    stackView.pop()
+                    pageStack.pop()
 
                 }
             }
@@ -148,8 +148,8 @@ Item {
                 if (pulleyMenu.menu_shown) {
                     pulleyMenu.stateChange()
                 }
-                stackView.clear()
-                stackView.push(Qt.resolvedUrl("SettingsPage.qml"))
+                pageStack.clear()
+                pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
 
             }
         }

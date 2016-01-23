@@ -9,7 +9,7 @@ ListView {
 
     anchors.margins: 10
     anchors.fill: parent
-    z: stackView.z
+    z: pageStack.z
     spacing: 10
     clip: true
 
@@ -84,13 +84,13 @@ ListView {
 
             if ("ArtistView" === libraryView.objectName) {
                 console.log("artist click")
-                stackView.push(Qt.resolvedUrl("AlbumList.qml"))
+                pageStack.push(Qt.resolvedUrl("AlbumList.qml"))
             } else if ("AlbumView" === libraryView.objectName) {
                 console.log("album click")
-                stackView.push(Qt.resolvedUrl("TrackList.qml"))
+                pageStack.push(Qt.resolvedUrl("TrackList.qml"))
             } else if ("TrackView" === libraryView.objectName) {
                 console.log("track click")
-                stackView.push(Qt.resolvedUrl("TrackInfoPage.qml"))
+                pageStack.push(Qt.resolvedUrl("TrackInfoPage.qml"))
             }
 
 
@@ -99,7 +99,7 @@ ListView {
         function onDoubleClicked() {
             setCurrentElement()
             //                console.log("artist double click")
-            //                stackView.push(Qt.resolvedUrl("AlbumList.qml"))
+            //                pageStack.push(Qt.resolvedUrl("AlbumList.qml"))
         }
     }
 }

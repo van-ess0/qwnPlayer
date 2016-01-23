@@ -1,9 +1,8 @@
 import QtQuick 2.0
-import QtQuick.Layouts 1.0
-import QtQuick.Controls 1.1 as Controls
+import Sailfish.Silica 1.0
 
 
-Item {
+Page {
     id: connectionPage
     objectName: "ConnectionPage"
     signal qmlSignalAuth()

@@ -1,12 +1,12 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.1
+import Sailfish.Silica 1.0
 
 Item {
 
     id: albumListView
     width: parent.width
     height: parent.height
-    z: stackView.z
+    z: pageStack.z
 
 
     LibraryView {
