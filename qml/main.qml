@@ -55,6 +55,12 @@ ApplicationWindow {
         onSignalCurrentTrackIndexChanged: playingTrack.updatePlaylistPage(index)
     }
 
+    Rectangle {
+        id: background
+        anchors.fill: parent
+        color: "black"
+    }
+
     StackView {
         id: stackView
         anchors {
