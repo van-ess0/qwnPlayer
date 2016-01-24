@@ -8,6 +8,8 @@ OwnCloudClient::OwnCloudClient(QObject *parent) : QObject(parent)
 			this, SLOT(slotAuthenticationRequired(QNetworkReply*,QAuthenticator*)));
 	connect(&m_networkManager, SIGNAL(finished(QNetworkReply*)),
 				this, SLOT(slotReplyFinished(QNetworkReply*)));
+    connect(&m_networkManager, SIGNAL(networkSessionConnected()),
+                this, SLOT(slotConnected()));
 //	connect(&m_networkManager, SIGNAL())
 }
 
@@ -80,7 +82,12 @@ void OwnCloudClient::slotReplyFinished(QNetworkReply* reply)
 	emit signalCollectionData(rawData);
 
 	reply->deleteLater();
-	reply = NULL;
+    reply = NULL;
+}
+
+void OwnCloudClient::slotConnected()
+{
+    emit signalConnected();
 }
 
 void OwnCloudClient::addAuthHeader(QNetworkRequest* request)

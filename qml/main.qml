@@ -42,6 +42,7 @@ ApplicationWindow {
     OwnCloudClient {
         id: cloudClient
         objectName: "cloudClient"
+        onSignalConnected: playingTrack.connectionState = "Connected"
     }
 
     QwnMediaPlayer {
@@ -95,6 +96,7 @@ ApplicationWindow {
         property string artist: "No artist name"
         property string album: "No album name"
         property int coverId: -1
+        property string connectionState: "Disconnected"
 
         function fillingMeta (title, artist, album){
             playingTrack.track = title

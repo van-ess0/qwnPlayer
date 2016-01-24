@@ -72,10 +72,11 @@ Item {
         anchors.bottomMargin: 70 * scaleFactor
         font.pixelSize: 18 * scaleFactor
         color: "#444"
+        text: playingTrack.connectionState
     }
 
     function login() {
-        statusText.text = "Logging in..."
+        playingTrack.connectionState = "Logging in..."
         settings.url = urlInput.text
         settings.username = nameInput.text
         settings.password = passwordInput.text
