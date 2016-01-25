@@ -60,6 +60,7 @@ void QwnSettings::initialize()
 		setUrl(SettingsManager::instance()->getOwnCloudHost());
 		setUsername(SettingsManager::instance()->getUserName());
 		setPassword(SettingsManager::instance()->getUserPassword());
+        emit signalSettingsFilled();
 	}
 	SettingsManager::instance()->setApiMusicCollection("/owncloud/index.php/apps/music/api/collection");
 	SettingsManager::instance()->setApiCover("/owncloud/index.php/apps/music/api/album/");

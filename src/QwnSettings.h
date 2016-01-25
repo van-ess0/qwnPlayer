@@ -19,6 +19,9 @@ private:
 public:
 	explicit QwnSettings(QObject *parent = 0);
 
+signals:
+    void signalSettingsFilled();
+
 private slots:
 	void slotUrlChanged();
 	void slotUsernameChanged();
