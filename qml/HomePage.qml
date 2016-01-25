@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.1
 
 Item {
+//    color: "black"
     Column{
         anchors.fill: parent
         spacing: 10
@@ -17,7 +18,7 @@ Item {
             function filling()
             {
                 if (playingTrack.coverId == -1) {
-                    source = "qrc:/resources/images/cover_sample.jpg"
+                    source = "qrc:/resources/images/cover_sample.png"
                 }
                 else {
                     source = "image://qwnImageProvider/" + playingTrack.coverId
@@ -27,16 +28,19 @@ Item {
 
         Label {
             id: trackLabel
+            color: "white"
             text: "Track: " + playingTrack.track
         }
 
         Label {
             id: artistLabel
+            color: "white"
             text: "Artist: " + playingTrack.artist
         }
 
         Label {
             id: albumLabel
+            color: "white"
             text: "Album: " + playingTrack.album
         }
     }

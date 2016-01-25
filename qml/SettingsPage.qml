@@ -15,6 +15,11 @@ Item {
             text: "About"
             pageUrl: "AboutPage.qml"
         }
+
+        ListElement {
+            text: "License"
+            pageUrl: "LicensePage.qml"
+        }
     }
 
     ListView {

@@ -24,6 +24,7 @@ public:
 signals:
 	void signalCollectionData(QByteArray);
 	void signalLog(QString);
+    void signalConnected();
 
 public slots:
 	void auth();
@@ -34,6 +35,7 @@ private slots:
 	void updateDataReadProgress(qint64,qint64);
 	void slotAuthenticationRequired(QNetworkReply*,QAuthenticator*);
 	void slotReplyFinished(QNetworkReply* reply);
+    void slotConnected();
 
 private:
 	void addAuthHeader(QNetworkRequest* request);
