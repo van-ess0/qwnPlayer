@@ -21,5 +21,9 @@
         <file>qml/SFOSCover.qml</file>
         <file>qml/LibraryView.qml</file>
         <file>qml/LicensePage.qml</file>
+        <file>qml_temp/Main.qml</file>
+        <file>qml_temp/MainForm.ui.qml</file>
+        <file>qml_temp/Menu.qml</file>
+        <file>qml_temp/MenuForm.ui.qml</file>
     </qresource>
 </RCC>
