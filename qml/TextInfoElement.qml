@@ -3,7 +3,7 @@ import QtQuick 2.0
 Rectangle {
     property alias textLabel: text.text
 
-    width: 400 * scaleFactor
+    width: parent.width
     height: 60 * scaleFactor
     color: "#111111"
     border.width: 1

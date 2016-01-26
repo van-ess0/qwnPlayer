@@ -5,7 +5,7 @@ Item {
         x: 10 * scaleFactor;
         y: 10 * scaleFactor
         spacing: 10 * scaleFactor
-        width: parent.width - 10 * scaleFactor
+        anchors.fill: parent
 
         TextInfoElement {
             textLabel: "Year: " + mediaplayer.currentAlbum.albumYear

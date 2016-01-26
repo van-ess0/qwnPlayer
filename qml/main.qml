@@ -91,9 +91,9 @@ ApplicationWindow {
                 bottom: mainForm.stackBottom
                 bottomMargin: 20
                 left: mainForm.stackLeft
-                leftMargin: 5
+                leftMargin: 10
                 right: mainForm.stackRight
-                rightMargin: 5
+                rightMargin: 10
             }
 
             // Implements back key navigation
