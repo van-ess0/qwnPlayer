@@ -31,6 +31,10 @@ private slots:
 	void slotUrlChanged();
 	void slotUsernameChanged();
 	void slotPasswordChanged();
+	void slotGlobalAccentColorChanged();
+	void slotGlobalBackgroundColorChanged();
+	void slotGlobalRectangleColorChanged();
+	void slotGlobalRectangleBorderColorChanged();
 
 public slots:
 	void initialize();

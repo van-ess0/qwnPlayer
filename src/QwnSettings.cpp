@@ -19,15 +19,18 @@ QwnSettings::QwnSettings(QObject* parent) : QObject(parent)
 	m_password = "password";
 	m_is_initialized = false;
 
-	m_globalAccentColor				= "red";
-	m_globalBackgroundColor			= "white";
+	m_globalAccentColor				= "skyblue";
+	m_globalBackgroundColor			= "black";
 	m_globalRectangleColor			= "#111111";
 	m_globalRectangleBorderColor	= "#171717";
 
 	connect(this, SIGNAL(urlChanged()), SLOT(slotUrlChanged()));
 	connect(this, SIGNAL(usernameChanged()), SLOT(slotUsernameChanged()));
 	connect(this, SIGNAL(passwordChanged()), SLOT(slotPasswordChanged()));
-
+	connect(this, SIGNAL(globalAccentColorChanged()), SLOT(slotGlobalAccentColorChanged()));
+	connect(this, SIGNAL(globalBackgroundColorChanged()), SLOT(slotGlobalBackgroundColorChanged()));
+	connect(this, SIGNAL(globalRectangleColorChanged()), SLOT(slotGlobalRectangleColorChanged()));
+	connect(this, SIGNAL(globalRectangleBorderColorChanged()), SLOT(slotGlobalRectangleBorderColorChanged()));
 }
 
 void QwnSettings::slotUrlChanged()
@@ -46,6 +49,26 @@ void QwnSettings::slotPasswordChanged()
 {
 	qDebug() << "slot password";
 	SettingsManager::instance()->setUserPassword(m_password);
+}
+
+void QwnSettings::slotGlobalAccentColorChanged()
+{
+	SettingsManager::instance()->setGlobalAccentColor(m_globalAccentColor);
+}
+
+void QwnSettings::slotGlobalBackgroundColorChanged()
+{
+	SettingsManager::instance()->setGlobalBackgroundColor(m_globalBackgroundColor);
+}
+
+void QwnSettings::slotGlobalRectangleColorChanged()
+{
+	SettingsManager::instance()->setGlobalRectangleColor(m_globalRectangleColor);
+}
+
+void QwnSettings::slotGlobalRectangleBorderColorChanged()
+{
+	SettingsManager::instance()->setGlobalRectangleBorderColor(m_globalRectangleBorderColor);
 }
 
 void QwnSettings::initialize()

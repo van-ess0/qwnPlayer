@@ -11,7 +11,7 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
-        console.log("Hello")
+        console.log("HELLO")
         mainForm.changeTitle(qsTr("Now playing"))
         mainForm.pushToStack("HomePage.qml")
         console.log("Pixel density:" + Screen.pixelDensity.toString())
