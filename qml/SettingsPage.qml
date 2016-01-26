@@ -14,6 +14,11 @@ Item {
         }
 
         ListElement {
+            text: "Color preferences"
+            pageUrl: "ThemeSettingPage.qml"
+        }
+
+        ListElement {
             text: "About"
             pageUrl: "AboutPage.qml"
         }
@@ -21,11 +26,6 @@ Item {
         ListElement {
             text: "License"
             pageUrl: "LicensePage.qml"
-        }
-
-        ListElement {
-            text: "Color preferences"
-            pageUrl: "ThemeSettingPage.qml"
         }
     }
 
