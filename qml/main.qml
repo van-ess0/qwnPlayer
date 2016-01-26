@@ -6,6 +6,14 @@ import com.qwnplayer 1.0
 
 ApplicationWindow {
 
+    Component.onCompleted: {
+        mainForm.changeTitle(qsTr("Now playing"))
+        mainForm.pushToStack("HomePage.qml")
+        console.log("Pixel density:" + Screen.pixelDensity.toString())
+        console.log("Scale factor:" + scaleFactor.toString())
+        console.log("Int scale factor:" + intScaleFactor.toString())
+    }
+
     id: window
 
     property real intScaleFactor: Screen.pixelDensity / 9.0
@@ -75,7 +83,6 @@ ApplicationWindow {
         id: mainForm
 
 
-
         StackView {
             id: stackView
             anchors {
@@ -95,13 +102,7 @@ ApplicationWindow {
                                  stackView.pop();
                                  event.accepted = true;
                              }
-            initialItem: {
-                mainForm.changeTitle(qsTr("now playing"))
-                Qt.resolvedUrl("HomePage.qml")
-                console.log("Pixel density:" + Screen.pixelDensity.toString())
-                console.log("Scale factor:" + scaleFactor.toString())
-                console.log("Int scale factor:" + intScaleFactor.toString())
-            }
+//            initialItem: Qt.resolvedUrl("HomePage.qml")
         }
 
         titleLabel: menuForm.currentLabel

@@ -5,6 +5,8 @@ Item {
     width: window.width
     height: window.height
 
+    property var standartSquareSize: 60
+
     property var resourcePath: "qrc:/resources/images/blue/"
     property var currentLabel: ""
 
@@ -87,7 +89,7 @@ Item {
         Item {
             id: emptyRow
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 60 * scaleFactor
+            anchors.bottomMargin: standartSquareSize * scaleFactor
             anchors.right: parent.right
             anchors.rightMargin: 0
             anchors.left: parent.left

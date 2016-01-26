@@ -2,7 +2,8 @@ import QtQuick 2.0
 
 Item {
     id: row
-    height: 60 * scaleFactor
+    property var standartSquareSize: 60
+    height: standartSquareSize * scaleFactor
     anchors.top: parent.top
     anchors.topMargin: 0
     anchors.right: parent.right
@@ -34,10 +35,11 @@ Item {
             onClicked: row.onButtonClicked()
             Image {
                 id: icon
-                width: (row.height - 4) * scaleFactor
+                width: (standartSquareSize- 4) * scaleFactor
+                height: (standartSquareSize - 4) * scaleFactor
                 source: "hamburgermenu.svg"
-                sourceSize.width: row.height * scaleFactor
-                sourceSize.height: row.height * scaleFactor
+                sourceSize.width: standartSquareSize * scaleFactor
+                sourceSize.height: standartSquareSize * scaleFactor
                 anchors.bottomMargin: 2
                 anchors.topMargin: 2
                 anchors.left: parent.left
@@ -66,7 +68,7 @@ Item {
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 style: Text.Normal
-                font.capitalization: Font.AllUppercase
+//                font.capitalization: Font.AllUppercase
             }
             anchors.rightMargin: 0
             anchors.topMargin: 0

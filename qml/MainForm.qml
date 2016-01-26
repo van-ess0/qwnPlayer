@@ -21,10 +21,12 @@ Item {
         console.log("on menu button clicked")
     }
 
+    property var standartSquareSize: 60
+
     Rectangle {
         id: topRectangleMain
         border.color: "#171717"
-        height: 60 * scaleFactor
+        height: standartSquareSize * scaleFactor
         color: "#000000"
         anchors.left: parent.left
         anchors.leftMargin: 0
@@ -46,10 +48,10 @@ Item {
 
             Image {
                 id: titleImage
-                width: (topRectangleMain.height - 4) * scaleFactor
-                height: (topRectangleMain.height - 4) * scaleFactor
-                sourceSize.height: topRectangleMain.height * scaleFactor
-                sourceSize.width: topRectangleMain.height * scaleFactor
+                width: (standartSquareSize - 4) * scaleFactor
+                height: (standartSquareSize - 4) * scaleFactor
+                sourceSize.height: standartSquareSize * scaleFactor
+                sourceSize.width: standartSquareSize * scaleFactor
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 2
                 anchors.top: parent.top
