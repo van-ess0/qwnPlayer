@@ -52,6 +52,10 @@ FocusScope {
     implicitHeight: Math.round(40 * scaleFactor)
     implicitWidth: Math.round(parent.width)
 
+    property color accentColor: settings.globalAccentColor
+    property color rectangleColor: settings.globalRectangleColor
+    property color rectangleBorderColor: settings.globalRectangleBorderColor
+
     Rectangle {
         anchors.fill: editbg
 //        radius: editbg.radius
@@ -68,8 +72,8 @@ FocusScope {
 
         gradient: Gradient {
             GradientStop {color: "#eee" ; position: 0}
-            GradientStop {color: "#111111" ; position: 0.1}
-            GradientStop {color: "#111111" ; position: 1}
+            GradientStop {color: rectangleColor ; position: 0.1}
+            GradientStop {color: rectangleColor ; position: 1}
         }
 
         TextInput{
@@ -82,14 +86,14 @@ FocusScope {
             font.pixelSize: 22 * scaleFactor
             focus: true
             onAccepted: textfield.accepted()
-            color: "#87ceeb"
+            color: accentColor
             Text {
                 id: placeholder
                 anchors.fill: parent
                 verticalAlignment: Text.AlignVCenter
                 visible: !(parent.text.length || textInput.inputMethodComposing)
                 font: parent.font
-                color: "#87ceeb"
+                color: accentColor
             }
         }
     }

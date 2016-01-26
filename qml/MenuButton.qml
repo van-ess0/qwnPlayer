@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtGraphicalEffects 1.0
 
 Item {
     id: row
@@ -15,6 +16,11 @@ Item {
     property alias iconSource: icon.source
     property alias label: text.text
 
+    property color iconColor: settings.globalAccentColor
+    property color labelColor: settings.globalAccentColor
+    property color backgroundColor: settings.globalBackgroundColor
+    property color borderColor: settings.globalRectangleBorderColor
+
     function onButtonClicked()
     {
         console.log("on button clicked")
@@ -22,11 +28,11 @@ Item {
 
     Rectangle {
         id: rectangle
-        color: "#000000"
         radius: 0
+        color: backgroundColor
         border.width: 1
+        border.color: borderColor
         anchors.bottomMargin: 0
-        border.color: "#171717"
         MouseArea {
             id: mouseArea
             x: 0
@@ -37,7 +43,7 @@ Item {
                 id: icon
                 width: (standartSquareSize- 4) * scaleFactor
                 height: (standartSquareSize - 4) * scaleFactor
-                source: "hamburgermenu.svg"
+                source: ""
                 sourceSize.width: standartSquareSize * scaleFactor
                 sourceSize.height: standartSquareSize * scaleFactor
                 anchors.bottomMargin: 2
@@ -48,10 +54,17 @@ Item {
                 anchors.leftMargin: 2
             }
 
+            ColorOverlay {
+                id: iconOverlay
+                anchors.fill: icon
+                source: icon
+                color: iconColor
+            }
+
             Text {
                 id: text
-                color: "#87ceeb"
                 text: qsTr("qwnPlayer")
+                color: labelColor
                 anchors.left: icon.right
                 verticalAlignment: Text.AlignVCenter
                 anchors.topMargin: 0
@@ -70,6 +83,7 @@ Item {
                 style: Text.Normal
 //                font.capitalization: Font.AllUppercase
             }
+
             anchors.rightMargin: 0
             anchors.topMargin: 0
             anchors.left: parent.left

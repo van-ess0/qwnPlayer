@@ -7,9 +7,9 @@
 
 QwnSettings::QwnSettings(QObject* parent) : QObject(parent)
 {
-    m_homeLocation =  QStandardPaths::locate(QStandardPaths::DataLocation,
-												   QString(),
-												   QStandardPaths::LocateDirectory);
+	m_homeLocation = QStandardPaths::locate(QStandardPaths::DataLocation,
+											QString(),
+											QStandardPaths::LocateDirectory);
 	qDebug() << m_homeLocation;
 	m_filePath = m_homeLocation + "qwnsettings.conf";
 	qDebug() << m_filePath;
@@ -18,6 +18,11 @@ QwnSettings::QwnSettings(QObject* parent) : QObject(parent)
 	m_username = "username";
 	m_password = "password";
 	m_is_initialized = false;
+
+	m_globalAccentColor				= "red";
+	m_globalBackgroundColor			= "white";
+	m_globalRectangleColor			= "#111111";
+	m_globalRectangleBorderColor	= "#171717";
 
 	connect(this, SIGNAL(urlChanged()), SLOT(slotUrlChanged()));
 	connect(this, SIGNAL(usernameChanged()), SLOT(slotUsernameChanged()));
@@ -56,15 +61,46 @@ void QwnSettings::initialize()
 		SettingsManager::instance()->setOwnCloudHost(m_url);
 		SettingsManager::instance()->setUserName(m_username);
 		SettingsManager::instance()->setUserPassword(m_password);
+
+		SettingsManager::instance()->setGlobalAccentColor(m_globalAccentColor);
+		SettingsManager::instance()->setGlobalBackgroundColor(m_globalBackgroundColor);
+		SettingsManager::instance()->setGlobalRectangleColor(m_globalRectangleColor);
+		SettingsManager::instance()->setGlobalRectangleBorderColor(m_globalRectangleBorderColor);
+
 	} else {
 		setUrl(SettingsManager::instance()->getOwnCloudHost());
 		setUsername(SettingsManager::instance()->getUserName());
 		setPassword(SettingsManager::instance()->getUserPassword());
-        emit signalSettingsFilled();
+
+		setGlobalAccentColor(SettingsManager::instance()->getGlobalAccentColor());
+		setGlobalBackgroundColor(SettingsManager::instance()->getGlobalBackgroundColor());
+		setGlobalRectangleColor(SettingsManager::instance()->getGlobalRectangleColor());
+		setGlobalRectangleBorderColor(SettingsManager::instance()->getGlobalRectangleBorderColor());
+
+		// WTF?!
+		emit signalSettingsFilled();
 	}
 	SettingsManager::instance()->setApiMusicCollection("/owncloud/index.php/apps/music/api/collection");
 	SettingsManager::instance()->setApiCover("/owncloud/index.php/apps/music/api/album/");
 	SettingsManager::instance()->setHomeLocation(m_homeLocation);
 
+
+
 	m_is_initialized = true;
+}
+
+void QwnSettings::saveAllSettings()
+{
+	SettingsManager::instance()->setOwnCloudHost(m_url);
+	SettingsManager::instance()->setUserName(m_username);
+	SettingsManager::instance()->setUserPassword(m_password);
+
+	SettingsManager::instance()->setApiMusicCollection("/owncloud/index.php/apps/music/api/collection");
+	SettingsManager::instance()->setApiCover("/owncloud/index.php/apps/music/api/album/");
+	SettingsManager::instance()->setHomeLocation(m_homeLocation);
+
+	SettingsManager::instance()->setGlobalAccentColor(m_globalAccentColor);
+	SettingsManager::instance()->setGlobalBackgroundColor(m_globalBackgroundColor);
+	SettingsManager::instance()->setGlobalRectangleColor(m_globalRectangleColor);
+	SettingsManager::instance()->setGlobalRectangleBorderColor(m_globalRectangleBorderColor);
 }

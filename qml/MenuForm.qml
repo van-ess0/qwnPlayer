@@ -7,8 +7,11 @@ Item {
 
     property var standartSquareSize: 60
 
-    property var resourcePath: "qrc:/resources/images/blue/"
+    property var resourcePath: "qrc:/resources/images/"
     property var currentLabel: ""
+
+    property color backgroundColor: settings.globalBackgroundColor
+    property color rectangleBorderColor: settings.globalRectangleBorderColor
 
     Column {
         id: columnMenu
@@ -23,7 +26,7 @@ Item {
 
         MenuButton {
             id: mainRow
-            iconSource: resourcePath + "hamburgermenu_blue.svg"
+            iconSource: resourcePath + "hamburgermenu.svg"
             label: qsTr("qwnPlayer")
 
             function onButtonClicked() {
@@ -35,7 +38,7 @@ Item {
             id: homeRow
             anchors.top: mainRow.bottom
             anchors.topMargin: 0
-            iconSource: resourcePath + "home_blue.svg"
+            iconSource: resourcePath + "home.svg"
             label: qsTr("Now playing")
 
             function onButtonClicked() {
@@ -49,7 +52,7 @@ Item {
             id: playlistRow
             anchors.top: homeRow.bottom
             anchors.topMargin: 0
-            iconSource: resourcePath + "playlist_blue.svg"
+            iconSource: resourcePath + "playlist.svg"
             label: qsTr("Playlist")
 
             function onButtonClicked() {
@@ -63,7 +66,7 @@ Item {
             id: libraryRow
             anchors.top: playlistRow.bottom
             anchors.topMargin: 0
-            iconSource: resourcePath + "library_blue.svg"
+            iconSource: resourcePath + "library.svg"
             label: qsTr("Library")
 
             function onButtonClicked() {
@@ -77,7 +80,7 @@ Item {
             id: backRow
             anchors.top: libraryRow.bottom
             anchors.topMargin: 0
-            iconSource: resourcePath + "back_blue.svg"
+            iconSource: resourcePath + "back.svg"
             label: qsTr("Back")
 
             function onButtonClicked() {
@@ -99,8 +102,8 @@ Item {
 
             Rectangle {
                 id: emptyRowRectangle
-                color: "#000000"
-                border.color: "#171717"
+                color: backgroundColor
+                border.color: rectangleBorderColor
                 anchors.fill: parent
             }
         }
@@ -112,7 +115,7 @@ Item {
             anchors.topMargin: 0
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
-            iconSource: resourcePath + "settings_blue.svg"
+            iconSource: resourcePath + "settings.svg"
             label: qsTr("Settings")
 
             function onButtonClicked() {

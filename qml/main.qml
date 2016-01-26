@@ -6,7 +6,12 @@ import com.qwnplayer 1.0
 
 ApplicationWindow {
 
+    Component.onDestruction: {
+        console.log("BYE")
+    }
+
     Component.onCompleted: {
+        console.log("Hello")
         mainForm.changeTitle(qsTr("Now playing"))
         mainForm.pushToStack("HomePage.qml")
         console.log("Pixel density:" + Screen.pixelDensity.toString())
@@ -30,6 +35,16 @@ ApplicationWindow {
 
     QwnSettings {
         id: settings
+
+        Component.onDestruction: {
+            settings.saveAllSettings()
+        }
+
+
+        Component.onCompleted: {
+            settings.initialize()
+        }
+
 //Костыль ToFix
         onUrlChanged: {
             if (stackView.currentItem.objectName === "ConnectionPage") {

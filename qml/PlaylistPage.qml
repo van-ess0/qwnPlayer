@@ -9,6 +9,8 @@ Item {
     width: parent.width
     height: parent.height
 
+    property color accentColor: settings.globalAccentColor
+
     ListView {
         id: playlistView
 
@@ -21,7 +23,7 @@ Item {
         clip: true
 
         highlight: Rectangle {
-            color: "skyblue"
+            color: accentColor
         }
 
         highlightFollowsCurrentItem: true

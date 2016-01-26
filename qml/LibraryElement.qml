@@ -9,6 +9,10 @@ Item {
     width: element_view.width
     height: 60 * scaleFactor
 
+    property color accentColor: settings.globalAccentColor
+    property color rectangleColor: settings.globalRectangleColor
+    property color borderColor: settings.globalRectangleBorderColor
+
     function onPlayTouched() {
 
     }
@@ -29,10 +33,10 @@ Item {
         anchors.margins: 1
         anchors.fill: parent
 
-        color: "#111111"
+        color: rectangleColor
 
         border {
-            color: "#171717"
+            color: borderColor
             width: 2 * scaleFactor
         }
 
@@ -43,7 +47,8 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             height: parent.height
             width: height
-            iconSource: "qrc:/resources/images/blue/play.svg"
+            iconSource: "qrc:/resources/images/play.svg"
+            iconColor: accentColor
             function onTouched() {
                 library_element.onPlayTouched()
             }
@@ -52,7 +57,7 @@ Item {
         }
 
         Text {
-            color: "#87ceeb"
+            color: accentColor
             font.pixelSize: 18 * scaleFactor
             id: text_element
             anchors.verticalCenter: playbutton_element.verticalCenter

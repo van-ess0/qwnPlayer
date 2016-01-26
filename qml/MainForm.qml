@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.1
+import QtGraphicalEffects 1.0
 
 Item {
     id: mainForm
@@ -23,11 +24,15 @@ Item {
 
     property var standartSquareSize: 60
 
+    property color accentColor: settings.globalAccentColor
+    property color backgroundColor: settings.globalBackgroundColor
+    property color rectangleBorderColor: settings.globalRectangleBorderColor
+
     Rectangle {
         id: topRectangleMain
-        border.color: "#171717"
+        border.color: rectangleBorderColor
         height: standartSquareSize * scaleFactor
-        color: "#000000"
+        color: backgroundColor
         anchors.left: parent.left
         anchors.leftMargin: 0
         anchors.right: parent.right
@@ -58,12 +63,19 @@ Item {
                 anchors.topMargin: 2
                 anchors.left: parent.left
                 anchors.leftMargin: 2
-                source: "qrc:/resources/images/blue/hamburgermenu_blue.svg"
+                source: "qrc:/resources/images/hamburgermenu.svg"
+            }
+
+            ColorOverlay {
+                id: titleImageOverlay
+                anchors.fill: titleImage
+                source: titleImage
+                color: accentColor
             }
 
             Text {
                 id: titleText
-                color: "#87ceeb"
+                color: accentColor
                 text: qsTr("Some text here")
                 style: Text.Normal
                 font.pixelSize: 24 * scaleFactor
@@ -94,7 +106,7 @@ Item {
 //        x: 0
 //        y: 80 * scaleFactor
         height: 600 * scaleFactor
-        color: "#000000"
+        color: backgroundColor
         anchors.top: topRectangleMain.bottom
         anchors.topMargin: 0
         anchors.right: parent.right
@@ -107,11 +119,11 @@ Item {
 
     PlayingPanel {
         id: bottomPanel
-        border.color: "#171717"
+        border.color: rectangleBorderColor
 //        x: 0
 //        y: 683 * scaleFactor
         height: 120 * scaleFactor
-        color: "#000000"
+        color: backgroundColor
         anchors.top: midRectangleMain.bottom
         anchors.topMargin: 0
         anchors.right: parent.right

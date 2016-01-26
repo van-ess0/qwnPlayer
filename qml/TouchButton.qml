@@ -43,8 +43,8 @@ Item {
     id: button
     signal clicked
     property alias text: label.text
-    property color baseColor: "#111111"
-    property color textColor: "skyblue"
+    property color baseColor: settings.globalRectangleColor
+    property color textColor: settings.globalAccentColor
     height: Math.round(40 * scaleFactor)
     width: Math.round(160 * scaleFactor)
     //activeFocusOnTab: true

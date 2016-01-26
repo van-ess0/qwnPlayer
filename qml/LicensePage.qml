@@ -2,12 +2,14 @@ import QtQuick 2.0
 
 Item {
     width: parent.width
+    property color accentColor: settings.globalAccentColor
+
     Column {
         width: parent.width
         Text {
             width: parent.width
             wrapMode: Text.WordWrap
-            color: "skyblue"
+            color: accentColor
             text: "            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
                     Version 2, December 2004
 
@@ -25,7 +27,7 @@ Item {
 
         Text {
             textFormat: Text.RichText
-            color: "skyblue"
+            color: accentColor
             text: "<a href='http://www.wtfpl.net/'>WTFPL</a>"
         }
     }

@@ -3,6 +3,8 @@ import QtQuick.Controls 1.1
 
 Item {
 
+    property color accentColor: settings.globalAccentColor
+
     ListModel {
         id: settingsPageModel
 
@@ -20,6 +22,11 @@ Item {
             text: "License"
             pageUrl: "LicensePage.qml"
         }
+
+        ListElement {
+            text: "Color prefference"
+            pageUrl: "ThemeSettingPage.qml"
+        }
     }
 
     ListView {
@@ -32,8 +39,9 @@ Item {
         clip: true
 
         highlight: Rectangle {
-            color: "skyblue"
+            color: accentColor
         }
+
         highlightFollowsCurrentItem: true
 
         delegate: LibraryElement {

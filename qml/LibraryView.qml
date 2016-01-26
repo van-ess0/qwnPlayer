@@ -13,8 +13,10 @@ ListView {
     spacing: 5 * scaleFactor
     clip: true
 
+    property color accentColor: settings.globalAccentColor
+
     highlight: Rectangle {
-        color: "skyblue"
+        color: accentColor
     }
 
     highlightFollowsCurrentItem: true

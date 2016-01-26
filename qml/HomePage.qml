@@ -3,6 +3,8 @@ import QtQuick.Controls 1.1
 
 Item {
 //    color: "black"
+    property color accentColor: settings.globalAccentColor
+
     Column{
         anchors.fill: parent
         spacing: 10
@@ -30,7 +32,7 @@ Item {
             id: trackLabel
             anchors.horizontalCenter: parent.horizontalCenter
             text: playingTrack.track
-            color: "#87ceeb"
+            color: accentColor
             font.pixelSize: 28 * scaleFactor
             font.family: "Tahoma"
         }
@@ -39,7 +41,7 @@ Item {
             id: artistLabel
             anchors.horizontalCenter: parent.horizontalCenter
             text: playingTrack.artist
-            color: "#87ceeb"
+            color: accentColor
             font.pixelSize: 24 * scaleFactor
             font.family: "Tahoma"
 
@@ -49,7 +51,7 @@ Item {
             id: albumLabel
             anchors.horizontalCenter: parent.horizontalCenter
             text: playingTrack.album
-            color: "#87ceeb"
+            color: accentColor
             font.pixelSize: 20 * scaleFactor
             font.family: "Tahoma"
         }

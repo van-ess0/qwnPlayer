@@ -5,7 +5,9 @@ Rectangle {
 
     color: "#00000000"
 
-    property var resourcePath: "qrc:/resources/images/blue/"
+    property var resourcePath: "qrc:/resources/images/"
+
+    property color accentColor: settings.globalAccentColor
 
     function onProgressChanged(progress) {
         console.log("Progress: " + progress)
@@ -39,7 +41,7 @@ Rectangle {
 
 
         Text {
-            color: "#87ceeb"
+            color: accentColor
             id: currentPos
             y: 8  * scaleFactor
             height: 22  * scaleFactor
@@ -91,7 +93,7 @@ Rectangle {
 
 
         Text {
-            color: "#87ceeb"
+            color: accentColor
             id: trackLength
             y: 8 * scaleFactor
             height: 22 * scaleFactor

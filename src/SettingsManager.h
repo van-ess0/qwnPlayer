@@ -23,6 +23,11 @@ public:
 	GET_SET_STRING(ApiCover, "OwnCloudAPI/cover", "/owncloud/index.php/apps/music/api/album/")
 
 	GET_SET_STRING(HomeLocation, "App/homelocation", "./")
+
+	GET_SET_STRING(GlobalAccentColor, "UI/globalAccentColor", "skyblue")
+	GET_SET_STRING(GlobalBackgroundColor, "UI/globalBackgroundColor", "black")
+	GET_SET_STRING(GlobalRectangleColor, "UI/globalRectangleColor", "#111111")
+	GET_SET_STRING(GlobalRectangleBorderColor, "UI/globalRectangleBorderColor", "#171717")
 };
 
 #endif // SETTINGSMANAGER_H

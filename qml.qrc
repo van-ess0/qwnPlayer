@@ -27,5 +27,6 @@
         <file>qml/PlayingPanel.qml</file>
         <file>qml/PlayingPanelButton.qml</file>
         <file>qml/TextInfoElement.qml</file>
+        <file>qml/ThemeSettingPage.qml</file>
     </qresource>
 </RCC>
