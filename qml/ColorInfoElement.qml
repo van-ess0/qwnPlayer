@@ -8,7 +8,7 @@ Row {
 
     id: colorRow
     spacing: parent.spacing
-    height: 100 * scaleFactor
+    height: 85 * scaleFactor
 
     Rectangle {
         color: themeSettingsPage.getColor(colorPropertyNumber) // for Accent color

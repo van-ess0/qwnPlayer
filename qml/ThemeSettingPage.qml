@@ -64,7 +64,6 @@ Item {
         visible: false
         modality: Qt.WindowModal
         title: "Choose a color"
-        color: themeSettingsPage.getColor(currentColorToSet)
         showAlphaChannel: true
         onAccepted: {
             console.log("Accepted: " + color)
