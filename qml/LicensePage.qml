@@ -7,6 +7,7 @@ Item {
         Text {
             width: parent.width
             wrapMode: Text.WordWrap
+            color: "skyblue"
             text: "            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
                     Version 2, December 2004
 
@@ -24,6 +25,7 @@ Item {
 
         Text {
             textFormat: Text.RichText
+            color: "skyblue"
             text: "<a href='http://www.wtfpl.net/'>WTFPL</a>"
         }
     }
