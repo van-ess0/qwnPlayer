@@ -7,7 +7,7 @@ Item {
     property bool elemet_playbutton_visible: true
 
     width: element_view.width
-    height: 60
+    height: 60 * scaleFactor
 
     function onPlayTouched() {
 
@@ -26,22 +26,24 @@ Item {
     }
 
     Rectangle {
-        anchors.margins: 5
+        anchors.margins: 1
         anchors.fill: parent
 
+        color: "#111111"
+
         border {
-            color: "black"
-            width: 1
+            color: "#171717"
+            width: 2 * scaleFactor
         }
 
-        BottomPanelButton {
+        PlayingPanelButton {
             id: playbutton_element
             objectName: "playbutton"
             anchors.left: parent
             anchors.verticalCenter: parent.verticalCenter
             height: parent.height
             width: height
-            iconSource: "qrc:/resources/images/play.svg"
+            iconSource: "qrc:/resources/images/blue/play.svg"
             function onTouched() {
                 library_element.onPlayTouched()
             }
@@ -50,6 +52,8 @@ Item {
         }
 
         Text {
+            color: "#87ceeb"
+            font.pixelSize: 18 * scaleFactor
             id: text_element
             anchors.verticalCenter: playbutton_element.verticalCenter
             anchors.left: playbutton_element.right

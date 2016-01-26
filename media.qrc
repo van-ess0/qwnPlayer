@@ -20,5 +20,18 @@
         <file>resources/images/forward.svg</file>
         <file>resources/images/retweet9.svg</file>
         <file>resources/images/cover_sample.png</file>
+        <file>resources/images/blue/back_blue.svg</file>
+        <file>resources/images/blue/hamburgermenu_blue.svg</file>
+        <file>resources/images/blue/home_blue.svg</file>
+        <file>resources/images/blue/library_blue.svg</file>
+        <file>resources/images/blue/playlist_blue.svg</file>
+        <file>resources/images/blue/settings_blue.svg</file>
+        <file>resources/images/blue/play.svg</file>
+        <file>resources/images/blue/cycle.svg</file>
+        <file>resources/images/blue/forward.svg</file>
+        <file>resources/images/blue/next.svg</file>
+        <file>resources/images/blue/pause.svg</file>
+        <file>resources/images/blue/previous.svg</file>
+        <file>resources/images/blue/shuffle.svg</file>
     </qresource>
 </RCC>

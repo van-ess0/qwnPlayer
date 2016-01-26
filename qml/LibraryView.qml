@@ -7,10 +7,10 @@ ListView {
 
     model: null
 
-    anchors.margins: 10
+    anchors.margins: 5 * scaleFactor
     anchors.fill: parent
     z: stackView.z
-    spacing: 10
+    spacing: 5 * scaleFactor
     clip: true
 
     highlight: Rectangle {

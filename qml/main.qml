@@ -1,21 +1,24 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.1
+import QtQuick.Window 2.1
 import com.qwnplayer 1.0
+
 
 ApplicationWindow {
 
     id: window
 
-    property real scaleFactor: 1.0
-    property int intScaleFactor: Math.max(1, scaleFactor)
+    property real intScaleFactor: Screen.pixelDensity / 9.0
+    //property real scaleFactor: 1.0
+    property int scaleFactor: Math.max(1, intScaleFactor)
 
     // Do not touch!!!
     property int currentArtistId: 0;
     property int currentAlbumId: 0;
 
     visible: true
-    width: 400 * scaleFactor
-    height: 640 * scaleFactor
+    width: 420 * scaleFactor
+    height: 800 * scaleFactor
 
     QwnSettings {
         id: settings
@@ -50,13 +53,15 @@ ApplicationWindow {
     QwnMediaPlayer {
         id: mediaplayer
         objectName: "mediaPlayer"
-        onSignalPositionChanged: bottomPanel.onProgressChanged(progress)
-        onSignalDurationChanged: bottomPanel.onDurationChanged(duration)
+        onSignalPositionChanged: mainForm.onProgressChanged(progress)
+        onSignalDurationChanged: mainForm.onDurationChanged(duration)
         onSignalPlayingTrackChanged: playingTrack.fillingMeta(title, artist, album)
-        onSignalPlayingStateChanged: bottomPanel.onPlayingStateChanged(state)
+        onSignalPlayingStateChanged: mainForm.onPlayingStateChanged(state)
         onSignalCoverChanged: playingTrack.fillingCover(coverId)
         onSignalCurrentTrackIndexChanged: playingTrack.updatePlaylistPage(index)
     }
+
+    /*
 
     Rectangle {
         id: background
@@ -64,23 +69,75 @@ ApplicationWindow {
         color: "black"
     }
 
-    StackView {
-        id: stackView
-        anchors {
-            top: parent.top
-            bottom: bottomPanel.top
-            left: pulleyMenu.right
-            right: parent.right
+    */
+
+    MainForm {
+        id: mainForm
+
+
+
+        StackView {
+            id: stackView
+            anchors {
+                top: mainForm.stackTop
+                topMargin: 20
+                bottom: mainForm.stackBottom
+                bottomMargin: 20
+                left: mainForm.stackLeft
+                leftMargin: 5
+                right: mainForm.stackRight
+                rightMargin: 5
+            }
+
+            // Implements back key navigation
+            focus: true
+            Keys.onReleased: if (event.key === Qt.Key_Back && stackView.depth > 1) {
+                                 stackView.pop();
+                                 event.accepted = true;
+                             }
+            initialItem: {
+                mainForm.changeTitle(qsTr("now playing"))
+                Qt.resolvedUrl("HomePage.qml")
+                console.log("Pixel density:" + Screen.pixelDensity.toString())
+                console.log("Scale factor:" + scaleFactor.toString())
+                console.log("Int scale factor:" + intScaleFactor.toString())
+            }
         }
 
-        // Implements back key navigation
-        focus: true
-        Keys.onReleased: if (event.key === Qt.Key_Back && stackView.depth > 1) {
-                             stackView.pop();
-                             event.accepted = true;
-                         }
-        initialItem: Qt.resolvedUrl("HomePage.qml")
+        titleLabel: menuForm.currentLabel
+
+        MenuForm {
+            id: menuForm
+            function showMenu(value) {
+                visible = value
+            }
+
+            visible: false
+        }
+
+        function onMenuButtonClicked() {
+            console.log("on menu ");
+            menuForm.showMenu(true);
+        }
+
+        function pushToStack(value) {
+            stackView.push(Qt.resolvedUrl(value))
+        }
+
+        function popStack() {
+            stackView.pop()
+        }
+
+        function changeTitle(value) {
+            titleLabel = value
+        }
+
+
     }
+
+
+
+    /*
 
     PulleyMenu {
         id: pulleyMenu
@@ -91,6 +148,10 @@ ApplicationWindow {
         id: bottomPanel
 
     }
+
+    */
+
+
 
     Item {
         id: playingTrack

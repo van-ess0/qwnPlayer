@@ -11,8 +11,8 @@ Item {
         Image {
             id: cover_side
             anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width * 0.8
-            height: width
+            width: 300 * scaleFactor
+            height: 300 * scaleFactor
             source: filling()
 
             function filling()
@@ -28,20 +28,30 @@ Item {
 
         Label {
             id: trackLabel
-            color: "white"
-            text: "Track: " + playingTrack.track
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: playingTrack.track
+            color: "#87ceeb"
+            font.pixelSize: 28 * scaleFactor
+            font.family: "Tahoma"
         }
 
         Label {
             id: artistLabel
-            color: "white"
-            text: "Artist: " + playingTrack.artist
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: playingTrack.artist
+            color: "#87ceeb"
+            font.pixelSize: 24 * scaleFactor
+            font.family: "Tahoma"
+
         }
 
         Label {
             id: albumLabel
-            color: "white"
-            text: "Album: " + playingTrack.album
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: playingTrack.album
+            color: "#87ceeb"
+            font.pixelSize: 20 * scaleFactor
+            font.family: "Tahoma"
         }
     }
 
