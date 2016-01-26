@@ -43,8 +43,8 @@ Item {
     id: button
     signal clicked
     property alias text: label.text
-    property color baseColor: "#555"
-    property color textColor: "#fff"
+    property color baseColor: "#111111"
+    property color textColor: "skyblue"
     height: Math.round(40 * scaleFactor)
     width: Math.round(160 * scaleFactor)
     //activeFocusOnTab: true
@@ -62,7 +62,7 @@ Item {
         id: background
         opacity: enabled ? 1 : 0.7
         Behavior on opacity {NumberAnimation{}}
-        radius: height/2
+//        radius: height/2
         border.width: intScaleFactor * button.activeFocus ? 2 : 1
         border.color: Qt.darker(baseColor, 1.4)
         anchors.fill: parent
@@ -78,7 +78,7 @@ Item {
             font.bold: true
             color: textColor
             style: Text.Raised
-            styleColor: "#44000000"
+//            styleColor: "#44000000"
         }
 
         MouseArea {

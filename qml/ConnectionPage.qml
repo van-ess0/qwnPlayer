@@ -48,7 +48,7 @@ Item {
                 TouchButton {
                     id: loginButton
                     text: "Login"
-                    baseColor: "#7a5"
+//                    baseColor: "#7a5"
                     width: parent.width
                     onClicked: login()
 //                    enabled: enginioClient.authenticationState !== Enginio.Authenticating && nameInput.text.length && passwordInput.text.length

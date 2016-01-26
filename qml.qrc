@@ -26,5 +26,6 @@
         <file>qml/MenuForm.qml</file>
         <file>qml/PlayingPanel.qml</file>
         <file>qml/PlayingPanelButton.qml</file>
+        <file>qml/TextInfoElement.qml</file>
     </qresource>
 </RCC>

@@ -24,7 +24,7 @@ Item {
     Rectangle {
         id: topRectangleMain
         border.color: "#171717"
-        height: 80 * scaleFactor
+        height: 60 * scaleFactor
         color: "#000000"
         anchors.left: parent.left
         anchors.leftMargin: 0
@@ -46,10 +46,10 @@ Item {
 
             Image {
                 id: titleImage
-                width: 76 * scaleFactor
-                height: 76 * scaleFactor
-                sourceSize.height: 80 * scaleFactor
-                sourceSize.width: 80 * scaleFactor
+                width: (topRectangleMain.height - 4) * scaleFactor
+                height: (topRectangleMain.height - 4) * scaleFactor
+                sourceSize.height: topRectangleMain.height * scaleFactor
+                sourceSize.width: topRectangleMain.height * scaleFactor
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 2
                 anchors.top: parent.top
@@ -64,7 +64,7 @@ Item {
                 color: "#87ceeb"
                 text: qsTr("Some text here")
                 style: Text.Normal
-                font.pixelSize: 32 * scaleFactor
+                font.pixelSize: 24 * scaleFactor
                 font.family: "Tahoma"
                 font.capitalization: Font.AllUppercase
                 textFormat: Text.AutoText

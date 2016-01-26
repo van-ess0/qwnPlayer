@@ -87,7 +87,7 @@ Item {
         Item {
             id: emptyRow
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 80 * scaleFactor
+            anchors.bottomMargin: 60 * scaleFactor
             anchors.right: parent.right
             anchors.rightMargin: 0
             anchors.left: parent.left

@@ -54,7 +54,7 @@ FocusScope {
 
     Rectangle {
         anchors.fill: editbg
-        radius: editbg.radius
+//        radius: editbg.radius
         color: "#aaffffff"
         anchors.bottomMargin: -1
     }
@@ -62,14 +62,14 @@ FocusScope {
     Rectangle {
         id: editbg
         anchors.fill: parent
-        radius: height/2
+//        radius: height/2
         border.width: intScaleFactor
         border.color: "#999"
 
         gradient: Gradient {
             GradientStop {color: "#eee" ; position: 0}
-            GradientStop {color: "white" ; position: 0.1}
-            GradientStop {color: "white" ; position: 1}
+            GradientStop {color: "#111111" ; position: 0.1}
+            GradientStop {color: "#111111" ; position: 1}
         }
 
         TextInput{
@@ -82,13 +82,14 @@ FocusScope {
             font.pixelSize: 22 * scaleFactor
             focus: true
             onAccepted: textfield.accepted()
+            color: "#87ceeb"
             Text {
                 id: placeholder
                 anchors.fill: parent
                 verticalAlignment: Text.AlignVCenter
                 visible: !(parent.text.length || textInput.inputMethodComposing)
                 font: parent.font
-                color: "#aaa"
+                color: "#87ceeb"
             }
         }
     }
