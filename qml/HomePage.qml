@@ -11,7 +11,9 @@ Item {
         //spacing: 14 * intScaleFactor
 
         Image {
+
             Component.onCompleted: {
+                // Update cover on signal
                 playingTrack.coverChanged.connect(filling)
             }
 
@@ -19,7 +21,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             width: 300 * scaleFactor
             height: 300 * scaleFactor
-            source: filling()
+            source: "qrc:/resources/images/cover_sample.png"
 
             function filling()
             {
