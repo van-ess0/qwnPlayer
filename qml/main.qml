@@ -129,8 +129,8 @@ ApplicationWindow {
             id: dragArea
             anchors.fill: parent
             property int initX: 0
-            property int confBackSwipe: parent.width / 3
-            property int confMenuSwipeStart: 30
+            property int confBackSwipe: parent.width / 2
+            property int confMenuSwipeStart: parent.width / 8
 
             Component.onCompleted: {
                 console.log("back: " + confBackSwipe)

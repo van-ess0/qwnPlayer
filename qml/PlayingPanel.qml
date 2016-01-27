@@ -44,11 +44,14 @@ Rectangle {
 
 
         Text {
+            Component.onCompleted: {
+                text = progressSlider.calcTime(progressSlider.value)
+            }
+
             color: accentColor
             id: currentPos
             y: 8  * scaleFactor
             height: 22  * scaleFactor
-            text: "0:00"
             anchors.right: progressSlider.left
             anchors.rightMargin: 7 * scaleFactor
             anchors.left: parent.left
@@ -131,11 +134,15 @@ Rectangle {
 
 
         Text {
+            Component.onCompleted: {
+                text = progressSlider.calcTime(progressSlider.maximumValue)
+            }
+
             color: accentColor
             id: trackLength
             y: 8 * scaleFactor
             height: 22 * scaleFactor
-            text: "0:00"
+
             anchors.right: parent.right
             anchors.rightMargin: 7 * scaleFactor
             anchors.left: progressSlider.right
