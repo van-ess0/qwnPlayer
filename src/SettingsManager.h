@@ -16,7 +16,7 @@ public:
 
 	void setFile(QString filepath);
 
-	GET_SET_STRING(OwnCloudHost, "Network/owncloudhost", "http://vaness0.ga:83/owncloud")
+    GET_SET_STRING(OwnCloudHost, "Network/owncloudhost", "")
 	GET_SET_STRING(UserName, "Account/username", "")
 	GET_SET_STRING(UserPassword, "Account/password", "")
 	GET_SET_STRING(ApiMusicCollection, "OwnCloudAPI/musiccollection", "/owncloud/index.php/apps/music/api/collection")
