@@ -17,16 +17,17 @@ Item {
     property var stackRight: mainForm.right
 
     property alias titleLabel: titleText.text
-
-    function onMenuButtonClicked() {
-        console.log("on menu button clicked")
-    }
-
-    property var standartSquareSize: 60
+    property int standartSquareSize: 60
 
     property color accentColor: settings.globalAccentColor
     property color backgroundColor: settings.globalBackgroundColor
     property color rectangleBorderColor: settings.globalRectangleBorderColor
+
+    function changeTitle(value) {
+        titleLabel = value
+    }
+
+    // Page Header
 
     Rectangle {
         id: topRectangleMain
@@ -39,6 +40,8 @@ Item {
         anchors.rightMargin: 0
         anchors.top: parent.top
         anchors.topMargin: 0
+
+
 
         MouseArea {
             id: titleMouseArea
@@ -100,6 +103,7 @@ Item {
         }
     }
 
+    // Page Body
 
     Rectangle {
         id: midRectangleMain
@@ -114,6 +118,8 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 120 * scaleFactor
     }
+
+    // Page Footer
 
     PlayingPanel {
         id: bottomPanel
@@ -141,4 +147,116 @@ Item {
     function onPlayingStateChanged(state) {
         bottomPanel.onPlayingStateChanged(state)
     }
+
+    // Stack view
+
+    StackView {
+        id: stackView
+
+        anchors {
+            top: mainForm.stackTop
+            topMargin: 20
+            bottom: mainForm.stackBottom
+            bottomMargin: 20
+            left: mainForm.stackLeft
+            leftMargin: 20
+            right: mainForm.stackRight
+            rightMargin: 20
+        }
+
+        // Implements back key navigation
+        focus: true
+        Keys.onReleased: {
+            if (event.key === Qt.Key_Back
+                    && stackView.depth > 1)
+            {
+                stackView.pop();
+                event.accepted = true;
+            }
+        }
+    }
+
+    function pushToStack(value) {
+        stackView.push(Qt.resolvedUrl(value))
+    }
+
+    function popStack() {
+        stackView.pop()
+    }
+
+    function clearStack() {
+        stackView.clear()
+    }
+
+    function stackDepth() {
+        return stackView.depth
+    }
+
+    function stackCurrentItem() {
+        return stackView.currentItem
+    }
+
+    // Swipe Area
+
+    MouseArea {
+        id: dragArea
+        anchors.fill: parent
+        property int initX: 0
+        property int confBackSwipe: parent.width / 2
+        property int confMenuSwipeStart: parent.width / 8
+
+        Component.onCompleted: {
+            console.log("back: " + confBackSwipe)
+            console.log("menu start: " + confMenuSwipeStart)
+        }
+
+        z: -1
+
+        onPressed: {
+            initX = mouse.x
+            console.log("Touched on " + initX.toString())
+            //mouse.accepted = false
+        }
+
+        onReleased: {
+
+            var swipeLength = mouse.x - initX
+            console.log("Released on " + mouse.x.toString())
+            console.log("Swipe length " + swipeLength)
+
+            if (initX <= confMenuSwipeStart
+                    && swipeLength <= confBackSwipe) {
+                menuForm.showMenu(true)
+                console.log("swipe show menu")
+                return
+            }
+            else if (swipeLength >= confBackSwipe
+                     && mainForm.stackDepth() > 1) {
+                console.log("swipe back")
+                mainForm.popStack()
+                return
+            }
+            //mouse.accepted = true
+        }
+    }
+
+    // Left Menu Panel
+
+    MenuForm {
+        Component.onCompleted: {
+            mainForm.changeTitle(currentLabel)
+        }
+
+        id: menuForm
+        visible: false
+
+        function showMenu(value) {
+            visible = value
+        }
+    }
+
+    function onMenuButtonClicked() {
+        menuForm.showMenu(true);
+    }
+
 }

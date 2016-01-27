@@ -25,13 +25,12 @@ ApplicationWindow {
     //property real scaleFactor: 1.0
     property int scaleFactor: Math.max(1, intScaleFactor)
 
-    // Do not touch!!!
-    property int currentArtistId: 0;
-    property int currentAlbumId: 0;
 
     visible: true
     width: 420 * scaleFactor
     height: 800 * scaleFactor
+
+    // Settings object
 
     QwnSettings {
         id: settings
@@ -40,38 +39,41 @@ ApplicationWindow {
             settings.saveAllSettings()
         }
 
-
         Component.onCompleted: {
             settings.initialize()
         }
 
 //Костыль ToFix
         onUrlChanged: {
-            if (stackView.currentItem.objectName === "ConnectionPage") {
-                stackView.currentItem.onUrlChanged()
+            if (mainForm.stackCurrentItem().objectName === "ConnectionPage") {
+                mainForm.stackCurrentItem().onUrlChanged()
             }
         }
 
         onUsernameChanged: {
-            if (stackView.currentItem.objectName === "ConnectionPage") {
-                stackView.currentItem.onUsernameChanged()
+            if (mainForm.stackCurrentItem().objectName === "ConnectionPage") {
+                mainForm.stackCurrentItem().onUsernameChanged()
             }
         }
 
         onPasswordChanged: {
-            if (stackView.currentItem.objectName === "ConnectionPage") {
-                stackView.currentItem.onPasswordChanged()
+            if (mainForm.stackCurrentItem().objectName === "ConnectionPage") {
+                mainForm.stackCurrentItem().onPasswordChanged()
             }
         }
 
         onSignalSettingsFilled: cloudClient.auth()
     }
 
+    // Connection object
+
     OwnCloudClient {
         id: cloudClient
         objectName: "cloudClient"
         onSignalConnected: playingTrack.connectionState = "Connected"
     }
+
+    // Player object
 
     QwnMediaPlayer {
         id: mediaplayer
@@ -86,110 +88,13 @@ ApplicationWindow {
 
     MainForm {
         id: mainForm
-
-
-        StackView {
-            id: stackView
-
-            anchors {
-                top: mainForm.stackTop
-                topMargin: 20
-                bottom: mainForm.stackBottom
-                bottomMargin: 20
-                left: mainForm.stackLeft
-                leftMargin: 20
-                right: mainForm.stackRight
-                rightMargin: 20
-            }
-
-            // Implements back key navigation
-            focus: true
-            Keys.onReleased: {
-                if (event.key === Qt.Key_Back
-                        && stackView.depth > 1)
-                {
-                    stackView.pop();
-                    event.accepted = true;
-                }
-            }
-        }
-
-        titleLabel: menuForm.currentLabel
-
-        MenuForm {
-            id: menuForm
-            function showMenu(value) {
-                visible = value
-            }
-
-            visible: false
-        }
-
-        MouseArea {
-            id: dragArea
-            anchors.fill: parent
-            property int initX: 0
-            property int confBackSwipe: parent.width / 2
-            property int confMenuSwipeStart: parent.width / 8
-
-            Component.onCompleted: {
-                console.log("back: " + confBackSwipe)
-                console.log("menu start: " + confMenuSwipeStart)
-            }
-
-            z: -1
-
-            onPressed: {
-                initX = mouse.x
-                console.log("Touched on " + initX.toString())
-                //mouse.accepted = false
-            }
-
-            onReleased: {
-
-                var swipeLength = mouse.x - initX
-                console.log("Released on " + mouse.x.toString())
-                console.log("Swipe length " + swipeLength)
-
-                if (initX <= confMenuSwipeStart
-                        && swipeLength <= confBackSwipe) {
-                    menuForm.showMenu(true)
-                    console.log("swipe show menu")
-                    return
-                }
-                else if (swipeLength >= confBackSwipe
-                         && stackView.depth > 1) {
-                    console.log("swipe back")
-                    stackView.pop()
-                    return
-                }
-                //mouse.accepted = true
-            }
-        }
-
-        function onMenuButtonClicked() {
-            console.log("on menu ");
-            menuForm.showMenu(true);
-        }
-
-        function pushToStack(value) {
-            stackView.push(Qt.resolvedUrl(value))
-        }
-
-        function popStack() {
-            stackView.pop()
-        }
-
-        function clearStack() {
-            stackView.clear()
-        }
-
-        function changeTitle(value) {
-            titleLabel = value
-        }
-
-
     }
+
+    // Current Track Info
+
+    // Do not touch this!!!
+    property int currentArtistId: 0;
+    property int currentAlbumId: 0;
 
     Item {
         id: playingTrack
@@ -211,8 +116,8 @@ ApplicationWindow {
         }
 
         function updatePlaylistPage(index) {
-            if (stackView.currentItem.objectName === "PlaylistPage") {
-                stackView.currentItem.updateCurrentIndex(index)
+            if (mainForm.stackCurrentItem().objectName === "PlaylistPage") {
+                mainForm.stackCurrentItem().updateCurrentIndex(index)
             }
         }
     }
