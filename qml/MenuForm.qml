@@ -15,14 +15,13 @@ Item {
 
     Column {
         id: columnMenu
-        anchors.right: parent.right
-        anchors.rightMargin: 80 * scaleFactor
-        anchors.left: parent.left
-        anchors.leftMargin: 0
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 0
-        anchors.top: parent.top
-        anchors.topMargin: 0
+        anchors {
+            fill: parent
+            rightMargin: 80 * scaleFactor
+            leftMargin: 0
+            bottomMargin: 0
+            topMargin: 0
+        }
 
         MenuButton {
             id: mainRow
@@ -91,14 +90,17 @@ Item {
 
         Item {
             id: emptyRow
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: standartSquareSize * scaleFactor
-            anchors.right: parent.right
-            anchors.rightMargin: 0
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-            anchors.top: backRow.bottom
-            anchors.topMargin: 0
+
+            anchors {
+                bottom: parent.bottom
+                bottomMargin: standartSquareSize * scaleFactor
+                right: parent.right
+                rightMargin: 0
+                left: parent.left
+                leftMargin: 0
+                top: backRow.bottom
+                topMargin: 0
+            }
 
             Rectangle {
                 id: emptyRowRectangle
@@ -123,7 +125,5 @@ Item {
                 menuPanel.visible = false
             }
         }
-
-
     }
 }
