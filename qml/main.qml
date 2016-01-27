@@ -84,16 +84,6 @@ ApplicationWindow {
         onSignalCurrentTrackIndexChanged: playingTrack.updatePlaylistPage(index)
     }
 
-    /*
-
-    Rectangle {
-        id: background
-        anchors.fill: parent
-        color: "black"
-    }
-
-    */
-
     MainForm {
         id: mainForm
 
@@ -117,7 +107,6 @@ ApplicationWindow {
                                  stackView.pop();
                                  event.accepted = true;
                              }
-//            initialItem: Qt.resolvedUrl("HomePage.qml")
         }
 
         titleLabel: menuForm.currentLabel
@@ -150,24 +139,6 @@ ApplicationWindow {
 
 
     }
-
-
-
-    /*
-
-    PulleyMenu {
-        id: pulleyMenu
-        anchors.bottom: bottomPanel.visible ? bottomPanel.top: parent.bottom
-    }
-
-    BottomPanel {
-        id: bottomPanel
-
-    }
-
-    */
-
-
 
     Item {
         id: playingTrack

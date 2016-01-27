@@ -103,8 +103,6 @@ Item {
 
     Rectangle {
         id: midRectangleMain
-//        x: 0
-//        y: 80 * scaleFactor
         height: 600 * scaleFactor
         color: backgroundColor
         anchors.top: topRectangleMain.bottom
@@ -120,8 +118,6 @@ Item {
     PlayingPanel {
         id: bottomPanel
         border.color: rectangleBorderColor
-//        x: 0
-//        y: 683 * scaleFactor
         height: 120 * scaleFactor
         color: backgroundColor
         anchors.top: midRectangleMain.bottom

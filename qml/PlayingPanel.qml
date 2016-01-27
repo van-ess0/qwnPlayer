@@ -165,16 +165,6 @@ Rectangle {
             height: 60 * scaleFactor
 
             anchors.centerIn: parent
-
-//            anchors.right: parent.right
-//            anchors.rightMargin: 210 * scaleFactor
-//            anchors.left: parent.left
-//            anchors.leftMargin: 210 * scaleFactor
-//            anchors.bottom: parent.verticalCenter
-//            anchors.bottomMargin: -30 * scaleFactor
-//            anchors.top: parent.verticalCenter
-//            anchors.topMargin: -30 * scaleFactor
-
             iconSource: resourcePath + "play.svg"
 
             function onTouched() {
@@ -189,10 +179,6 @@ Rectangle {
             x: 164 * scaleFactor
             width: 40 * scaleFactor
             height: 40 * scaleFactor
-//            anchors.top: parent.top
-//            anchors.topMargin: 19 * scaleFactor
-//            anchors.bottom: parent.bottom
-//            anchors.bottomMargin: 18 * scaleFactor
             anchors.verticalCenter: playButton.verticalCenter
 
             anchors.rightMargin: 6 * scaleFactor
@@ -214,16 +200,11 @@ Rectangle {
         PlayingPanelButton {
             id: nextButton
 
-//            y: -9 * scaleFactor
             width: 40 * scaleFactor
             height: 40 * scaleFactor
             anchors.left: playButton.right
             anchors.leftMargin: 6 * scaleFactor
             anchors.verticalCenter: playButton.verticalCenter
-//            anchors.bottomMargin: 18 * scaleFactor
-//            anchors.topMargin: 19 * scaleFactor
-//            anchors.top: parent.top
-//            anchors.bottom: parent.bottom
 
             iconSource: resourcePath + "forward.svg"
 
@@ -239,18 +220,11 @@ Rectangle {
 
         PlayingPanelButton {
             id: shuffleButton
-
-//            x: -8 * scaleFactor
-//            y: -13 * scaleFactor
             width: 40 * scaleFactor
             height: 40 * scaleFactor
             anchors.verticalCenter: playButton.verticalCenter
             anchors.right: playButton.left
             anchors.rightMargin: 80 * scaleFactor
-//            anchors.bottomMargin: 18 * scaleFactor
-//            anchors.topMargin: 19 * scaleFactor
-//            anchors.top: parent.top
-//            anchors.bottom: parent.bottom
 
             iconSource: resourcePath + "shuffle.svg"
 
@@ -263,16 +237,10 @@ Rectangle {
         PlayingPanelButton {
             id: cycleButton
 
-//            x: 2 * scaleFactor
-//            y: -2 * scaleFactor
             width: 40 * scaleFactor
             height: 40 * scaleFactor
             anchors.verticalCenter: playButton.verticalCenter
-//            anchors.bottomMargin: 18 * scaleFactor
-//            anchors.topMargin: 19 * scaleFactor
             anchors.left: playButton.right
-//            anchors.top: parent.top
-//            anchors.bottom: parent.bottom
             anchors.leftMargin: 80 * scaleFactor
 
             iconSource: resourcePath + "cycle.svg"

@@ -110,7 +110,6 @@ Item {
 
         MenuButton {
             id: settingsRow
-//            width: 400
             anchors.top: emptyRow.bottom
             anchors.topMargin: 0
             anchors.bottom: parent.bottom
