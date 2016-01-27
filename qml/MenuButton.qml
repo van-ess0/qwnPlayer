@@ -15,6 +15,7 @@ Item {
 
     property alias iconSource: icon.source
     property alias label: text.text
+    property bool isFontUppercase: false
 
     property color iconColor: settings.globalAccentColor
     property color labelColor: settings.globalAccentColor
@@ -81,7 +82,7 @@ Item {
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 style: Text.Normal
-//                font.capitalization: Font.AllUppercase
+                font.capitalization: isFontUppercase ? Font.AllUppercase : Font.MixedCase
             }
 
             anchors.rightMargin: 0

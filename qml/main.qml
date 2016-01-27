@@ -113,6 +113,7 @@ ApplicationWindow {
 
         function fillingCover (coverId) {
             playingTrack.coverId = coverId
+            coverChanged()
         }
 
         function updatePlaylistPage(index) {
@@ -120,6 +121,8 @@ ApplicationWindow {
                 mainForm.stackCurrentItem().updateCurrentIndex(index)
             }
         }
+
+        signal coverChanged
     }
 
 }

@@ -11,6 +11,10 @@ Item {
         //spacing: 14 * intScaleFactor
 
         Image {
+            Component.onCompleted: {
+                playingTrack.coverChanged.connect(filling)
+            }
+
             id: cover_side
             anchors.horizontalCenter: parent.horizontalCenter
             width: 300 * scaleFactor

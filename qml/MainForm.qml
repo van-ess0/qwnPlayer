@@ -16,7 +16,7 @@ Item {
     property var stackLeft: mainForm.left
     property var stackRight: mainForm.right
 
-    property alias titleLabel: titleText.text
+    property alias titleLabel: topRow.label
     property int standartSquareSize: 60
 
     property color accentColor: settings.globalAccentColor
@@ -41,65 +41,14 @@ Item {
         anchors.top: parent.top
         anchors.topMargin: 0
 
+        MenuButton {
+            id: topRow
+            iconSource: "qrc:/resources/images/hamburgermenu.svg"
+            isFontUppercase: true
 
-
-        MouseArea {
-            id: titleMouseArea
-            anchors.right: parent.right
-            anchors.rightMargin: 0
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 0
-            anchors.top: parent.top
-            anchors.topMargin: 0
-
-            Image {
-                id: titleImage
-                width: (standartSquareSize - 4) * scaleFactor
-                height: (standartSquareSize - 4) * scaleFactor
-                sourceSize.height: standartSquareSize * scaleFactor
-                sourceSize.width: standartSquareSize * scaleFactor
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 2
-                anchors.top: parent.top
-                anchors.topMargin: 2
-                anchors.left: parent.left
-                anchors.leftMargin: 2
-                source: "qrc:/resources/images/hamburgermenu.svg"
+            function onButtonClicked() {
+                mainForm.onMenuButtonClicked()
             }
-
-            ColorOverlay {
-                id: titleImageOverlay
-                anchors.fill: titleImage
-                source: titleImage
-                color: accentColor
-            }
-
-            Text {
-                id: titleText
-                color: accentColor
-                text: qsTr("Some text here")
-                style: Text.Normal
-                font.pixelSize: 24 * scaleFactor
-                font.family: "Tahoma"
-                font.capitalization: Font.AllUppercase
-                textFormat: Text.AutoText
-                wrapMode: Text.NoWrap
-                font.bold: true
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignLeft
-                anchors.right: parent.right
-                anchors.rightMargin: 80
-                anchors.left: titleImage.right
-                anchors.leftMargin: 10
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
-                anchors.top: parent.top
-                anchors.topMargin: 0
-            }
-
-            onClicked: mainForm.onMenuButtonClicked()
         }
     }
 
