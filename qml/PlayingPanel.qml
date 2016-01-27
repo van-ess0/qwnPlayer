@@ -48,7 +48,7 @@ Rectangle {
             id: currentPos
             y: 8  * scaleFactor
             height: 22  * scaleFactor
-            text: filling()
+            text: "0:00"
             anchors.right: progressSlider.left
             anchors.rightMargin: 7 * scaleFactor
             anchors.left: parent.left
@@ -56,23 +56,6 @@ Rectangle {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             font.pixelSize: 12 * scaleFactor
-
-            function filling()
-            {
-                var seconds = ""
-                var nseconds = (progressSlider.value % 60)
-                if (nseconds < 10){
-
-                    seconds = "0" + nseconds.toString()
-                }
-                else {
-                    seconds = nseconds.toString()
-                }
-
-                var minutes = ((progressSlider.value - seconds) / 60).toString();
-
-                return (qsTr(minutes + ":" + seconds))
-            }
         }
 
         Slider {
@@ -113,6 +96,31 @@ Rectangle {
                 }
             }
 
+            function calcTime(valueToCalc) {
+
+                var seconds = ""
+                var nseconds = (valueToCalc % 60)
+
+                if (nseconds < 10) {
+                    seconds = "0" + Math.round(nseconds).toString()
+                }
+                else {
+                    seconds = Math.round(nseconds).toString()
+                }
+
+                var minutes = ((valueToCalc - nseconds) / 60).toString();
+
+                return (qsTr(minutes + ":" + seconds))
+            }
+
+            onValueChanged: {
+                currentPos.text = calcTime(value)
+            }
+
+            onMaximumValueChanged: {
+                trackLength.text = calcTime(maximumValue)
+            }
+
             onPressedChanged: {
                 if (!pressed) {
                     mediaplayer.setCurrentPosition(value * 1000)
@@ -127,7 +135,7 @@ Rectangle {
             id: trackLength
             y: 8 * scaleFactor
             height: 22 * scaleFactor
-            text: filling()
+            text: "0:00"
             anchors.right: parent.right
             anchors.rightMargin: 7 * scaleFactor
             anchors.left: progressSlider.right
@@ -135,23 +143,6 @@ Rectangle {
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: 12 * scaleFactor
-
-            function filling()
-            {
-                var seconds = ""
-                var nseconds = progressSlider.maximumValue % 60
-                if (nseconds < 10){
-
-                    seconds = "0" + nseconds.toString()
-                }
-                else {
-                    seconds = nseconds.toString()
-                }
-
-                var minutes = ((progressSlider.maximumValue - seconds) / 60).toString();
-
-                return (qsTr(minutes + ":" + seconds))
-            }
         }
     }
 
