@@ -5,10 +5,10 @@ Item {
     width: window.width
     height: window.height
 
-    property var standartSquareSize: 60
+    property int standartSquareSize: 60
 
-    property var resourcePath: "qrc:/resources/images/"
-    property var currentLabel: ""
+    property string resourcePath: "qrc:/resources/images/"
+    property string currentLabel: ""
 
     property color backgroundColor: settings.globalBackgroundColor
     property color rectangleBorderColor: settings.globalRectangleBorderColor
