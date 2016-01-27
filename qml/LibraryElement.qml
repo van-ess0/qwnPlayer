@@ -43,7 +43,7 @@ Item {
         PlayingPanelButton {
             id: playbutton_element
             objectName: "playbutton"
-            anchors.left: parent
+            anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
             height: parent.height
             width: height

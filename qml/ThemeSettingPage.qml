@@ -100,39 +100,4 @@ Item {
             textLabel: "Borders color"
         }
     }
-
-//    Rectangle {
-//        anchors {
-//            left: parent.left
-//            right: parent.right
-//            bottom: parent.bottom
-//        }
-//        height: buttonRow.height * 1.2
-//        color: Qt.darker(palette.window, 1.1)
-//        border.color: Qt.darker(palette.window, 1.3)
-//        Row {
-//            id: buttonRow
-//            spacing: 6
-//            anchors.verticalCenter: parent.verticalCenter
-//            anchors.left: parent.left
-//            anchors.leftMargin: 12
-//            height: implicitHeight
-//            width: parent.width
-//            Button {
-//                text: "Open"
-//                anchors.verticalCenter: parent.verticalCenter
-//                onClicked: colorDialog.open()
-//            }
-//            Button {
-//                text: "Close"
-//                anchors.verticalCenter: parent.verticalCenter
-//                onClicked: colorDialog.close()
-//            }
-//            Button {
-//                text: "set to green"
-//                anchors.verticalCenter: parent.verticalCenter
-//                onClicked: colorDialog.color = "green"
-//            }
-//        }
-//    }
 }

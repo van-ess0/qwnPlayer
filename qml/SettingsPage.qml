@@ -3,8 +3,6 @@ import QtQuick.Controls 1.1
 
 Item {
 
-    property color accentColor: settings.globalAccentColor
-
     ListModel {
         id: settingsPageModel
 
@@ -29,52 +27,10 @@ Item {
         }
     }
 
-    ListView {
-        id: settingsPageView
+    LibraryView {
+        id: settingsView
+        objectName: "SettingsView"
         model: settingsPageModel
-
-        anchors.margins: 10
-        anchors.fill: parent
-        spacing: 10
-        clip: true
-
-        highlight: Rectangle {
-            color: accentColor
-        }
-
-        highlightFollowsCurrentItem: true
-
-        delegate: LibraryElement {
-            element_view: settingsPageView
-            element_text: model.text
-            elemet_playbutton_visible: false
-
-            function setCurrentElement() {
-                console.log("set current element")
-                element_view.currentIndex = model.index
-//                currentAlbumId = model.albumId
-//                mediaplayer.currentAlbum = model
-            }
-
-            function onClicked() {
-                setCurrentElement()
-                stackView.push(Qt.resolvedUrl(model.pageUrl))
-                if (stackView.currentItem.objectName === "ConnectionPage") {
-                    console.log("init settings")
-                    if (settings.is_initialized === true) {
-                        stackView.currentItem.onInitFields()
-                    } else {
-                        settings.initialize()
-                    }
-
-                }
-            }
-
-            function onPressAndHold() {
-                setCurrentElement()
-            }
-
-        }
     }
 
 }

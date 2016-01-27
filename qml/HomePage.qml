@@ -21,7 +21,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             width: 300 * scaleFactor
             height: 300 * scaleFactor
-            source: "qrc:/resources/images/cover_sample.png"
+            source: filling()
 
             function filling()
             {
