@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.1
+import QtQuick.Controls.Styles 1.1
 
 Rectangle {
 
@@ -8,6 +9,8 @@ Rectangle {
     property var resourcePath: "qrc:/resources/images/"
 
     property color accentColor: settings.globalAccentColor
+    property color rectangleColor: settings.globalRectangleColor
+    property color rectangleBorderColor: settings.globalRectangleBorderColor
 
     function onProgressChanged(progress) {
         console.log("Progress: " + progress)
@@ -82,6 +85,33 @@ Rectangle {
             anchors.bottomMargin: -12  * scaleFactor
             anchors.top: parent.verticalCenter
             anchors.topMargin: -12 * scaleFactor
+
+            style: SliderStyle {
+                groove: Rectangle {
+                    implicitWidth: parent.width
+                    implicitHeight: 8 * scaleFactor
+                    color: rectangleColor
+                    radius: 8
+                    border.color: rectangleBorderColor
+
+                    Rectangle {
+                        height: parent.height
+                        width: styleData.handlePosition
+                        radius: parent.radius
+                        color: accentColor
+                        border.color: rectangleBorderColor
+                    }
+                }
+                handle: Rectangle {
+                    anchors.centerIn: parent
+                    color: control.pressed ? Qt.lighter(accentColor, 1.5) : Qt.lighter(accentColor, 1.2)
+                    border.color: rectangleBorderColor
+                    border.width: 1
+                    implicitWidth: 34 * scaleFactor
+                    implicitHeight: 34 * scaleFactor
+                    radius: 50
+                }
+            }
 
             onPressedChanged: {
                 if (!pressed) {
