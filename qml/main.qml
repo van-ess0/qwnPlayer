@@ -90,23 +90,28 @@ ApplicationWindow {
 
         StackView {
             id: stackView
+
             anchors {
                 top: mainForm.stackTop
                 topMargin: 20
                 bottom: mainForm.stackBottom
                 bottomMargin: 20
                 left: mainForm.stackLeft
-                leftMargin: 10
+                leftMargin: 20
                 right: mainForm.stackRight
-                rightMargin: 10
+                rightMargin: 20
             }
 
             // Implements back key navigation
             focus: true
-            Keys.onReleased: if (event.key === Qt.Key_Back && stackView.depth > 1) {
-                                 stackView.pop();
-                                 event.accepted = true;
-                             }
+            Keys.onReleased: {
+                if (event.key === Qt.Key_Back
+                        && stackView.depth > 1)
+                {
+                    stackView.pop();
+                    event.accepted = true;
+                }
+            }
         }
 
         titleLabel: menuForm.currentLabel
@@ -120,6 +125,48 @@ ApplicationWindow {
             visible: false
         }
 
+        MouseArea {
+            id: dragArea
+            anchors.fill: parent
+            property int initX: 0
+            property int confBackSwipe: parent.width / 3
+            property int confMenuSwipeStart: 30
+
+            Component.onCompleted: {
+                console.log("back: " + confBackSwipe)
+                console.log("menu start: " + confMenuSwipeStart)
+            }
+
+            z: -1
+
+            onPressed: {
+                initX = mouse.x
+                console.log("Touched on " + initX.toString())
+                //mouse.accepted = false
+            }
+
+            onReleased: {
+
+                var swipeLength = mouse.x - initX
+                console.log("Released on " + mouse.x.toString())
+                console.log("Swipe length " + swipeLength)
+
+                if (initX <= confMenuSwipeStart
+                        && swipeLength <= confBackSwipe) {
+                    menuForm.showMenu(true)
+                    console.log("swipe show menu")
+                    return
+                }
+                else if (swipeLength >= confBackSwipe
+                         && stackView.depth > 1) {
+                    console.log("swipe back")
+                    stackView.pop()
+                    return
+                }
+                //mouse.accepted = true
+            }
+        }
+
         function onMenuButtonClicked() {
             console.log("on menu ");
             menuForm.showMenu(true);
@@ -131,6 +178,10 @@ ApplicationWindow {
 
         function popStack() {
             stackView.pop()
+        }
+
+        function clearStack() {
+            stackView.clear()
         }
 
         function changeTitle(value) {

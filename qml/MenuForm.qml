@@ -13,6 +13,40 @@ Item {
     property color backgroundColor: settings.globalBackgroundColor
     property color rectangleBorderColor: settings.globalRectangleBorderColor
 
+    MouseArea {
+        id: dragAreaMenu
+        anchors.fill: parent
+        property int initX: parent.width
+        property int confHideMenuSwipe: parent.width / 5
+
+        Component.onCompleted: {
+            console.log("back: " + confBackSwipe)
+            console.log("menu start: " + confMenuSwipeStart)
+        }
+
+        z: -1
+
+        onPressed: {
+            initX = mouse.x
+            console.log("Touched on " + initX.toString())
+            //mouse.accepted = false
+        }
+
+        onReleased: {
+
+            var swipeLength = initX - mouse.x
+            console.log("Released on " + mouse.x.toString())
+            console.log("Swipe length " + swipeLength)
+
+            if (swipeLength >= confHideMenuSwipe) {
+                console.log("swipe hide menu")
+                menuForm.visible = false
+                return
+            }
+            //mouse.accepted = true
+        }
+    }
+
     Column {
         id: columnMenu
         anchors {
@@ -41,6 +75,7 @@ Item {
             label: qsTr("Now playing")
 
             function onButtonClicked() {
+                mainForm.clearStack()
                 mainForm.pushToStack("HomePage.qml")
                 mainForm.changeTitle(label)
                 menuPanel.visible = false
@@ -55,6 +90,7 @@ Item {
             label: qsTr("Playlist")
 
             function onButtonClicked() {
+                mainForm.clearStack()
                 mainForm.pushToStack("PlaylistPage.qml")
                 mainForm.changeTitle(label)
                 menuPanel.visible = false
@@ -69,6 +105,7 @@ Item {
             label: qsTr("Library")
 
             function onButtonClicked() {
+                mainForm.clearStack()
                 mainForm.pushToStack("LibraryPage.qml")
                 mainForm.changeTitle(label)
                 menuPanel.visible = false
@@ -120,6 +157,7 @@ Item {
             label: qsTr("Settings")
 
             function onButtonClicked() {
+                mainForm.clearStack()
                 mainForm.pushToStack("SettingsPage.qml")
                 mainForm.changeTitle(label)
                 menuPanel.visible = false
