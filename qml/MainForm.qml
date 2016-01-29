@@ -104,13 +104,13 @@ Item {
 
         anchors {
             top: mainForm.stackTop
-            topMargin: 20
+            topMargin: 20 * scaleFactor
             bottom: mainForm.stackBottom
-            bottomMargin: 20
+            bottomMargin: 20 * scaleFactor
             left: mainForm.stackLeft
-            leftMargin: 20
+            leftMargin: 20 * scaleFactor
             right: mainForm.stackRight
-            rightMargin: 20
+            rightMargin: 20 * scaleFactor
         }
 
         // Implements back key navigation
@@ -152,7 +152,7 @@ Item {
         anchors.fill: parent
         property int initX: 0
         property int confBackSwipe: parent.width / 2
-        property int confMenuSwipeStart: 20
+        property int confMenuSwipeStart: 20 * scaleFactor
 
         Component.onCompleted: {
             console.log("back: " + confBackSwipe)

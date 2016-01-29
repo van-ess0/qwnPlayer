@@ -14,6 +14,10 @@ ApplicationWindow {
         console.log("HELLO")
         mainForm.changeTitle(qsTr("Now playing"))
         mainForm.pushToStack("HomePage.qml")
+
+        console.log("desktop avl H:" + Screen.desktopAvailableHeight)
+        console.log("desktop avl W:" + Screen.desktopAvailableWidth)
+
         console.log("Pixel density:" + Screen.pixelDensity.toString())
         console.log("Scale factor:" + scaleFactor.toString())
         console.log("Int scale factor:" + intScaleFactor.toString())
@@ -21,9 +25,9 @@ ApplicationWindow {
 
     id: window
 
-    property real intScaleFactor: Screen.pixelDensity / 9.0
+    property real scaleFactor: Screen.pixelDensity / 7.0
     //property real scaleFactor: 1.0
-    property int scaleFactor: Math.max(1, intScaleFactor)
+    property int intScaleFactor: Math.max(1, scaleFactor)
 
 
     visible: true

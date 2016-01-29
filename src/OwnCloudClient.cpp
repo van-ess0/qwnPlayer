@@ -77,7 +77,7 @@ void OwnCloudClient::slotReplyFinished(QNetworkReply* reply)
 	QByteArray rawData = reply->readAll();
 
 	qDebug() << "reply finished" << rawData;
-	emit signalLog("reply finished " + QString(rawData));
+//	emit signalLog("reply finished " + QString(rawData));
 
 	emit signalCollectionData(rawData);
 
