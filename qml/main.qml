@@ -25,9 +25,10 @@ ApplicationWindow {
 
     id: window
 
-    property real scaleFactor: Screen.pixelDensity / 7.0
+    property real scaleFactor__: Screen.pixelDensity / 7.0
     //property real scaleFactor: 1.0
-    property int intScaleFactor: Math.max(1, scaleFactor)
+    property real scaleFactor: Math.max(1, scaleFactor__)
+    property int intScaleFactor: Math.max(3, scaleFactor__)
 
 
     visible: true
