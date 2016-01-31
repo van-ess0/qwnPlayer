@@ -14,7 +14,7 @@ Item {
             anchors.centerIn: parent
             anchors.alignWhenCentered: true
             width: parent.width * 0.95
-            spacing: 14 * intScaleFactor
+            spacing: 14 * scaleFactor
 
             TextField {
                 id: urlInput
@@ -48,7 +48,7 @@ Item {
                 TouchButton {
                     id: loginButton
                     text: "Login"
-                    baseColor: "#7a5"
+//                    baseColor: "#7a5"
                     width: parent.width
                     onClicked: login()
 //                    enabled: enginioClient.authenticationState !== Enginio.Authenticating && nameInput.text.length && passwordInput.text.length

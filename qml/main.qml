@@ -1,45 +1,85 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.1
+import QtQuick.Window 2.1
 import com.qwnplayer 1.0
+
 
 ApplicationWindow {
 
+    Component.onDestruction: {
+        console.log("BYE")
+    }
+
+    Component.onCompleted: {
+        console.log("HELLO")
+
+//        mainForm.pushToStack("HomePage.qml")
+
+        console.log("desktop avl H:" + Screen.desktopAvailableHeight)
+        console.log("desktop avl W:" + Screen.desktopAvailableWidth)
+
+        console.log("Pixel density:" + Screen.pixelDensity.toString())
+        console.log("Scale factor:" + scaleFactor.toString())
+        console.log("Int scale factor:" + intScaleFactor.toString())
+    }
+
     id: window
 
-    property real scaleFactor: 1.0
-    property int intScaleFactor: Math.max(1, scaleFactor)
+    property real scaleFactor__: Screen.pixelDensity / 7.0
+    //property real scaleFactor: 1.0
+    property real scaleFactor: Math.max(1, scaleFactor__)
+    property int intScaleFactor: Math.max(3, scaleFactor__)
 
-    // Do not touch!!!
-    property int currentArtistId: 0;
-    property int currentAlbumId: 0;
 
     visible: true
-    width: 400 * scaleFactor
-    height: 640 * scaleFactor
+    width: 420 * scaleFactor
+    height: 800 * scaleFactor
+
+    // Settings object
 
     QwnSettings {
         id: settings
+
+        Component.onDestruction: {
+            settings.saveAllSettings()
+        }
+
+        Component.onCompleted: {
+            settings.initialize()
+            if (settings.isFirstLaunch) {
+                mainForm.pushToStack("ConnectionPage.qml")
+                mainForm.changeTitle(qsTr("Connection"))
+            } else {
+                cloudClient.auth()
+                mainForm.pushToStack("HomePage.qml")
+                mainForm.changeTitle(qsTr("Now playing"))
+            }
+
+        }
+
 //Костыль ToFix
         onUrlChanged: {
-            if (stackView.currentItem.objectName === "ConnectionPage") {
-                stackView.currentItem.onUrlChanged()
+            if (mainForm.stackCurrentItem().objectName === "ConnectionPage") {
+                mainForm.stackCurrentItem().onUrlChanged()
             }
         }
 
         onUsernameChanged: {
-            if (stackView.currentItem.objectName === "ConnectionPage") {
-                stackView.currentItem.onUsernameChanged()
+            if (mainForm.stackCurrentItem().objectName === "ConnectionPage") {
+                mainForm.stackCurrentItem().onUsernameChanged()
             }
         }
 
         onPasswordChanged: {
-            if (stackView.currentItem.objectName === "ConnectionPage") {
-                stackView.currentItem.onPasswordChanged()
+            if (mainForm.stackCurrentItem().objectName === "ConnectionPage") {
+                mainForm.stackCurrentItem().onPasswordChanged()
             }
         }
 
-        onSignalSettingsFilled: cloudClient.auth()
+//        onSignalSettingsFilled: cloudClient.auth()
     }
+
+    // Connection object
 
     OwnCloudClient {
         id: cloudClient
@@ -47,50 +87,28 @@ ApplicationWindow {
         onSignalConnected: playingTrack.connectionState = "Connected"
     }
 
+    // Player object
+
     QwnMediaPlayer {
         id: mediaplayer
         objectName: "mediaPlayer"
-        onSignalPositionChanged: bottomPanel.onProgressChanged(progress)
-        onSignalDurationChanged: bottomPanel.onDurationChanged(duration)
+        onSignalPositionChanged: mainForm.onProgressChanged(progress)
+        onSignalDurationChanged: mainForm.onDurationChanged(duration)
         onSignalPlayingTrackChanged: playingTrack.fillingMeta(title, artist, album)
-        onSignalPlayingStateChanged: bottomPanel.onPlayingStateChanged(state)
+        onSignalPlayingStateChanged: mainForm.onPlayingStateChanged(state)
         onSignalCoverChanged: playingTrack.fillingCover(coverId)
         onSignalCurrentTrackIndexChanged: playingTrack.updatePlaylistPage(index)
     }
 
-    Rectangle {
-        id: background
-        anchors.fill: parent
-        color: "black"
+    MainForm {
+        id: mainForm
     }
 
-    StackView {
-        id: stackView
-        anchors {
-            top: parent.top
-            bottom: bottomPanel.top
-            left: pulleyMenu.right
-            right: parent.right
-        }
+    // Current Track Info
 
-        // Implements back key navigation
-        focus: true
-        Keys.onReleased: if (event.key === Qt.Key_Back && stackView.depth > 1) {
-                             stackView.pop();
-                             event.accepted = true;
-                         }
-        initialItem: Qt.resolvedUrl("HomePage.qml")
-    }
-
-    PulleyMenu {
-        id: pulleyMenu
-        anchors.bottom: bottomPanel.visible ? bottomPanel.top: parent.bottom
-    }
-
-    BottomPanel {
-        id: bottomPanel
-
-    }
+    // Do not touch this!!!
+    property int currentArtistId: 0;
+    property int currentAlbumId: 0;
 
     Item {
         id: playingTrack
@@ -109,13 +127,16 @@ ApplicationWindow {
 
         function fillingCover (coverId) {
             playingTrack.coverId = coverId
+            coverChanged()
         }
 
         function updatePlaylistPage(index) {
-            if (stackView.currentItem.objectName === "PlaylistPage") {
-                stackView.currentItem.updateCurrentIndex(index)
+            if (mainForm.stackCurrentItem().objectName === "PlaylistPage") {
+                mainForm.stackCurrentItem().updateCurrentIndex(index)
             }
         }
+
+        signal coverChanged
     }
 
 }

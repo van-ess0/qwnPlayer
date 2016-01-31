@@ -45,5 +45,21 @@
 	GET_STRING(NAME, KEY, DEFAULT_VALUE) \
 	SET_STRING(NAME, KEY)
 
+#define GET_BOOL(NAME, KEY, DEFAULT_VALUE) \
+	virtual bool get##NAME() const { \
+		QSettings settings(m_filename, QSettings::IniFormat); \
+		return settings.value(KEY, DEFAULT_VALUE).toBool(); \
+	}
+
+#define SET_BOOL(NAME, KEY) \
+	virtual void set##NAME(const bool& value)  { \
+		QSettings settings(m_filename, QSettings::IniFormat); \
+		settings.setValue(KEY, value); \
+		settings.sync(); \
+	}
+
+#define GET_SET_BOOL(NAME, KEY, DEFAULT_VALUE) \
+	GET_BOOL(NAME, KEY, DEFAULT_VALUE) \
+	SET_BOOL(NAME, KEY)
 
 #endif // MACROS_H

@@ -2,57 +2,33 @@ import QtQuick 2.0
 
 Item {
     Column {
-        x: 10; y: 10
-        spacing: 10
-        width: parent.width - 10
-        Rectangle {
-            width: parent.width
-            height: 20
-            Text {
-                text: "Title: " + mediaplayer.currentTrack.trackTitle
-            }
+        x: 10 * scaleFactor;
+        y: 10 * scaleFactor
+        spacing: 10 * scaleFactor
+        anchors.fill: parent
+
+        TextInfoElement {
+            textLabel: "Year: " + mediaplayer.currentAlbum.albumYear
         }
-        Rectangle {
-            width: parent.width
-            height: 20
-            Text {
-                text: "Year: " + mediaplayer.currentAlbum.albumYear
-            }
+
+        TextInfoElement {
+            textLabel: "Album: " + mediaplayer.currentAlbum.albumName
         }
-        Rectangle {
-            width: parent.width
-            height: 20
-            Text {
-                text: "Album: " + mediaplayer.currentAlbum.albumName
-            }
+
+        TextInfoElement {
+            textLabel: "Artist: " + mediaplayer.currentArtist.artistName
         }
-        Rectangle {
-            width: parent.width
-            height: 20
-            Text {
-                text: "Artist: " + mediaplayer.currentArtist.artistName
-            }
+
+        TextInfoElement {
+            textLabel: "Type: " + mediaplayer.currentTrack.trackAudioType
         }
-        Rectangle {
-            width: parent.width
-            height: 20
-            Text {
-                text: "Type: " + mediaplayer.currentTrack.trackAudioType
-            }
+
+        TextInfoElement {
+            textLabel: "Path: " + mediaplayer.currentTrack.trackServerPath
         }
-        Rectangle {
-            width: parent.width
-            height: 20
-            Text {
-                text: "Path: " + mediaplayer.currentTrack.trackServerPath
-            }
-        }
-        Rectangle {
-            width: parent.width
-            height: 20
-            Text {
-                text: "Cover: " + mediaplayer.currentAlbum.albumCover
-            }
+
+        TextInfoElement {
+            textLabel: "Cover: " + mediaplayer.currentAlbum.albumCover
         }
     }
 }

@@ -7,22 +7,32 @@ ListView {
 
     model: null
 
-    anchors.margins: 10
+    anchors.margins: 5 * scaleFactor
     anchors.fill: parent
-    z: stackView.z
-    spacing: 10
+//    z: stackView.z
+    spacing: 5 * scaleFactor
     clip: true
 
+    property color accentColor: settings.globalAccentColor
+
     highlight: Rectangle {
-        color: "skyblue"
+        color: accentColor
     }
 
     highlightFollowsCurrentItem: true
 
-    delegate: LibraryElement {
-        //            function setElementText() {
+    function updateCurrentIndex(index) {
+        libraryView.currentIndex = index
+    }
 
-        //            }
+    delegate: LibraryElement {
+
+        Component.onCompleted: {
+            if ("SettingsView" === libraryView.objectName
+                    || "PlaylistView" === libraryView.objectName) {
+                elemet_playbutton_visible = false
+            }
+        }
 
         id: libraryElement
         element_view: libraryView
@@ -32,6 +42,10 @@ ListView {
             } else if ("AlbumView" === libraryView.objectName) {
                 model.albumYear + " - " + model.albumName
             } else if ("TrackView" === libraryView.objectName) {
+                model.trackTitle
+            } else if ("SettingsView" === libraryView.objectName) {
+                model.text
+            } else if ("PlaylistView" === libraryView.objectName) {
                 model.trackTitle
             }
         }
@@ -84,22 +98,35 @@ ListView {
 
             if ("ArtistView" === libraryView.objectName) {
                 console.log("artist click")
-                stackView.push(Qt.resolvedUrl("AlbumList.qml"))
+                mainForm.pushToStack("AlbumList.qml")
             } else if ("AlbumView" === libraryView.objectName) {
                 console.log("album click")
-                stackView.push(Qt.resolvedUrl("TrackList.qml"))
+                mainForm.pushToStack("TrackList.qml")
             } else if ("TrackView" === libraryView.objectName) {
                 console.log("track click")
-                stackView.push(Qt.resolvedUrl("TrackInfoPage.qml"))
-            }
+                mainForm.pushToStack("TrackInfoPage.qml")
+            } else if ("SettingsView" === libraryView.objectName) {
+                console.log("settings click")
+                mainForm.pushToStack(model.pageUrl)
+                if (mainForm.stackCurrentItem().objectName === "ConnectionPage") {
+                    console.log("init settings")
+                    if (settings.is_initialized === true) {
+                        mainForm.stackCurrentItem().onInitFields()
+                    } else {
+                        settings.initialize()
+                    }
 
+                }
+            }
 
         }
 
         function onDoubleClicked() {
             setCurrentElement()
-            //                console.log("artist double click")
-            //                stackView.push(Qt.resolvedUrl("AlbumList.qml"))
+            if ("PlaylistView" === libraryView.objectName) {
+                console.log("playlist element double click")
+                mediaplayer.changeCurrentTrackIndex(model.index)
+            }
         }
     }
 }

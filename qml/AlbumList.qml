@@ -6,7 +6,7 @@ Item {
     id: albumListView
     width: parent.width
     height: parent.height
-    z: stackView.z
+//    z: stackView.z
 
 
     LibraryView {
