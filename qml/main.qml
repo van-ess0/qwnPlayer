@@ -50,6 +50,7 @@ ApplicationWindow {
                 mainForm.pushToStack("ConnectionPage.qml")
                 mainForm.changeTitle(qsTr("Connection"))
             } else {
+                cloudClient.auth()
                 mainForm.pushToStack("HomePage.qml")
                 mainForm.changeTitle(qsTr("Now playing"))
             }
