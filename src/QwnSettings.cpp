@@ -24,7 +24,9 @@ QwnSettings::QwnSettings(QObject* parent) : QObject(parent)
 	m_globalRectangleColor			= "#111111";
 	m_globalRectangleBorderColor	= "#171717";
 
-	m_menuShowPermanent = true;
+	m_menuShowPermanent = false;
+
+	m_isFirstLaunch = true;
 
 	connect(this, SIGNAL(urlChanged()), SLOT(slotUrlChanged()));
 	connect(this, SIGNAL(usernameChanged()), SLOT(slotUsernameChanged()));
@@ -113,6 +115,7 @@ void QwnSettings::initialize()
 		setMenuShowPermanent(SettingsManager::instance()->getMenuShowPermant());
 		// WTF?!
 //		emit signalSettingsFilled();
+		m_isFirstLaunch = false;
 	}
 	SettingsManager::instance()->setApiMusicCollection("/owncloud/index.php/apps/music/api/collection");
 	SettingsManager::instance()->setApiCover("/owncloud/index.php/apps/music/api/album/");

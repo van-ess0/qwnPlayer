@@ -12,8 +12,8 @@ ApplicationWindow {
 
     Component.onCompleted: {
         console.log("HELLO")
-        mainForm.changeTitle(qsTr("Now playing"))
-        mainForm.pushToStack("HomePage.qml")
+
+//        mainForm.pushToStack("HomePage.qml")
 
         console.log("desktop avl H:" + Screen.desktopAvailableHeight)
         console.log("desktop avl W:" + Screen.desktopAvailableWidth)
@@ -46,6 +46,14 @@ ApplicationWindow {
 
         Component.onCompleted: {
             settings.initialize()
+            if (settings.isFirstLaunch) {
+                mainForm.pushToStack("ConnectionPage.qml")
+                mainForm.changeTitle(qsTr("Connection"))
+            } else {
+                mainForm.pushToStack("HomePage.qml")
+                mainForm.changeTitle(qsTr("Now playing"))
+            }
+
         }
 
 //Костыль ToFix

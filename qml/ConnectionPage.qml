@@ -14,7 +14,7 @@ Item {
             anchors.centerIn: parent
             anchors.alignWhenCentered: true
             width: parent.width * 0.95
-            spacing: 14 * intScaleFactor
+            spacing: 14 * scaleFactor
 
             TextField {
                 id: urlInput

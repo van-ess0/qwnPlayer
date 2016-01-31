@@ -4,6 +4,7 @@ Item {
 
     Component.onCompleted: {
         settings.menuShowPermanentChanged.connect(updateMenuShowPermanent)
+        updateMenuShowPermanent()
     }
 
     function updateMenuShowPermanent() {

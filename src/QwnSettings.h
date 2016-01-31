@@ -11,6 +11,7 @@ class QwnSettings : public QObject
 	QML_PROPERTY(QString, username, setUsername, usernameChanged)
 	QML_PROPERTY(QString, password, setPassword, passwordChanged)
 	QML_PROPERTY_READONLY(bool, is_initialized)
+	QML_PROPERTY_READONLY(bool, isFirstLaunch)
 
 	QML_PROPERTY(QString, globalAccentColor, setGlobalAccentColor, globalAccentColorChanged)
 	QML_PROPERTY(QString, globalBackgroundColor, setGlobalBackgroundColor, globalBackgroundColorChanged)

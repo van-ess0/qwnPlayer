@@ -67,7 +67,7 @@ FocusScope {
         id: editbg
         anchors.fill: parent
 //        radius: height/2
-        border.width: intScaleFactor
+        border.width: scaleFactor
         border.color: "#999"
 
         gradient: Gradient {

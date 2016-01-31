@@ -52,7 +52,7 @@ Item {
     Rectangle {
         anchors.fill: button
         color: "#ffffff"
-        anchors.bottomMargin: intScaleFactor
+        anchors.bottomMargin: scaleFactor
         radius: background.radius
     }
 
@@ -63,7 +63,7 @@ Item {
         opacity: enabled ? 1 : 0.7
         Behavior on opacity {NumberAnimation{}}
 //        radius: height/2
-        border.width: intScaleFactor * button.activeFocus ? 2 : 1
+        border.width: scaleFactor * button.activeFocus ? 2 : 1
         border.color: Qt.darker(baseColor, 1.4)
         anchors.fill: parent
         gradient: Gradient {
