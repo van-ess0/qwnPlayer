@@ -24,6 +24,8 @@ QwnSettings::QwnSettings(QObject* parent) : QObject(parent)
 	m_globalRectangleColor			= "#111111";
 	m_globalRectangleBorderColor	= "#171717";
 
+	m_menuShowPermanent = true;
+
 	connect(this, SIGNAL(urlChanged()), SLOT(slotUrlChanged()));
 	connect(this, SIGNAL(usernameChanged()), SLOT(slotUsernameChanged()));
 	connect(this, SIGNAL(passwordChanged()), SLOT(slotPasswordChanged()));
@@ -31,6 +33,7 @@ QwnSettings::QwnSettings(QObject* parent) : QObject(parent)
 	connect(this, SIGNAL(globalBackgroundColorChanged()), SLOT(slotGlobalBackgroundColorChanged()));
 	connect(this, SIGNAL(globalRectangleColorChanged()), SLOT(slotGlobalRectangleColorChanged()));
 	connect(this, SIGNAL(globalRectangleBorderColorChanged()), SLOT(slotGlobalRectangleBorderColorChanged()));
+	connect(this, SIGNAL(menuShowPermanentChanged()), SLOT(slotMenuShowPermanentChanged()));
 }
 
 void QwnSettings::slotUrlChanged()
@@ -71,6 +74,11 @@ void QwnSettings::slotGlobalRectangleBorderColorChanged()
 	SettingsManager::instance()->setGlobalRectangleBorderColor(m_globalRectangleBorderColor);
 }
 
+void QwnSettings::slotMenuShowPermanentChanged()
+{
+	SettingsManager::instance()->setMenuShowPermant(m_menuShowPermanent);
+}
+
 void QwnSettings::initialize()
 {
 	if (m_is_initialized) {
@@ -90,6 +98,8 @@ void QwnSettings::initialize()
 		SettingsManager::instance()->setGlobalRectangleColor(m_globalRectangleColor);
 		SettingsManager::instance()->setGlobalRectangleBorderColor(m_globalRectangleBorderColor);
 
+		SettingsManager::instance()->setMenuShowPermant(m_menuShowPermanent);
+
 	} else {
 		setUrl(SettingsManager::instance()->getOwnCloudHost());
 		setUsername(SettingsManager::instance()->getUserName());
@@ -100,8 +110,9 @@ void QwnSettings::initialize()
 		setGlobalRectangleColor(SettingsManager::instance()->getGlobalRectangleColor());
 		setGlobalRectangleBorderColor(SettingsManager::instance()->getGlobalRectangleBorderColor());
 
+		setMenuShowPermanent(SettingsManager::instance()->getMenuShowPermant());
 		// WTF?!
-		emit signalSettingsFilled();
+//		emit signalSettingsFilled();
 	}
 	SettingsManager::instance()->setApiMusicCollection("/owncloud/index.php/apps/music/api/collection");
 	SettingsManager::instance()->setApiCover("/owncloud/index.php/apps/music/api/album/");
@@ -126,4 +137,6 @@ void QwnSettings::saveAllSettings()
 	SettingsManager::instance()->setGlobalBackgroundColor(m_globalBackgroundColor);
 	SettingsManager::instance()->setGlobalRectangleColor(m_globalRectangleColor);
 	SettingsManager::instance()->setGlobalRectangleBorderColor(m_globalRectangleBorderColor);
+
+	SettingsManager::instance()->setMenuShowPermant(m_menuShowPermanent);
 }

@@ -67,7 +67,7 @@ ApplicationWindow {
             }
         }
 
-        onSignalSettingsFilled: cloudClient.auth()
+//        onSignalSettingsFilled: cloudClient.auth()
     }
 
     // Connection object

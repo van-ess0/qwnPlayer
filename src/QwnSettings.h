@@ -16,6 +16,7 @@ class QwnSettings : public QObject
 	QML_PROPERTY(QString, globalBackgroundColor, setGlobalBackgroundColor, globalBackgroundColorChanged)
 	QML_PROPERTY(QString, globalRectangleColor, setGlobalRectangleColor, globalRectangleColorChanged)
 	QML_PROPERTY(QString, globalRectangleBorderColor, setGlobalRectangleBorderColor, globalRectangleBorderColorChanged)
+	QML_PROPERTY(bool, menuShowPermanent, setMenuShowPermanent, menuShowPermanentChanged)
 
 private:
 	QString m_homeLocation;
@@ -24,8 +25,10 @@ private:
 public:
 	explicit QwnSettings(QObject *parent = 0);
 
-signals:
-    void signalSettingsFilled();
+
+	// TODO fix
+//signals:
+//    void signalSettingsFilled();
 
 private slots:
 	void slotUrlChanged();
@@ -35,6 +38,7 @@ private slots:
 	void slotGlobalBackgroundColorChanged();
 	void slotGlobalRectangleColorChanged();
 	void slotGlobalRectangleBorderColorChanged();
+	void slotMenuShowPermanentChanged();
 
 public slots:
 	void initialize();

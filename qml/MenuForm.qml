@@ -1,6 +1,35 @@
 import QtQuick 2.4
 
 Item {
+
+    Component.onCompleted: {
+        settings.menuShowPermanentChanged.connect(updateMenuShowPermanent)
+    }
+
+    function updateMenuShowPermanent() {
+        console.log("menu show permanent: " + settings.menuShowPermanent)
+        menuShowPermanent = settings.menuShowPermanent
+        visible = menuShowPermanent
+        columnMenu.width = menuShowPermanent ? minWidth : maxWidth
+        textVisibility = menuShowPermanent ? false : true
+    }
+
+    function showMenu(value) {
+        if (menuShowPermanent === false) {
+            visible = value
+        } else if (menu_shown) {
+            stateChange()
+        }
+    }
+
+    function stateChange() {
+        columnMenu.width = menuPanel.menu_shown ?
+                    minWidth :
+                    maxWidth
+        menuPanel.menu_shown = !menuPanel.menu_shown
+        menuPanel.textVisibility = !menuPanel.textVisibility
+    }
+
     id: menuPanel
     width: window.width
     height: window.height
@@ -13,9 +42,21 @@ Item {
     property color backgroundColor: settings.globalBackgroundColor
     property color rectangleBorderColor: settings.globalRectangleBorderColor
 
+    property bool textVisibility: menuShowPermanent ? false : true
+    property bool menu_shown: false
+    property bool menuShowPermanent: settings.menuShowPermanent
+    property int minWidth: standartSquareSize * scaleFactor
+    property int maxWidth: 340 * scaleFactor
+
     MouseArea {
         id: dragAreaMenu
         anchors.fill: parent
+        anchors.top: parent.top
+        anchors.topMargin: topRectangleMain.height
+        anchors.right: parent.right
+        anchors.rightMargin: menuShowPermanent ? parent.width - columnMenu.width : 0
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: menuShowPermanent ? bottomPanel.height : 0
         property int initX: parent.width
         property int confHideMenuSwipe: parent.width / 5
 
@@ -29,7 +70,6 @@ Item {
         onPressed: {
             initX = mouse.x
             console.log("Touched on " + initX.toString())
-            //mouse.accepted = false
         }
 
         onReleased: {
@@ -40,30 +80,37 @@ Item {
 
             if (swipeLength >= confHideMenuSwipe) {
                 console.log("swipe hide menu")
-                menuForm.visible = false
+                menuPanel.showMenu(false)
                 return
             }
-            //mouse.accepted = true
         }
     }
 
     Column {
         id: columnMenu
-        anchors {
-            fill: parent
-            rightMargin: 80 * scaleFactor
-            leftMargin: 0
-            bottomMargin: 0
-            topMargin: 0
+
+        width: menuShowPermanent ? minWidth : maxWidth
+        height: parent.height
+
+        Behavior on anchors.rightMargin {
+            NumberAnimation {
+                duration: 300
+                easing.type: Easing.OutQuad
+            }
         }
 
         MenuButton {
             id: mainRow
             iconSource: resourcePath + "hamburgermenu.svg"
             label: qsTr("qwnPlayer")
+            textVisibility: menuPanel.textVisibility
 
             function onButtonClicked() {
-                menuPanel.visible = false
+                if (menuPanel.menuShowPermanent === false) {
+                    menuPanel.visible = false
+                } else {
+                    menuPanel.stateChange()
+                }
             }
         }
 
@@ -73,12 +120,13 @@ Item {
             anchors.topMargin: 0
             iconSource: resourcePath + "home.svg"
             label: qsTr("Now playing")
+            textVisibility: menuPanel.textVisibility
 
             function onButtonClicked() {
                 mainForm.clearStack()
                 mainForm.pushToStack("HomePage.qml")
                 mainForm.changeTitle(label)
-                menuPanel.visible = false
+                menuPanel.showMenu(false)
             }
         }
 
@@ -88,12 +136,13 @@ Item {
             anchors.topMargin: 0
             iconSource: resourcePath + "playlist.svg"
             label: qsTr("Playlist")
+            textVisibility: menuPanel.textVisibility
 
             function onButtonClicked() {
                 mainForm.clearStack()
                 mainForm.pushToStack("PlaylistPage.qml")
                 mainForm.changeTitle(label)
-                menuPanel.visible = false
+                menuPanel.showMenu(false)
             }
         }
 
@@ -103,12 +152,13 @@ Item {
             anchors.topMargin: 0
             iconSource: resourcePath + "library.svg"
             label: qsTr("Library")
+            textVisibility: menuPanel.textVisibility
 
             function onButtonClicked() {
                 mainForm.clearStack()
                 mainForm.pushToStack("LibraryPage.qml")
                 mainForm.changeTitle(label)
-                menuPanel.visible = false
+                menuPanel.showMenu(false)
             }
         }
 
@@ -118,10 +168,11 @@ Item {
             anchors.topMargin: 0
             iconSource: resourcePath + "back.svg"
             label: qsTr("Back")
+            textVisibility: menuPanel.textVisibility
 
             function onButtonClicked() {
                 mainForm.popStack()
-                menuPanel.visible = false
+                menuPanel.showMenu(false)
             }
         }
 
@@ -130,7 +181,13 @@ Item {
 
             anchors {
                 bottom: parent.bottom
-                bottomMargin: standartSquareSize * scaleFactor
+                bottomMargin: {
+                    if (menuPanel.menuShowPermanent === true) {
+                        bottomPanel.height + standartSquareSize * scaleFactor
+                    } else {
+                        standartSquareSize * scaleFactor
+                    }
+                }
                 right: parent.right
                 rightMargin: 0
                 left: parent.left
@@ -152,15 +209,16 @@ Item {
             anchors.top: emptyRow.bottom
             anchors.topMargin: 0
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 0
+            anchors.bottomMargin: menuPanel.menuShowPermanent ? bottomPanel.height : 0
             iconSource: resourcePath + "settings.svg"
             label: qsTr("Settings")
+            textVisibility: menuPanel.textVisibility
 
             function onButtonClicked() {
                 mainForm.clearStack()
                 mainForm.pushToStack("SettingsPage.qml")
                 mainForm.changeTitle(label)
-                menuPanel.visible = false
+                menuPanel.showMenu(false)
             }
         }
     }

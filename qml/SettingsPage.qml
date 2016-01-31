@@ -12,7 +12,7 @@ Item {
         }
 
         ListElement {
-            text: "Color preferences"
+            text: "Theme preferences"
             pageUrl: "ThemeSettingPage.qml"
         }
 

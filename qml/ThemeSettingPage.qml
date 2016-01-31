@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
+import QtQuick.Controls.Styles 1.2
 import QtQuick.Dialogs 1.1
 
 Item {
@@ -79,6 +80,25 @@ Item {
         anchors.fill: parent
         anchors.margins: 12
         spacing: 8
+
+        CheckBox {
+            style: CheckBoxStyle {
+                label: Text {
+                    color: systemAccentColor
+                    text: "Show menu permanent"
+                    font.pixelSize: 18 * scaleFactor
+                    font.family: "Tahoma"
+                }
+            }
+
+            Component.onCompleted: {
+                checked = settings.menuShowPermanent
+            }
+
+            onCheckedChanged: {
+                settings.menuShowPermanent = checked
+            }
+        }
 
         ColorInfoElement {
             colorPropertyNumber: 1

@@ -45,6 +45,7 @@ Item {
             id: topRow
             iconSource: "qrc:/resources/images/hamburgermenu.svg"
             isFontUppercase: true
+            textVisibility: true
 
             function onButtonClicked() {
                 mainForm.onMenuButtonClicked()
@@ -108,7 +109,13 @@ Item {
             bottom: mainForm.stackBottom
             bottomMargin: 20 * scaleFactor
             left: mainForm.stackLeft
-            leftMargin: 20 * scaleFactor
+            leftMargin: {
+                if (menuForm.menuShowPermanent === true) {
+                    20 * scaleFactor + menuForm.minWidth
+                } else {
+                    20 * scaleFactor
+                }
+            }
             right: mainForm.stackRight
             rightMargin: 20 * scaleFactor
         }
@@ -197,15 +204,15 @@ Item {
         }
 
         id: menuForm
-        visible: false
-
-        function showMenu(value) {
-            visible = value
-        }
     }
 
     function onMenuButtonClicked() {
-        menuForm.showMenu(true);
+
+        if (menuForm.menuShowPermanent === false) {
+            menuForm.visible = true
+        } else {
+            menuForm.stateChange()
+        }
     }
 
 }
