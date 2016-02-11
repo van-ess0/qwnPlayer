@@ -13,6 +13,9 @@ Tested on:<br>
         possible porting to qt5-qtquickcontrols-nemo by Mer/Nemo project<br>
     7) Linux (Arch) - everything is working<br><br>
 
+Notes:<br>
+    1) [Linux Users] Make sure, that you have qt5-graphicaleffects, qt5-qtquickcontrols<br><br>
+
 Known issues:<br>
     1) Ugly UI<br>
     2) QMultimedia use native playback backend - some formats on some platforms are unsupported<br>

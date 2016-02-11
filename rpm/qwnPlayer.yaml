@@ -34,6 +34,7 @@ PkgConfigBR:
 Requires:
   - sailfishsilica-qt5 >= 0.10.9
   - qt5-qtquickcontrols
+  - qt5-graphicaleffects
 
 # All installed files
 Files:
