@@ -19,17 +19,16 @@
 #include "QwnImageProvider.h"
 
 #ifdef SAILFISH_OS_HACK
-    #include <sailfishapp.h>
-    #define LoadGui SailfishApp::application(argc, argv)
+#include <sailfishapp.h>
+#define LoadGui SailfishApp::application(argc, argv)
 #else
-    #define LoadGui new QGuiApplication(argc, argv)
+#define LoadGui new QGuiApplication(argc, argv)
 #endif
 
 int main(int argc, char *argv[])
 {
-
 	// Run right application with params
-    QGuiApplication* app = LoadGui;
+	QGuiApplication* app = LoadGui;
 
 	// Debug message pattern
 	qSetMessagePattern("[%{time yyyyMMdd h:mm:ss.zzz}]\
@@ -62,6 +61,11 @@ int main(int argc, char *argv[])
 	// Create main qml component from engine and conext
 	QQmlComponent component(engine, QUrl("qrc:/qml/main.qml"));
 	QObject* topLevel = component.create(context);
+	if (!component.isReady()) {
+		qDebug() << component.errors();
+		app->quit();
+		return 0;
+	}
 
 	// Take window object from qml for further actions
 	QQuickWindow* window = qobject_cast<QQuickWindow*>(topLevel);
