@@ -8,7 +8,7 @@ There is a way to achive Zen:<br>
     - setup your owncloud server<br>
     - install music app for owncloud (see owncloud/music git repo)<br>
     - add music collection to your own owncloud<br>
-    - build and install qwnPlayer to your device (temporally you can get bunaries <a href='https://www.dropbox.com/sh/tyyx0v56e33sr5r/AAAVU3JMjTkMIcvMzJvIxO9ea?dl=0'>HERE</a>)<br>
+    - build and install qwnPlayer to your device (temporally you can get binaries <a href='https://www.dropbox.com/sh/tyyx0v56e33sr5r/AAAVU3JMjTkMIcvMzJvIxO9ea?dl=0'>HERE</a>)<br>
     - login to owncloud from app<br>
     - ???<br>
     - profit<br><br>
