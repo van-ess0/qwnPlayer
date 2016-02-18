@@ -115,7 +115,7 @@ ApplicationWindow {
         property string track: "No track name"
         property string artist: "No artist name"
         property string album: "No album name"
-        property int coverId: -1
+        property string coverId: -1
 
         property string connectionState: "Disconnected"
 

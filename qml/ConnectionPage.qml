@@ -17,16 +17,32 @@ Item {
             spacing: 14 * scaleFactor
 
             TextField {
-                id: urlInput
-                onAccepted: passwordInput.forceActiveFocus()
-                placeholderText: "OwnCloud URL"
-                KeyNavigation.tab: nameInput
-                text: "http://"
+                id: hostInput
+//                onAccepted: passwordInput.forceActiveFocus()
+                placeholderText: "owncloud host"
+//                KeyNavigation.tab: nameInput
+                text: "http://192.168.1.15"
+            }
+
+            TextField {
+                id: portInput
+//                onAccepted: passwordInput.forceActiveFocus()
+                placeholderText: "owncloud port"
+//                KeyNavigation.tab: nameInput
+                text: "80"
+            }
+
+            TextField {
+                id: pathInput
+//                onAccepted: passwordInput.forceActiveFocus()
+                placeholderText: "owncloud path to index.php"
+//                KeyNavigation.tab: nameInput
+                text: "/owncloud/index.php"
             }
 
             TextField {
                 id: nameInput
-                onAccepted: passwordInput.forceActiveFocus()
+//                onAccepted: passwordInput.forceActiveFocus()
                 placeholderText: "Username"
                 KeyNavigation.tab: passwordInput
             }
@@ -76,17 +92,23 @@ Item {
     }
 
     function login() {
+
         playingTrack.connectionState = "Logging in..."
-        settings.url = urlInput.text
+
+        settings.url = hostInput.text
+        settings.url_port = portInput.text
+        settings.url_path = pathInput.text
+
         settings.username = nameInput.text
         settings.password = passwordInput.text
+
         cloudClient.auth()
     }
 
 
     function onUrlChanged() {
         console.log("on url changed")
-        urlInput.text = settings.url
+        hostInput.text = settings.url
     }
     function onUsernameChanged() {
         console.log("on username changed")

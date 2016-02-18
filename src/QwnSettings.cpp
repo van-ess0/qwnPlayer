@@ -14,9 +14,13 @@ QwnSettings::QwnSettings(QObject* parent) : QObject(parent)
 	m_filePath = m_homeLocation + "qwnsettings.conf";
 	qDebug() << m_filePath;
 
-	m_url = "OwnCloud URL";
-	m_username = "username";
-	m_password = "password";
+	m_url = "";
+	m_url_port = "";
+	m_url_path = "";
+
+	m_username = "";
+	m_password = "";
+
 	m_is_initialized = false;
 
 	m_globalAccentColor				= "skyblue";
@@ -29,8 +33,12 @@ QwnSettings::QwnSettings(QObject* parent) : QObject(parent)
 	m_isFirstLaunch = true;
 
 	connect(this, SIGNAL(urlChanged()), SLOT(slotUrlChanged()));
+	connect(this, SIGNAL(urlPortChanged()), SLOT(slotUrlPortChanged()));
+	connect(this, SIGNAL(urlPathChanged()), SLOT(slotUrlPathChanged()));
+
 	connect(this, SIGNAL(usernameChanged()), SLOT(slotUsernameChanged()));
 	connect(this, SIGNAL(passwordChanged()), SLOT(slotPasswordChanged()));
+
 	connect(this, SIGNAL(globalAccentColorChanged()), SLOT(slotGlobalAccentColorChanged()));
 	connect(this, SIGNAL(globalBackgroundColorChanged()), SLOT(slotGlobalBackgroundColorChanged()));
 	connect(this, SIGNAL(globalRectangleColorChanged()), SLOT(slotGlobalRectangleColorChanged()));
@@ -40,19 +48,26 @@ QwnSettings::QwnSettings(QObject* parent) : QObject(parent)
 
 void QwnSettings::slotUrlChanged()
 {
-	qDebug() << "slot url";
 	SettingsManager::instance()->setOwnCloudHost(m_url);
+}
+
+void QwnSettings::slotUrlPortChanged()
+{
+	SettingsManager::instance()->setOwnCloudPort(m_url_port);
+}
+
+void QwnSettings::slotUrlPathChanged()
+{
+	SettingsManager::instance()->setOwnCloudPath(m_url_path);
 }
 
 void QwnSettings::slotUsernameChanged()
 {
-	qDebug() << "slot username";
 	SettingsManager::instance()->setUserName(m_username);
 }
 
 void QwnSettings::slotPasswordChanged()
 {
-	qDebug() << "slot password";
 	SettingsManager::instance()->setUserPassword(m_password);
 }
 
@@ -92,6 +107,9 @@ void QwnSettings::initialize()
 
 	if (!QFile::exists(m_filePath)) {
 		SettingsManager::instance()->setOwnCloudHost(m_url);
+		SettingsManager::instance()->setOwnCloudPort(m_url_port);
+		SettingsManager::instance()->setOwnCloudPath(m_url_path);
+
 		SettingsManager::instance()->setUserName(m_username);
 		SettingsManager::instance()->setUserPassword(m_password);
 
@@ -104,6 +122,9 @@ void QwnSettings::initialize()
 
 	} else {
 		setUrl(SettingsManager::instance()->getOwnCloudHost());
+		setUrlPort(SettingsManager::instance()->getOwnCloudPort());
+		setUrlPath(SettingsManager::instance()->getOwnCloudPath());
+
 		setUsername(SettingsManager::instance()->getUserName());
 		setPassword(SettingsManager::instance()->getUserPassword());
 
@@ -117,8 +138,9 @@ void QwnSettings::initialize()
 //		emit signalSettingsFilled();
 		m_isFirstLaunch = false;
 	}
-	SettingsManager::instance()->setApiMusicCollection("/owncloud/index.php/apps/music/api/collection");
-	SettingsManager::instance()->setApiCover("/owncloud/index.php/apps/music/api/album/");
+
+	SettingsManager::instance()->setApiMusicCollection("/apps/music/api/collection");
+	SettingsManager::instance()->setApiCover("/apps/music/api/album/");
 	SettingsManager::instance()->setHomeLocation(m_homeLocation);
 
 

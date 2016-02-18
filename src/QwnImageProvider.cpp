@@ -14,7 +14,20 @@ QImage QwnImageProvider::requestImage(const QString& id, QSize* size, const QSiz
 {
 	Q_UNUSED(requestedSize)
 
-	QUrl url(SettingsManager::instance()->getOwnCloudHost() + SettingsManager::instance()->getApiCover() + id + "/cover");
+	QUrl url(SettingsManager::instance()->getOwnCloudHost());
+	url.setPort(SettingsManager::instance()->getOwnCloudPort().toInt());
+
+//	QString path = SettingsManager::instance()->getOwnCloudPath()
+//				   + SettingsManager::instance()->getApiCover()
+//				   + id
+//				   + "/cover";
+	url.setPath(id);
+
+	url.setUserName(SettingsManager::instance()->getUserName());
+	url.setPassword(SettingsManager::instance()->getUserPassword());
+
+	qDebug() << url;
+
 	QNetworkRequest request(url);
 	addAuthHeader(&request);
 

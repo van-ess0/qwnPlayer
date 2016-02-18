@@ -15,21 +15,24 @@ OwnCloudClient::OwnCloudClient(QObject *parent) : QObject(parent)
 
 void OwnCloudClient::auth()
 {
-	emit signalLog("HI!!!");
 	m_username = SettingsManager::instance()->getUserName();
 	m_password = SettingsManager::instance()->getUserPassword();
 
 	QUrl url(SettingsManager::instance()->getOwnCloudHost());
+	url.setPort(SettingsManager::instance()->getOwnCloudPort().toInt());
 
-	url.setPath(SettingsManager::instance()->getApiMusicCollection());
-	url.setUserName(m_username);
-	url.setPassword(m_password);
+	QString path = SettingsManager::instance()->getOwnCloudPath() +
+				   SettingsManager::instance()->getApiMusicCollection();
+	url.setPath(path);
+
+	url.setUserName(SettingsManager::instance()->getUserName());
+	url.setPassword(SettingsManager::instance()->getUserPassword());
 
 	qDebug() << url;
-	emit signalLog(url.toString());
 
 	QNetworkRequest request(url);
 	addAuthHeader(&request);
+
 	QNetworkReply* reply = m_networkManager.get(request);
 	connect(reply, SIGNAL(sslErrors(QList<QSslError>)),
 			reply, SLOT(ignoreSslErrors()));
@@ -44,7 +47,6 @@ void OwnCloudClient::slotReplyFinished()
 	QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
 
 	qDebug() << "reply finished" << reply->readAll();
-	emit signalLog("reply finished" + QString(reply->readAll()));
 
 	reply->deleteLater();
 	reply = NULL;
@@ -53,31 +55,25 @@ void OwnCloudClient::slotReplyFinished()
 void OwnCloudClient::readyRead()
 {
 	qDebug() << "ready read";
-	emit signalLog("ready read");
 }
 
 void OwnCloudClient::updateDataReadProgress(qint64,qint64)
 {
 	qDebug() << "update download progress";
-	emit signalLog("update download progress");
 }
 
 void OwnCloudClient::slotAuthenticationRequired(QNetworkReply*, QAuthenticator*)
 {
 	qDebug() << "Auth required";
-	emit signalLog("Auth required");
-
 }
 
 void OwnCloudClient::slotReplyFinished(QNetworkReply* reply)
 {
 	qDebug() << "Reply from " << reply->url().path();
-	emit signalLog("Reply from " + reply->url().path());
 
 	QByteArray rawData = reply->readAll();
 
 	qDebug() << "reply finished" << rawData;
-//	emit signalLog("reply finished " + QString(rawData));
 
 	emit signalCollectionData(rawData);
 
@@ -96,9 +92,13 @@ void OwnCloudClient::addAuthHeader(QNetworkRequest* request)
 		return;
 	}
 
-	QString concatenated = m_username + ":" + m_password;
+	QString concatenated = SettingsManager::instance()->getUserName()
+						   + ":"
+						   + SettingsManager::instance()->getUserPassword();
+
 	QByteArray data = concatenated.toLocal8Bit().toBase64();
 	QString headerData = "Basic " + data;
+
 	request->setRawHeader("Authorization", headerData.toLocal8Bit());
 }
 

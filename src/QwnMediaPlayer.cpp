@@ -122,14 +122,14 @@ void QwnMediaPlayer::slotCurrentIndexChanged(int index)
 
 	qint32 coverId = -1;
 	QString coverPath = album->getCover();
-	if (!coverPath.isNull()) {
-		QStringList stringList = coverPath.split("/");
-		QString strTemp = stringList.at(7);
-		coverId = strTemp.toInt();
-	}
+//	if (!coverPath.isNull()) {
+//		QStringList stringList = coverPath.split("/");
+//		QString strTemp = stringList.at(7);
+//		coverId = strTemp.toInt();
+//	}
 
 	emit signalPlayingTrackChanged(trackTitle, artist->getName(), album->getName());
-	emit signalCoverChanged(coverId);
+	emit signalCoverChanged(coverPath);
 	emit signalCurrentTrackIndexChanged(index);
 }
 

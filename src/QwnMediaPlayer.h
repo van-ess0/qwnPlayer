@@ -40,7 +40,7 @@ signals:
 	void signalDurationChanged(qint64 duration);
 	void signalPlayingTrackChanged(QString title, QString artist, QString album);
 	void signalPlayingStateChanged(QMediaPlayer::State state);
-	void signalCoverChanged(qint32 coverId);
+	void signalCoverChanged(QString coverPath);
 	void signalCurrentTrackIndexChanged(qint32 index);
 
 	// connections with qmediaplayer

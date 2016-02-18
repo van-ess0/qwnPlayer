@@ -23,8 +23,7 @@ public:
 
 signals:
 	void signalCollectionData(QByteArray);
-	void signalLog(QString);
-    void signalConnected();
+	void signalConnected();
 
 public slots:
 	void auth();
