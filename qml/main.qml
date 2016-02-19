@@ -58,23 +58,23 @@ ApplicationWindow {
         }
 
 //Костыль ToFix
-        onUrlChanged: {
-            if (mainForm.stackCurrentItem().objectName === "ConnectionPage") {
-                mainForm.stackCurrentItem().onUrlChanged()
-            }
-        }
+//        onUrlChanged: {
+//            if (mainForm.stackCurrentItem().objectName === "ConnectionPage") {
+//                mainForm.stackCurrentItem().onUrlChanged()
+//            }
+//        }
 
-        onUsernameChanged: {
-            if (mainForm.stackCurrentItem().objectName === "ConnectionPage") {
-                mainForm.stackCurrentItem().onUsernameChanged()
-            }
-        }
+//        onUsernameChanged: {
+//            if (mainForm.stackCurrentItem().objectName === "ConnectionPage") {
+//                mainForm.stackCurrentItem().onUsernameChanged()
+//            }
+//        }
 
-        onPasswordChanged: {
-            if (mainForm.stackCurrentItem().objectName === "ConnectionPage") {
-                mainForm.stackCurrentItem().onPasswordChanged()
-            }
-        }
+//        onPasswordChanged: {
+//            if (mainForm.stackCurrentItem().objectName === "ConnectionPage") {
+//                mainForm.stackCurrentItem().onPasswordChanged()
+//            }
+//        }
 
 //        onSignalSettingsFilled: cloudClient.auth()
     }
@@ -115,7 +115,7 @@ ApplicationWindow {
         property string track: "No track name"
         property string artist: "No artist name"
         property string album: "No album name"
-        property string coverId: -1
+        property int coverId: -1
 
         property string connectionState: "Disconnected"
 

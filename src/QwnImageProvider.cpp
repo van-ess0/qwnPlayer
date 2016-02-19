@@ -17,11 +17,11 @@ QImage QwnImageProvider::requestImage(const QString& id, QSize* size, const QSiz
 	QUrl url(SettingsManager::instance()->getOwnCloudHost());
 	url.setPort(SettingsManager::instance()->getOwnCloudPort().toInt());
 
-//	QString path = SettingsManager::instance()->getOwnCloudPath()
-//				   + SettingsManager::instance()->getApiCover()
-//				   + id
-//				   + "/cover";
-	url.setPath(id);
+	QString path = SettingsManager::instance()->getOwnCloudPath()
+				   + SettingsManager::instance()->getApiCover()
+				   + id
+				   + "/cover";
+	url.setPath(path);
 
 	url.setUserName(SettingsManager::instance()->getUserName());
 	url.setPassword(SettingsManager::instance()->getUserPassword());

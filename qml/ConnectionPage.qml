@@ -8,6 +8,14 @@ Item {
     objectName: "ConnectionPage"
     signal qmlSignalAuth()
 
+//    Component.onCompleted: {
+//        settings.initialize()
+//        settings.onUrlChanged(onUrlChanged)
+//        settings.onUsernameChanged(onUsernameChanged)
+//        settings.onPasswordChanged(onPasswordChanged)
+////        playingTrack.coverChanged.connect(filling)
+//    }
+
 //    settings.onUrlChanged: connectionPage.onUrlChanged()
 
     Column {
@@ -18,31 +26,31 @@ Item {
 
             TextField {
                 id: hostInput
-//                onAccepted: passwordInput.forceActiveFocus()
+                onAccepted: portInput.forceActiveFocus()
                 placeholderText: "owncloud host"
-//                KeyNavigation.tab: nameInput
-                text: "http://192.168.1.15"
+                KeyNavigation.tab: portInput
+                text: "http://"
             }
 
             TextField {
                 id: portInput
-//                onAccepted: passwordInput.forceActiveFocus()
+                onAccepted: pathInput.forceActiveFocus()
                 placeholderText: "owncloud port"
-//                KeyNavigation.tab: nameInput
+                KeyNavigation.tab: pathInput
                 text: "80"
             }
 
             TextField {
                 id: pathInput
-//                onAccepted: passwordInput.forceActiveFocus()
+                onAccepted: nameInput.forceActiveFocus()
                 placeholderText: "owncloud path to index.php"
-//                KeyNavigation.tab: nameInput
+                KeyNavigation.tab: nameInput
                 text: "/owncloud/index.php"
             }
 
             TextField {
                 id: nameInput
-//                onAccepted: passwordInput.forceActiveFocus()
+                onAccepted: passwordInput.forceActiveFocus()
                 placeholderText: "Username"
                 KeyNavigation.tab: passwordInput
             }
@@ -121,7 +129,9 @@ Item {
 
     function onInitFields() {
         console.log("on init fields")
-        urlInput.text = settings.url
+        hostInput.text = settings.url
+        portInput.text = settings.url_port
+        pathInput.text = settings.url_path
         nameInput.text = settings.username
         passwordInput.text = settings.password
     }

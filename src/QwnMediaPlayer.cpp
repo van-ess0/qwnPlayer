@@ -120,8 +120,8 @@ void QwnMediaPlayer::slotCurrentIndexChanged(int index)
 	quint64 artistId = album->getArtistId();
 	Artist* artist = m_musicLibrary->getArtist(artistId);
 
-	qint32 coverId = -1;
-	QString coverPath = album->getCover();
+	qint32 coverId = album->getOwncloudId();
+//	QString coverPath = album->getCover();
 //	if (!coverPath.isNull()) {
 //		QStringList stringList = coverPath.split("/");
 //		QString strTemp = stringList.at(7);
@@ -129,7 +129,7 @@ void QwnMediaPlayer::slotCurrentIndexChanged(int index)
 //	}
 
 	emit signalPlayingTrackChanged(trackTitle, artist->getName(), album->getName());
-	emit signalCoverChanged(coverPath);
+	emit signalCoverChanged(coverId);
 	emit signalCurrentTrackIndexChanged(index);
 }
 

@@ -61,6 +61,8 @@ Album* ResponseDecoder::createAlbum(const QJsonObject& jsonObject, Artist* artis
 							jsonObject["name"].toString(),
 							// Year
 							jsonObject["year"].toInt(),
+							// Owncloud ID (for cover)
+							jsonObject["id"].toInt(),
 							// Cover
 							jsonObject["cover"].toString(),
 							// Artist ID
