@@ -17,10 +17,12 @@ public:
 	void setFile(QString filepath);
 
 	GET_SET_STRING(OwnCloudHost, "Network/owncloudhost", "")
+	GET_SET_STRING(OwnCloudPort, "Network/owncloudport", "")
+	GET_SET_STRING(OwnCloudPath, "Network/owncloudpath", "")
 	GET_SET_STRING(UserName, "Account/username", "")
 	GET_SET_STRING(UserPassword, "Account/password", "")
-	GET_SET_STRING(ApiMusicCollection, "OwnCloudAPI/musiccollection", "/owncloud/index.php/apps/music/api/collection")
-	GET_SET_STRING(ApiCover, "OwnCloudAPI/cover", "/owncloud/index.php/apps/music/api/album/")
+	GET_SET_STRING(ApiMusicCollection, "OwnCloudAPI/musiccollection", "/apps/music/api/collection")
+	GET_SET_STRING(ApiCover, "OwnCloudAPI/cover", "/apps/music/api/album/")
 
 	GET_SET_STRING(HomeLocation, "App/homelocation", "./")
 

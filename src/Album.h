@@ -22,13 +22,16 @@ private:
 	quint64 m_globalId; // album
 	quint64 m_artistId;
 
+	quint32 m_owncloudId;
+
 	enum AlbumModelItemRoles {
 		albumId = Qt::UserRole + 1,
 		albumName,
 		albumYear,
 		albumTracks,
 		albumCover,
-		albumArtistId
+		albumArtistId,
+		albumOwncloudId
 	};
 
 	QSharedPointer<Models::ListModel> m_tracksModel;
@@ -36,6 +39,7 @@ private:
 public:
 	explicit Album(const QString& name,
 				   const quint32 year,
+				   const quint32 owncloudId,
 				   const QString& cover,
 				   const quint64& artistId,
 				   QObject *parent = NULL);
@@ -45,7 +49,7 @@ public:
 	QVariant getTracks() const;
 	QString getCover() const;
 	quint64 getArtistId() const;
-
+	quint32 getOwncloudId() const;
 	void addTrack(Track* track);
 
 	// ListItem interface

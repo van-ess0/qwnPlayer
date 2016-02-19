@@ -58,23 +58,23 @@ ApplicationWindow {
         }
 
 //Костыль ToFix
-        onUrlChanged: {
-            if (mainForm.stackCurrentItem().objectName === "ConnectionPage") {
-                mainForm.stackCurrentItem().onUrlChanged()
-            }
-        }
+//        onUrlChanged: {
+//            if (mainForm.stackCurrentItem().objectName === "ConnectionPage") {
+//                mainForm.stackCurrentItem().onUrlChanged()
+//            }
+//        }
 
-        onUsernameChanged: {
-            if (mainForm.stackCurrentItem().objectName === "ConnectionPage") {
-                mainForm.stackCurrentItem().onUsernameChanged()
-            }
-        }
+//        onUsernameChanged: {
+//            if (mainForm.stackCurrentItem().objectName === "ConnectionPage") {
+//                mainForm.stackCurrentItem().onUsernameChanged()
+//            }
+//        }
 
-        onPasswordChanged: {
-            if (mainForm.stackCurrentItem().objectName === "ConnectionPage") {
-                mainForm.stackCurrentItem().onPasswordChanged()
-            }
-        }
+//        onPasswordChanged: {
+//            if (mainForm.stackCurrentItem().objectName === "ConnectionPage") {
+//                mainForm.stackCurrentItem().onPasswordChanged()
+//            }
+//        }
 
 //        onSignalSettingsFilled: cloudClient.auth()
     }

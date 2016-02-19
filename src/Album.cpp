@@ -2,6 +2,7 @@
 
 Album::Album(const QString& name,
 			 const quint32 year,
+			 const quint32 owncloudId,
 			 const QString& cover,
 			 const quint64& artistId,
 			 QObject* parent)
@@ -10,6 +11,7 @@ Album::Album(const QString& name,
 {
 	m_name		= name;
 	m_year		= year;
+	m_owncloudId = owncloudId;
 	m_cover		= cover;
 	m_globalId	= GlobalAlbumIndex::instance()->getIndex();
 	m_artistId	= artistId;
@@ -42,6 +44,11 @@ quint64 Album::getArtistId() const
 	return m_artistId;
 }
 
+quint32 Album::getOwncloudId() const
+{
+	return m_owncloudId;
+}
+
 void Album::addTrack(Track* track)
 {
 	m_tracksModel->appendRow(track);
@@ -67,6 +74,8 @@ QVariant Album::data(int role) const
 			return getCover();
 		case albumArtistId:
 			return getArtistId();
+		case albumOwncloudId:
+			return getOwncloudId();
 		default:
 			return QVariant();
 	}
@@ -82,6 +91,7 @@ QHash<int, QByteArray> Album::roleNames() const
 	roles[albumTracks]		= "albumTracks";
 	roles[albumCover]		= "albumCover";
 	roles[albumArtistId]	= "albumArtistId";
+	roles[albumOwncloudId]	= "albumOwncloudId";
 
 	return roles;
 }

@@ -8,8 +8,12 @@ class QwnSettings : public QObject
 	Q_OBJECT
 
 	QML_PROPERTY(QString, url, setUrl, urlChanged)
+	QML_PROPERTY(QString, url_port, setUrlPort, urlPortChanged)
+	QML_PROPERTY(QString, url_path, setUrlPath, urlPathChanged)
+
 	QML_PROPERTY(QString, username, setUsername, usernameChanged)
 	QML_PROPERTY(QString, password, setPassword, passwordChanged)
+
 	QML_PROPERTY_READONLY(bool, is_initialized)
 	QML_PROPERTY_READONLY(bool, isFirstLaunch)
 
@@ -33,8 +37,12 @@ public:
 
 private slots:
 	void slotUrlChanged();
+	void slotUrlPortChanged();
+	void slotUrlPathChanged();
+
 	void slotUsernameChanged();
 	void slotPasswordChanged();
+
 	void slotGlobalAccentColorChanged();
 	void slotGlobalBackgroundColorChanged();
 	void slotGlobalRectangleColorChanged();

@@ -8,6 +8,14 @@ Item {
     objectName: "ConnectionPage"
     signal qmlSignalAuth()
 
+//    Component.onCompleted: {
+//        settings.initialize()
+//        settings.onUrlChanged(onUrlChanged)
+//        settings.onUsernameChanged(onUsernameChanged)
+//        settings.onPasswordChanged(onPasswordChanged)
+////        playingTrack.coverChanged.connect(filling)
+//    }
+
 //    settings.onUrlChanged: connectionPage.onUrlChanged()
 
     Column {
@@ -17,11 +25,27 @@ Item {
             spacing: 14 * scaleFactor
 
             TextField {
-                id: urlInput
-                onAccepted: passwordInput.forceActiveFocus()
-                placeholderText: "OwnCloud URL"
-                KeyNavigation.tab: nameInput
+                id: hostInput
+                onAccepted: portInput.forceActiveFocus()
+                placeholderText: "owncloud host"
+                KeyNavigation.tab: portInput
                 text: "http://"
+            }
+
+            TextField {
+                id: portInput
+                onAccepted: pathInput.forceActiveFocus()
+                placeholderText: "owncloud port"
+                KeyNavigation.tab: pathInput
+                text: "80"
+            }
+
+            TextField {
+                id: pathInput
+                onAccepted: nameInput.forceActiveFocus()
+                placeholderText: "owncloud path to index.php"
+                KeyNavigation.tab: nameInput
+                text: "/owncloud/index.php"
             }
 
             TextField {
@@ -76,17 +100,23 @@ Item {
     }
 
     function login() {
+
         playingTrack.connectionState = "Logging in..."
-        settings.url = urlInput.text
+
+        settings.url = hostInput.text
+        settings.url_port = portInput.text
+        settings.url_path = pathInput.text
+
         settings.username = nameInput.text
         settings.password = passwordInput.text
+
         cloudClient.auth()
     }
 
 
     function onUrlChanged() {
         console.log("on url changed")
-        urlInput.text = settings.url
+        hostInput.text = settings.url
     }
     function onUsernameChanged() {
         console.log("on username changed")
@@ -99,7 +129,9 @@ Item {
 
     function onInitFields() {
         console.log("on init fields")
-        urlInput.text = settings.url
+        hostInput.text = settings.url
+        portInput.text = settings.url_port
+        pathInput.text = settings.url_path
         nameInput.text = settings.username
         passwordInput.text = settings.password
     }
