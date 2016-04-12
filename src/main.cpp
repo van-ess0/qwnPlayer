@@ -17,6 +17,7 @@
 #include <QStringList>
 #include "SettingsManager.h"
 #include "QwnImageProvider.h"
+#include "NotificationClient.h"
 
 #ifdef SAILFISH_OS_HACK
 #include <sailfishapp.h>
@@ -43,6 +44,11 @@ int main(int argc, char *argv[])
 	qmlRegisterType<QwnMediaPlayer>("com.qwnplayer", 1, 0, "QwnMediaPlayer");
 	qmlRegisterType<QwnSettings>("com.qwnplayer", 1, 0, "QwnSettings");
 	qmlRegisterType<OwnCloudClient>("com.qwnplayer", 1, 0, "OwnCloudClient");
+	qmlRegisterType<NotificationClient>("com.qwnplayer", 1, 0, "NotificationClient");
+
+//	NotificationClient *notificationClient = new NotificationClient(&view);
+//    view.engine()->rootContext()->setContextProperty(QLatin1String("notificationClient"),
+//                                                     notificationClient);
 
 	QQuickView view;
 	QQmlEngine* engine = view.engine();
@@ -81,6 +87,10 @@ int main(int argc, char *argv[])
 	QObject::connect(decoder, SIGNAL(signalCollectionDataParsed(QList<Artist*>)),
 					 musicLibrary, SLOT(slotCollectionDataParsed(QList<Artist*>)));
 
+	// Take notification client from qml
+//	QObject* notificationClientObject = window->findChild<QObject*>("notificationClient");
+//	NotificationClient* notificationClient = qobject_cast<notificationClient*>(notificationClientObject);
+
 	// Take player object from qml
 	QObject* mediaPlayerObject = window->findChild<QObject*>("mediaPlayer");
 	QwnMediaPlayer* mediaPlayer = qobject_cast<QwnMediaPlayer*>(mediaPlayerObject);
@@ -88,6 +98,7 @@ int main(int argc, char *argv[])
 	// Set library component and context to player
 	mediaPlayer->setMusicLibrary(musicLibrary);
 	mediaPlayer->setContext(context);
+//	mediaPlayer->setNotificationClient(notificationClient);
 
 	return app->exec();
 }

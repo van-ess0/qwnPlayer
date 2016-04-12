@@ -18,7 +18,8 @@ SOURCES += \
     src/SettingsManager.cpp \
     src/QwnSettings.cpp \
     src/main.cpp \
-    src/QwnImageProvider.cpp
+    src/QwnImageProvider.cpp \
+    src/NotificationClient.cpp
 
 RESOURCES += \
     media.qrc \
@@ -47,7 +48,8 @@ HEADERS += \
     src/SettingsManager.h \
     src/QwnSettings.h \
     src/Macros.h \
-    src/QwnImageProvider.h
+    src/QwnImageProvider.h \
+    src/NotificationClient.h
 
 # SFOS
 
@@ -56,13 +58,18 @@ DISTFILES += \
     rpm/qwnPlayer.changes.in \
     rpm/qwnPlayer.spec \
     qwnPlayer.desktop \
-    icons/86x86/qwnPlayer.png \
-    android/AndroidManifest.xml \
-    android/gradle/wrapper/gradle-wrapper.jar \
-    android/gradlew \
-    android/res/values/libs.xml \
-    android/build.gradle \
-    android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradlew.bat
+    icons/86x86/qwnPlayer.png
 
-ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+android: {
+    QT += androidextras
+    ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+    DISTFILES += \
+        android/AndroidManifest.xml \
+        android/gradle/wrapper/gradle-wrapper.jar \
+        android/gradlew \
+        android/res/values/libs.xml \
+        android/build.gradle \
+        android/gradle/wrapper/gradle-wrapper.properties \
+        android/gradlew.bat \
+        android/src/org/qwnplayer/qwnplayer/NotificationClient.java
+}
