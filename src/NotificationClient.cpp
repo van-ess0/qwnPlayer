@@ -47,10 +47,10 @@ NotificationClient::NotificationClient(QObject *parent)
 
 void NotificationClient::setNotification(const QString &notification)
 {
-	qDebug() << notification;
-
-    if (m_notification == notification)
+    if (m_notification == notification) {
         return;
+    }
+    qDebug() << notification;
 
     m_notification = notification;
     emit notificationChanged();
@@ -63,7 +63,7 @@ QString NotificationClient::notification() const
 
 void NotificationClient::updateAndroidNotification()
 {
-	qDebug() << "HERE";
+    qDebug() << "HERE: " << m_notification;
 #ifdef Q_OS_ANDROID
     QAndroidJniObject javaNotification = QAndroidJniObject::fromString(m_notification);
 	QAndroidJniObject::callStaticMethod<void>("org/qwnplayer/qwnplayer/NotificationClient",

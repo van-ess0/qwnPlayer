@@ -31,7 +31,7 @@
 **
 ****************************************************************************/
 
-package org.qtproject.example.notification;
+package org.qwnplayer.qwnplayer;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -58,6 +58,8 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
         }
 
         m_builder.setContentText(s);
-        m_notificationManager.notify(1, m_builder.build());
+        Notification notification = m_builder.getNotification();
+        notification.flags = Notification.FLAG_ONGOING_EVENT;
+        m_notificationManager.notify(1, notification);
     }
 }

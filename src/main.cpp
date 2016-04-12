@@ -87,10 +87,6 @@ int main(int argc, char *argv[])
 	QObject::connect(decoder, SIGNAL(signalCollectionDataParsed(QList<Artist*>)),
 					 musicLibrary, SLOT(slotCollectionDataParsed(QList<Artist*>)));
 
-	// Take notification client from qml
-//	QObject* notificationClientObject = window->findChild<QObject*>("notificationClient");
-//	NotificationClient* notificationClient = qobject_cast<notificationClient*>(notificationClientObject);
-
 	// Take player object from qml
 	QObject* mediaPlayerObject = window->findChild<QObject*>("mediaPlayer");
 	QwnMediaPlayer* mediaPlayer = qobject_cast<QwnMediaPlayer*>(mediaPlayerObject);
@@ -98,7 +94,6 @@ int main(int argc, char *argv[])
 	// Set library component and context to player
 	mediaPlayer->setMusicLibrary(musicLibrary);
 	mediaPlayer->setContext(context);
-//	mediaPlayer->setNotificationClient(notificationClient);
 
 	return app->exec();
 }
