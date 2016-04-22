@@ -8,6 +8,8 @@
 #include "SettingsManager.h"
 #include "MusicLibrary.h"
 
+#include "NotificationClient.h"
+
 class QwnMediaPlayer : public QObject
 {
 	Q_OBJECT
@@ -27,6 +29,8 @@ private:
 
 	Models::ListModel* m_currentPlaylist;
 
+    NotificationClient* m_androidPlayer;
+
 public:
 	explicit QwnMediaPlayer(QObject *parent = 0);
 
@@ -43,6 +47,18 @@ signals:
 	void signalCoverChanged(quint32 coverId);
 	void signalCurrentTrackIndexChanged(qint32 index);
 
+
+    // For Android
+signals:
+    void androidError(QMediaPlayer::Error);
+private:
+    QString m_androidErrorString;
+private slots:
+    void onErrorAndroid(qint32 what, qint32 extra);
+    void onInfoAndroid(qint32 what, qint32 extra);
+    void onStateChanged(qint32 state);
+
+
 	// connections with qmediaplayer
 private slots:
 	void slotAudioAvailabilityChanged(bool);
@@ -53,10 +69,11 @@ private slots:
 	void durationChanged(qint64 duration);
 	void seek(int seconds);
 	void stateChanged(QMediaPlayer::State);
-	void error(QMediaPlayer::Error);
+    void slotError(QMediaPlayer::Error);
 	void slotMediaChanged(QMediaContent);
 
 	void slotCurrentIndexChanged(int);
+
 
 	// This methods will be called from qml file
 public slots:

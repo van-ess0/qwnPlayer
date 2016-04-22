@@ -58,7 +58,8 @@ DISTFILES += \
     rpm/qwnPlayer.changes.in \
     rpm/qwnPlayer.spec \
     qwnPlayer.desktop \
-    icons/86x86/qwnPlayer.png
+    icons/86x86/qwnPlayer.png \
+    android/src/org/qwnplayer/qwnplayer/MediaPlayerService.java
 
 android: {
     QT += androidextras

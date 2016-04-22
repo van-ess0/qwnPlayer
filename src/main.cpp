@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 	qmlRegisterType<QwnMediaPlayer>("com.qwnplayer", 1, 0, "QwnMediaPlayer");
 	qmlRegisterType<QwnSettings>("com.qwnplayer", 1, 0, "QwnSettings");
 	qmlRegisterType<OwnCloudClient>("com.qwnplayer", 1, 0, "OwnCloudClient");
-	qmlRegisterType<NotificationClient>("com.qwnplayer", 1, 0, "NotificationClient");
+//	qmlRegisterType<NotificationClient>("com.qwnplayer", 1, 0, "NotificationClient");
 
 //	NotificationClient *notificationClient = new NotificationClient(&view);
 //    view.engine()->rootContext()->setContextProperty(QLatin1String("notificationClient"),
@@ -97,3 +97,34 @@ int main(int argc, char *argv[])
 
 	return app->exec();
 }
+
+#ifdef Q_OS_ANDROID
+#include <jni.h>
+#ifndef Q_OS_ANDROID_NO_SDK
+Q_DECL_EXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void * /*reserved*/)
+{
+    qDebug() << "JNI on load";
+    QT_USE_NAMESPACE
+    typedef union {
+        JNIEnv *nativeEnvironment;
+        void *venv;
+    } UnionJNIEnvToVoid;
+
+    UnionJNIEnvToVoid uenv;
+    uenv.venv = NULL;
+
+    if (vm->GetEnv(&uenv.venv, JNI_VERSION_1_4) != JNI_OK)
+        return JNI_ERR;
+
+    JNIEnv *jniEnv = uenv.nativeEnvironment;
+
+    if (!NotificationClient::initJNI(jniEnv)) {
+        return JNI_ERR;
+    }
+
+//    AndroidSurfaceTexture::initJNI(jniEnv);
+
+    return JNI_VERSION_1_4;
+}
+#endif // Q_OS_ANDROID_NO_SDK
+#endif // Q_OS_ANDROID

@@ -111,6 +111,8 @@ Item {
         settings.password = passwordInput.text
 
         cloudClient.auth()
+
+//        notificationClient.play()
     }
 
 

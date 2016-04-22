@@ -25,7 +25,7 @@ QwnMediaPlayer::QwnMediaPlayer(QObject *parent) : QObject(parent)
 	connect(m_player, SIGNAL(stateChanged(QMediaPlayer::State)),
 			this, SIGNAL(signalPlayingStateChanged(QMediaPlayer::State)));
 	connect(m_player, SIGNAL(error(QMediaPlayer::Error)),
-			this, SLOT(error(QMediaPlayer::Error)));
+            this, SLOT(slotError(QMediaPlayer::Error)));
 
 	connect(m_player, SIGNAL(mediaChanged(QMediaContent)),
 			this, SLOT(slotMediaChanged(QMediaContent)));
@@ -39,6 +39,27 @@ QwnMediaPlayer::QwnMediaPlayer(QObject *parent) : QObject(parent)
 	m_currentTrackIndex = 0;
 
 //	connect(this, SIGNAL(currentIndexChanged()));
+
+#ifdef Q_OS_ANDROID
+    m_androidPlayer = new NotificationClient(this);
+    connect(m_androidPlayer, SIGNAL(bufferingChanged(qint32)),
+            this, SLOT(slotBufferStatusChanged(int)));
+    connect(m_androidPlayer, SIGNAL(durationChanged(qint64)),
+            this, SLOT(durationChanged(qint64)));
+    connect(m_androidPlayer, SIGNAL(progressChanged(qint64)),
+            this, SLOT(positionChanged(qint64)));
+    connect(m_androidPlayer, SIGNAL(error(qint32,qint32)),
+            this, SLOT(onErrorAndroid(qint32,qint32)));
+    connect(m_androidPlayer, SIGNAL(info(qint32,qint32)),
+            this, SLOT(onInfoAndroid(qint32,qint32)));
+
+    connect(m_androidPlayer, SIGNAL(stateChanged(qint32)),
+            this
+
+
+#else
+    m_androidPlayer = NULL;
+#endif
 }
 
 void QwnMediaPlayer::setMusicLibrary(MusicLibrary* library)
@@ -88,9 +109,15 @@ void QwnMediaPlayer::stateChanged(QMediaPlayer::State state)
 	qDebug() << "stateChanged" << state;
 }
 
-void QwnMediaPlayer::error(QMediaPlayer::Error error)
+void QwnMediaPlayer::slotError(QMediaPlayer::Error error)
 {
-	qDebug() << "error" << error << m_player->errorString();
+    qDebug() << "error" << error <<
+
+#ifndef Q_OS_ANDROID
+                m_player->errorString();
+#else
+                m_androidErrorString;
+#endif
 }
 
 void QwnMediaPlayer::slotMediaChanged(QMediaContent content)
@@ -130,7 +157,102 @@ void QwnMediaPlayer::slotCurrentIndexChanged(int index)
 
 	emit signalPlayingTrackChanged(trackTitle, artist->getName(), album->getName());
 	emit signalCoverChanged(coverId);
-	emit signalCurrentTrackIndexChanged(index);
+    emit signalCurrentTrackIndexChanged(index);
+}
+
+void QwnMediaPlayer::onErrorAndroid(qint32 what, qint32 extra)
+{
+    QString errorString;
+    QMediaPlayer::Error error = QMediaPlayer::ResourceError;
+
+    switch (what) {
+    case NotificationClient::MEDIA_ERROR_UNKNOWN:
+        errorString = QLatin1String("Error:");
+        break;
+    case NotificationClient::MEDIA_ERROR_SERVER_DIED:
+        errorString = QLatin1String("Error: Server died");
+        error = QMediaPlayer::ServiceMissingError;
+        break;
+    case NotificationClient::MEDIA_ERROR_INVALID_STATE:
+        errorString = QLatin1String("Error: Invalid state");
+        error = QMediaPlayer::ServiceMissingError;
+        break;
+    }
+
+    switch (extra) {
+    case NotificationClient::MEDIA_ERROR_IO: // Network OR file error
+        errorString += QLatin1String(" (I/O operation failed)");
+        error = QMediaPlayer::NetworkError;
+//        setMediaStatus(QMediaPlayer::InvalidMedia);
+        break;
+    case NotificationClient::MEDIA_ERROR_MALFORMED:
+        errorString += QLatin1String(" (Malformed bitstream)");
+        error = QMediaPlayer::FormatError;
+//        setMediaStatus(QMediaPlayer::InvalidMedia);
+        break;
+    case NotificationClient::MEDIA_ERROR_UNSUPPORTED:
+        errorString += QLatin1String(" (Unsupported media)");
+        error = QMediaPlayer::FormatError;
+//        setMediaStatus(QMediaPlayer::InvalidMedia);
+        break;
+    case NotificationClient::MEDIA_ERROR_TIMED_OUT:
+        errorString += QLatin1String(" (Timed out)");
+        break;
+    case NotificationClient::MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK:
+        errorString += QLatin1String(" (Unable to start progressive playback')");
+        error = QMediaPlayer::FormatError;
+//        setMediaStatus(QMediaPlayer::InvalidMedia);
+        break;
+    case NotificationClient::MEDIA_ERROR_BAD_THINGS_ARE_GOING_TO_HAPPEN:
+        errorString += QLatin1String(" (Unknown error/Insufficient resources)");
+        error = QMediaPlayer::ServiceMissingError;
+        break;
+    }
+
+    emit this->androidError(error);
+    m_androidErrorString = errorString;
+}
+
+void QwnMediaPlayer::onInfoAndroid(qint32 what, qint32 extra)
+{
+    Q_UNUSED(extra);
+    switch (what) {
+    case NotificationClient::MEDIA_INFO_UNKNOWN:
+        break;
+    case NotificationClient::MEDIA_INFO_VIDEO_TRACK_LAGGING:
+        // IGNORE
+        break;
+    case NotificationClient::MEDIA_INFO_VIDEO_RENDERING_START:
+        break;
+    case NotificationClient::MEDIA_INFO_BUFFERING_START:
+//        mPendingState = mCurrentState;
+//        setState(QMediaPlayer::PausedState);
+//        setMediaStatus(QMediaPlayer::StalledMedia);
+        break;
+    case NotificationClient::MEDIA_INFO_BUFFERING_END:
+//        if (mCurrentState != QMediaPlayer::StoppedState)
+//            flushPendingStates();
+        break;
+    case NotificationClient::MEDIA_INFO_BAD_INTERLEAVING:
+        break;
+    case NotificationClient::MEDIA_INFO_NOT_SEEKABLE:
+//        setSeekable(false);
+        break;
+    case NotificationClient::MEDIA_INFO_METADATA_UPDATE:
+//        Q_EMIT metaDataUpdated();
+        break;
+    }
+}
+
+void QwnMediaPlayer::onStateChanged(qint32 state)
+{
+    // If reloading, don't report state changes unless the new state is Prepared or Error.
+//    if ((mState & NotificationClient::Stopped)
+//        && (state & (NotificationClient::Prepared
+//                     | NotificationClient::Error
+//                     | NotificationClient::Uninitialized)) == 0) {
+//        return;
+//    }
 }
 
 void QwnMediaPlayer::playToggle()
@@ -142,9 +264,17 @@ void QwnMediaPlayer::playToggle()
 	}
 
 	if (m_isPlaying) {
-		m_player->pause();
+#ifdef Q_OS_ANDROID
+        m_androidPlayer->pause();
+#else
+        m_player->pause();
+#endif
 	} else {
-		m_player->play();
+#ifdef Q_OS_ANDROID
+        m_androidPlayer->play();
+#else
+        m_player->play();
+#endif
 	}
 
 	m_isPlaying = !m_isPlaying;
@@ -216,13 +346,28 @@ void QwnMediaPlayer::cycleToggle()
 void QwnMediaPlayer::setCurrentPosition(qint64 position)
 {
 	qDebug() << "Position set to " << position;
-	m_player->setPosition(position);
+#ifdef Q_OS_ANDROID
+
+    const int seekPosition = (position > INT_MAX) ? INT_MAX : position;
+
+    if (seekPosition == this->position())
+        return;
+
+
+    m_androidPlayer->seekTo(seekPosition);
+#else
+    m_player->setPosition();
+#endif
 }
 
 void QwnMediaPlayer::stopPlaying()
 {
 	qDebug() << "stop";
-	m_player->stop();
+#ifdef Q_OS_ANDROID
+    m_androidPlayer->stop();
+#else
+    m_player->stop();
+#endif
 
 	m_playlist->clear();
 	m_currentPlaylist->clear();
@@ -234,7 +379,12 @@ void QwnMediaPlayer::startPlaying()
 {
 	qDebug() << "play";
 	m_isPlaying = true;
-	m_player->play();
+
+#ifdef Q_OS_ANDROID
+    m_androidPlayer->play();
+#else
+    m_player->play();
+#endif
 }
 
 void QwnMediaPlayer::settingCurrentTrackToPlaylist()

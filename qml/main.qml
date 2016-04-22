@@ -100,10 +100,10 @@ ApplicationWindow {
         onSignalCurrentTrackIndexChanged: playingTrack.updatePlaylistPage(index)
     }
 
-    NotificationClient {
-        id: notificationClient
-        objectName: "notificationClient"
-    }
+//    NotificationClient {
+//        id: notificationClient
+//        objectName: "notificationClient"
+//    }
 
     MainForm {
         id: mainForm
@@ -129,7 +129,7 @@ ApplicationWindow {
             playingTrack.artist = artist
             playingTrack.album = album
 
-            notificationClient.notification = artist + " - " + track
+//            notificationClient.notification = artist + " - " + track
         }
 
         function fillingCover (coverId) {
