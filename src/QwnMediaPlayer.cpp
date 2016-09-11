@@ -356,7 +356,7 @@ void QwnMediaPlayer::setCurrentPosition(qint64 position)
 
     m_androidPlayer->seekTo(seekPosition);
 #else
-    m_player->setPosition();
+	m_player->setPosition(position);
 #endif
 }
 

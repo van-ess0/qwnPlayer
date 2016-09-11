@@ -43,10 +43,12 @@ NotificationClient::NotificationClient(QObject *parent)
 {
     connect(this, SIGNAL(notificationChanged()), this, SLOT(updateAndroidNotification()));
 
+#ifdef Q_OS_ANDROID
     m_mediaPlayerService =
             QtAndroid::androidActivity().callObjectMethod("getMediaPlayerService",
                                                           "()Lorg/qwnplayer/qwnplayer/MediaPlayerService;"
                                                           );
+#endif
     androidMediaPlayer = this;
 }
 
@@ -139,6 +141,7 @@ void NotificationClient::updateAndroidNotification()
 #endif
 }
 
+#ifdef Q_OS_ANDROID
 static void onErrorNative(JNIEnv *env, jobject thiz, jint what, jint extra)
 {
     Q_UNUSED(env);
@@ -244,5 +247,5 @@ bool NotificationClient::initJNI(JNIEnv *env)
     return true;
 }
 
-
+#endif
 
