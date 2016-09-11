@@ -133,11 +133,15 @@ void NotificationClient::updateAndroidNotification()
     qDebug() << "HERE: " << m_notification;
 #ifdef Q_OS_ANDROID
     QAndroidJniObject javaNotification = QAndroidJniObject::fromString(m_notification);
-	QAndroidJniObject::callStaticMethod<void>("org/qwnplayer/qwnplayer/NotificationClient",
+    QAndroidJniObject::callStaticMethod<void>("org/qwnplayer/qwnplayer/qwnPlayerService",
                                        "notify",
                                        "(Ljava/lang/String;)V",
+<<<<<<< Updated upstream
 									   javaNotification.object<jstring>());
 
+=======
+                                       javaNotification.object<jstring>());
+>>>>>>> Stashed changes
 #endif
 }
 

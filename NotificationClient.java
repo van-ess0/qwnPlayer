@@ -36,6 +36,10 @@ package org.qwnplayer.qwnplayer;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.os.PowerManager;
+import android.os.Bundle;
+
+import java.lang.Override;
 
 import java.util.ArrayList;
 
@@ -63,6 +67,11 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
     private static NotificationClient m_instance;
     private static final String TAG = "NotificationClient";
 
+    Intent playbackServiceIntent;
+
+//    private PowerManager.WakeLock m_wakeLock;
+//    private PowerManager m_powerManager;
+
     public NotificationClient()
     {
         Log.d(TAG, "on construct");
@@ -85,6 +94,7 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
         m_notificationManager.notify(1, notification);
     }
 
+<<<<<<< Updated upstream:android/src/org/qwnplayer/qwnplayer/NotificationClient.java
 
 
     private MediaPlayerService myMediaPlayer;
@@ -148,4 +158,43 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
         return myMediaPlayer;
     }
 
+=======
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+
+        playbackServiceIntent = new Intent(this, BackgroundAudioService.class);
+
+//        m_powerManager = (PowerManager)m_instance.getSystemService(Context.POWER_SERVICE);
+//        m_wakeLock = m_powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "NotificationClient");
+//        m_wakeLock.acquire();
+    }
+
+    public void startService()
+    {
+        startService(playbackServiceIntent);
+    }
+
+    public void stopService()
+    {
+        stopService(playbackServiceIntent);
+    }
+
+
+
+//    @Override
+//    protected void onPause()
+//    {
+//        super.onPause();
+//        m_wakeLock.release();
+//    }
+
+//    @Override
+//    protected void onResume()
+//    {
+//        super.onResume();
+//        m_wakeLock.acquire();
+//    }
+>>>>>>> Stashed changes:NotificationClient.java
 }

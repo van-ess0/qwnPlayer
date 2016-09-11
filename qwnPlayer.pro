@@ -59,7 +59,12 @@ DISTFILES += \
     rpm/qwnPlayer.spec \
     qwnPlayer.desktop \
     icons/86x86/qwnPlayer.png \
-    android/src/org/qwnplayer/qwnplayer/MediaPlayerService.java
+    android/src/org/qwnplayer/qwnplayer/MediaPlayerService.java \
+    android/src/org/qt-project/qwnplayer/qwnPlayerService.java \
+    android/src/org/qwnplayer/qwnplayer/qwnPlayerActivity.java \
+    android/src/org/qwnplayer/qwnplayer/qwnPlayerService.java \
+    android/src/org/qtproject/qt5/android/addons/qtactivityapp/QtService.java \
+    android/src/org/qtproject/qt5/android/addons/qtactivityapp/QtServiceActivity.java
 
 android: {
     QT += androidextras
@@ -71,6 +76,5 @@ android: {
         android/res/values/libs.xml \
         android/build.gradle \
         android/gradle/wrapper/gradle-wrapper.properties \
-        android/gradlew.bat \
-        android/src/org/qwnplayer/qwnplayer/NotificationClient.java
+        android/gradlew.bat
 }
